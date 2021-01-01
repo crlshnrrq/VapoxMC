@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 public final class Stack extends ItemStack implements Cloneable {
 
@@ -34,6 +35,13 @@ public final class Stack extends ItemStack implements Cloneable {
 		return this;
 	}
 
+	public Stack owner(String owner) {
+		SkullMeta meta = (SkullMeta) this.getItemMeta();
+		meta.setOwner(owner);
+		this.setItemMeta(meta);
+		return this;
+	}
+
 	public ItemStack toItemStack() {
 		ItemStack item = new ItemStack(this.getType(), this.getAmount(), this.getDurability());
 		ItemMeta itemMeta = item.getItemMeta(), meta = this.getItemMeta();
@@ -41,6 +49,8 @@ public final class Stack extends ItemStack implements Cloneable {
 			itemMeta.setDisplayName(meta.getDisplayName());
 		if (meta.hasLore())
 			itemMeta.setLore(meta.getLore());
+		if (meta instanceof SkullMeta && ((SkullMeta) meta).hasOwner())
+			((SkullMeta) itemMeta).setOwner(((SkullMeta) meta).getOwner());
 		item.setItemMeta(itemMeta);
 		return item;
 	}
@@ -53,6 +63,8 @@ public final class Stack extends ItemStack implements Cloneable {
 			stackMeta.setDisplayName(meta.getDisplayName());
 		if (meta.hasLore())
 			stackMeta.setLore(meta.getLore());
+		if (meta instanceof SkullMeta && ((SkullMeta) meta).hasOwner())
+			((SkullMeta) stackMeta).setOwner(((SkullMeta) meta).getOwner());
 		stack.setItemMeta(stackMeta);
 		return stack;
 	}
