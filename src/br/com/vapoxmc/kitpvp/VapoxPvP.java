@@ -1,13 +1,19 @@
 package br.com.vapoxmc.kitpvp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.kit.Ajnin;
 import br.com.vapoxmc.kitpvp.kit.Anchor;
 import br.com.vapoxmc.kitpvp.kit.AntiStomper;
@@ -27,12 +33,14 @@ import br.com.vapoxmc.kitpvp.kit.Thor;
 import br.com.vapoxmc.kitpvp.kit.Urgal;
 import br.com.vapoxmc.kitpvp.kit.Viking;
 import br.com.vapoxmc.kitpvp.kit.Viper;
+import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
 
 public final class VapoxPvP extends JavaPlugin {
 
 	private static final List<Kit> kits = new ArrayList<>();
-	private static Kit defaultKit;
+	private static final Map<UUID, String> kitMap = new HashMap<>();
+	private static Kit noneKit, defaultKit;
 
 	public static List<Kit> getKits() {
 		return kits;
@@ -42,8 +50,36 @@ public final class VapoxPvP extends JavaPlugin {
 		return getKits().stream().filter(kit -> kit.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
 	}
 
+	public static Kit getNoneKit() {
+		return noneKit;
+	}
+
 	public static Kit getDefaultKit() {
 		return defaultKit;
+	}
+
+	public static boolean hasKit(Player player) {
+		return kitMap.containsKey(player.getUniqueId());
+	}
+
+	public static Kit getKit(Player player) {
+		if (hasKit(player))
+			return getKitByName(kitMap.get(player.getUniqueId()));
+		return getNoneKit();
+	}
+
+	public static boolean setKit(Player player, Kit kit) {
+		try {
+			kit.applyKit(player);
+			kitMap.put(player.getUniqueId(), kit.getName());
+			return true;
+		} catch (Exception ex) {
+		}
+		return false;
+	}
+
+	public static Kit removeKit(Player player) {
+		return getKitByName(kitMap.remove(player.getUniqueId()));
 	}
 
 	@Override
@@ -57,6 +93,9 @@ public final class VapoxPvP extends JavaPlugin {
 
 		PluginManager pm = Bukkit.getPluginManager();
 
+		pm.registerEvents(new SeusKitsGUI(), this);
+
+		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
 		getKits().clear();
 		getKits().add(defaultKit = new PvP());
 		getKits().add(new Ajnin());
