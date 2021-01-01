@@ -8,8 +8,10 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import br.com.vapoxmc.kitpvp.kit.Ajnin;
 import br.com.vapoxmc.kitpvp.kit.Kangaroo;
 import br.com.vapoxmc.kitpvp.kit.Kit;
+import br.com.vapoxmc.kitpvp.kit.Ninja;
 import br.com.vapoxmc.kitpvp.kit.PvP;
 import br.com.vapoxmc.kitpvp.utils.Strings;
 
@@ -43,7 +45,9 @@ public final class VapoxPvP extends JavaPlugin {
 
 		getKits().clear();
 		getKits().add(defaultKit = new PvP());
+		getKits().add(new Ajnin());
 		getKits().add(new Kangaroo());
+		getKits().add(new Ninja());
 
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §aPlugin habilitado (§7" + this.getDescription().getVersion() + "§a).");
