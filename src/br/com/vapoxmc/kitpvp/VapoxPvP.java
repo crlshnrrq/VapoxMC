@@ -12,6 +12,7 @@ import br.com.vapoxmc.kitpvp.kit.Ajnin;
 import br.com.vapoxmc.kitpvp.kit.Anchor;
 import br.com.vapoxmc.kitpvp.kit.AntiStomper;
 import br.com.vapoxmc.kitpvp.kit.Archer;
+import br.com.vapoxmc.kitpvp.kit.Critical;
 import br.com.vapoxmc.kitpvp.kit.Kangaroo;
 import br.com.vapoxmc.kitpvp.kit.Kit;
 import br.com.vapoxmc.kitpvp.kit.Magma;
@@ -61,6 +62,7 @@ public final class VapoxPvP extends JavaPlugin {
 		getKits().add(new Anchor());
 		getKits().add(new AntiStomper());
 		getKits().add(new Archer());
+		getKits().add(new Critical());
 		getKits().add(new Kangaroo());
 		getKits().add(new Magma());
 		getKits().add(new Monk());
