@@ -18,6 +18,7 @@ import br.com.vapoxmc.kitpvp.kit.Magma;
 import br.com.vapoxmc.kitpvp.kit.Monk;
 import br.com.vapoxmc.kitpvp.kit.Ninja;
 import br.com.vapoxmc.kitpvp.kit.PvP;
+import br.com.vapoxmc.kitpvp.kit.Scout;
 import br.com.vapoxmc.kitpvp.kit.Snail;
 import br.com.vapoxmc.kitpvp.kit.Stomper;
 import br.com.vapoxmc.kitpvp.kit.Thor;
@@ -64,6 +65,7 @@ public final class VapoxPvP extends JavaPlugin {
 		getKits().add(new Magma());
 		getKits().add(new Monk());
 		getKits().add(new Ninja());
+		getKits().add(new Scout());
 		getKits().add(new Snail());
 		getKits().add(new Stomper());
 		getKits().add(new Thor());
