@@ -19,6 +19,7 @@ import br.com.vapoxmc.kitpvp.kit.PvP;
 import br.com.vapoxmc.kitpvp.kit.Snail;
 import br.com.vapoxmc.kitpvp.kit.Stomper;
 import br.com.vapoxmc.kitpvp.kit.Viking;
+import br.com.vapoxmc.kitpvp.kit.Viper;
 import br.com.vapoxmc.kitpvp.utils.Strings;
 
 public final class VapoxPvP extends JavaPlugin {
@@ -60,6 +61,7 @@ public final class VapoxPvP extends JavaPlugin {
 		getKits().add(new Snail());
 		getKits().add(new Stomper());
 		getKits().add(new Viking());
+		getKits().add(new Viper());
 
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §aPlugin habilitado (§7" + this.getDescription().getVersion() + "§a).");
