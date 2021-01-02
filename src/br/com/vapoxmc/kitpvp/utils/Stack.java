@@ -1,8 +1,10 @@
 package br.com.vapoxmc.kitpvp.utils;
 
 import java.util.Arrays;
+import java.util.Map.Entry;
 
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -19,6 +21,11 @@ public final class Stack extends ItemStack implements Cloneable {
 
 	public Stack(Material type, int amount, int durability) {
 		super(type, amount, (short) durability);
+	}
+
+	public Stack ench(Enchantment ench, int lvl) {
+		this.addUnsafeEnchantment(ench, lvl);
+		return this;
 	}
 
 	public Stack display(String display) {
@@ -45,6 +52,8 @@ public final class Stack extends ItemStack implements Cloneable {
 	public ItemStack toItemStack() {
 		ItemStack item = new ItemStack(this.getType(), this.getAmount(), this.getDurability());
 		ItemMeta itemMeta = item.getItemMeta(), meta = this.getItemMeta();
+		for (Entry<Enchantment, Integer> entry : this.getEnchantments().entrySet())
+			item.addUnsafeEnchantment(entry.getKey(), entry.getValue());
 		if (meta.hasDisplayName())
 			itemMeta.setDisplayName(meta.getDisplayName());
 		if (meta.hasLore())
@@ -59,6 +68,8 @@ public final class Stack extends ItemStack implements Cloneable {
 	public Stack clone() {
 		Stack stack = new Stack(this.getType(), this.getAmount(), this.getDurability());
 		ItemMeta stackMeta = stack.getItemMeta(), meta = this.getItemMeta();
+		for (Entry<Enchantment, Integer> entry : this.getEnchantments().entrySet())
+			stack.addUnsafeEnchantment(entry.getKey(), entry.getValue());
 		if (meta.hasDisplayName())
 			stackMeta.setDisplayName(meta.getDisplayName());
 		if (meta.hasLore())
