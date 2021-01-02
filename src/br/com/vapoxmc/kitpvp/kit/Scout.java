@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
@@ -12,7 +13,7 @@ import org.bukkit.potion.PotionEffectType;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Scout extends Kit {
+public final class Scout extends Kit implements Listener {
 
 	public static final Stack POTION = new Stack(Material.WOOL, 1, 3).display("§aPoção §7(§f§lScout§7)")
 			.lore("§7Clique com o §6direito §7para receber os efeitos.");

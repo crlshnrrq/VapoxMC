@@ -168,6 +168,22 @@ public final class VapoxPvP extends JavaPlugin {
 
 		pm.registerEvents(new SeusKitsGUI(), this);
 
+		pm.registerEvents(new Ajnin(), this);
+		pm.registerEvents(new Anchor(), this);
+		pm.registerEvents(new Critical(), this);
+		pm.registerEvents(new Fisherman(), this);
+		pm.registerEvents(new Kangaroo(), this);
+		pm.registerEvents(new Magma(), this);
+		pm.registerEvents(new Monk(), this);
+		pm.registerEvents(new Ninja(), this);
+		pm.registerEvents(new Scout(), this);
+		pm.registerEvents(new Snail(), this);
+		pm.registerEvents(new Stomper(), this);
+		pm.registerEvents(new Thor(), this);
+		pm.registerEvents(new Urgal(), this);
+		pm.registerEvents(new Viking(), this);
+		pm.registerEvents(new Viper(), this);
+
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
 		getKits().clear();
 		getKits().add(defaultKit = new PvP());
