@@ -78,9 +78,8 @@ public class Kit {
 
 		player.resetMaxHealth();
 
-		inv.setItem(0,
-				new Stack(Material.STONE_SWORD).display("§aEspada §7(§f§l" + this.getName().toLowerCase() + "§7)")
-						.lore("§7Clique com o §6esquerdo §7para atacar um oponente."));
+		inv.setItem(0, new Stack(Material.STONE_SWORD).display("§aEspada §7(§f§l" + this.getName() + "§7)")
+				.lore("§7Clique com o §6esquerdo §7para atacar um oponente."));
 		inv.setItem(8, new Stack(Material.COMPASS).display("§7» §fBússola"));
 		giveItems(player);
 
