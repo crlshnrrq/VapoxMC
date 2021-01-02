@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
@@ -14,6 +15,15 @@ import br.com.vapoxmc.kitpvp.kit.Kit;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class SeusKitsGUI implements Listener {
+
+	public static final Stack ICON = new Stack(Material.STORAGE_MINECART);
+
+	@EventHandler
+	private void onPlayerInteract(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		if (event.hasItem() && event.getItem().isSimilar(ICON.toItemStack()) && !VapoxPvP.hasKit(player))
+			openGUI(player);
+	}
 
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
@@ -29,7 +39,7 @@ public final class SeusKitsGUI implements Listener {
 			if (!VapoxPvP.hasKit(player) && display.startsWith("§a")) {
 				Kit kit = VapoxPvP.getKitByName(ChatColor.stripColor(display));
 				if (kit != null && VapoxPvP.setKit(player, kit)) {
-					player.sendMessage("§e§l[KIT] §eVocê pegou o kit \"" + kit.getName() + "\"");
+					player.sendMessage("§e§l[KIT] §eVocê pegou o kit \"" + kit.getName().toLowerCase() + "\"");
 					player.closeInventory();
 				}
 			}
