@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitTask;
 
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.kit.Ajnin;
@@ -33,6 +34,7 @@ import br.com.vapoxmc.kitpvp.kit.Thor;
 import br.com.vapoxmc.kitpvp.kit.Urgal;
 import br.com.vapoxmc.kitpvp.kit.Viking;
 import br.com.vapoxmc.kitpvp.kit.Viper;
+import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
 
@@ -40,7 +42,12 @@ public final class VapoxPvP extends JavaPlugin {
 
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
+	private static final Map<UUID, Long> longMap = new HashMap<>();
+	private static final Map<UUID, BukkitTask> taskMap = new HashMap<>();
 	private static Kit noneKit, defaultKit;
+
+	private static final Map<UUID, UUID> enemyMap = new HashMap<>();
+	private static final Map<UUID, Integer> timeMap = new HashMap<>();
 
 	public static List<Kit> getKits() {
 		return kits;
@@ -79,7 +86,73 @@ public final class VapoxPvP extends JavaPlugin {
 	}
 
 	public static Kit removeKit(Player player) {
+		Ajnin.tegratMap.remove(player.getUniqueId());
+		Ninja.targetMap.remove(player.getUniqueId());
+		removeKitCooldown(player);
 		return getKitByName(kitMap.remove(player.getUniqueId()));
+	}
+
+	public static boolean hasKitCooldown(Player player) {
+		return longMap.containsKey(player.getUniqueId());
+	}
+
+	public static String getFormattedKitCooldown(Player player) {
+		String str = new String();
+		int seconds = getKitCooldown(player);
+		if (seconds > 0)
+			str += seconds + " segundo" + (seconds == 1 ? "" : "s");
+		return str;
+	}
+
+	public static int getKitCooldown(Player player) {
+		if (hasKitCooldown(player))
+			return (int) ((longMap.getOrDefault(player.getUniqueId(), System.currentTimeMillis() + 1000L)
+					- System.currentTimeMillis()) / 1000L);
+		return 0;
+	}
+
+	public static void addKitCooldown(Player player, int seconds) {
+		longMap.put(player.getUniqueId(), (seconds * 1000L) + System.currentTimeMillis());
+		taskMap.put(player.getUniqueId(), Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
+			if (hasKitCooldown(player))
+				removeKitCooldown(player);
+		}, seconds * 20L));
+	}
+
+	public static void removeKitCooldown(Player player) {
+		longMap.remove(player.getUniqueId());
+		if (taskMap.containsKey(player.getUniqueId()))
+			taskMap.remove(player.getUniqueId()).cancel();
+	}
+
+	public static boolean isInCombat(Player player) {
+		return enemyMap.containsKey(player.getUniqueId());
+	}
+
+	public static void addCombat(Player player, Player enemy) {
+		if (!timeMap.containsKey(player.getUniqueId())) {
+			timeMap.put(player.getUniqueId(), 10);
+			enemyMap.put(player.getUniqueId(), enemy.getUniqueId());
+			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
+				if (player != null && !player.getName().equals(enemy.getName())) {
+					if (timeMap.getOrDefault(player.getUniqueId(), 0) > 0) {
+						timeMap.put(player.getUniqueId(), timeMap.get(player.getUniqueId()) - 1);
+						if (timeMap.get(player.getUniqueId()) <= 0)
+							removeCombat(player);
+					} else
+						timeMap.put(player.getUniqueId(), 1);
+				}
+			}, 20L);
+		}
+	}
+
+	public static void removeCombat(Player player) {
+		enemyMap.remove(player.getUniqueId());
+		timeMap.remove(player.getUniqueId());
+	}
+
+	public static VapoxPvP getInstance() {
+		return getPlugin(VapoxPvP.class);
 	}
 
 	@Override
@@ -115,6 +188,8 @@ public final class VapoxPvP extends JavaPlugin {
 		getKits().add(new Urgal());
 		getKits().add(new Viking());
 		getKits().add(new Viper());
+
+		PlayerAccount.createConnection();
 
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §aPlugin habilitado (§7" + this.getDescription().getVersion() + "§a).");
