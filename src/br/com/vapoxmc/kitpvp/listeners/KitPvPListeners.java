@@ -1,16 +1,47 @@
 package br.com.vapoxmc.kitpvp.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Sign;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.Inventory;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
+import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class KitPvPListeners implements Listener {
+
+	@EventHandler
+	private void onSignChange(SignChangeEvent event) {
+		Player player = event.getPlayer();
+		if (player.hasPermission("ciphen.eventos.placa")) {
+			if (event.getLine(0).equalsIgnoreCase("Sopa")) {
+				event.setLine(0, "§8§l[-§fx§8§l-]");
+				event.setLine(1, "§aSopas!");
+				event.setLine(2, "§e§l[CLIQUE]");
+				event.setLine(3, "§8§l[-§fx§8§l-]");
+				player.sendMessage("§e§l[PLACA] §ePlaca criada com sucesso!");
+			} else if (event.getLine(0).equalsIgnoreCase("Recraft")) {
+				event.setLine(0, "§8§l[-§fx§8§l-]");
+				event.setLine(1, "§aRecraft!");
+				event.setLine(2, "§e§l[CLIQUE]");
+				event.setLine(3, "§8§l[-§fx§8§l-]");
+				player.sendMessage("§e§l[PLACA] §ePlaca criada com sucesso!");
+			} else if (event.getLine(0).equalsIgnoreCase("PotPvP")) {
+				event.setLine(0, "§8§l[-§fx§8§l-]");
+				event.setLine(1, "§aPoção!");
+				event.setLine(2, "§e§l[CLIQUE]");
+				event.setLine(3, "§8§l[-§fx§8§l-]");
+				player.sendMessage("§e§l[PLACA] §ePlaca criada com sucesso!");
+			}
+		}
+	}
 
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
@@ -37,5 +68,33 @@ public final class KitPvPListeners implements Listener {
 				player.setCompassTarget(new Location(player.getWorld(), 0, 65, 0));
 				player.sendMessage("§c§l[COMPASS] §fNão encontramos nenhum jogador, bússola apontando para o feast.");
 			}
+		if (event.hasBlock() && event.getClickedBlock().getType().name().contains("SIGN")
+				&& event.getAction().name().contains("RIGHT")) {
+			Sign sign = (Sign) event.getClickedBlock().getState();
+			if (sign.getLine(0).equals("§8§l[-§fx§8§l-]") && sign.getLine(2).equals("§e§l[CLIQUE]")
+					&& sign.getLine(3).equals("§8§l[-§fx§8§l-]")) {
+				event.setCancelled(true);
+
+				if (sign.getLine(1).equals("§aSopas!")) {
+					Inventory inv = Bukkit.createInventory(null, 54, "");
+					for (int i = 0; i < 54; i++)
+						inv.addItem(new Stack(Material.MUSHROOM_SOUP));
+					player.openInventory(inv);
+				} else if (sign.getLine(1).equals("§aRecraft!")) {
+					Inventory inv = Bukkit.createInventory(null, 9, "");
+
+					inv.setItem(3, new Stack(Material.BOWL, 64).display("§7» §fRecraft").lore(""));
+					inv.setItem(4, new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft").lore(""));
+					inv.setItem(5, new Stack(Material.RED_MUSHROOM, 64).display("§7» Recraft").lore(""));
+
+					player.openInventory(inv);
+				} else if (sign.getLine(1).equals("§aPoção!")) {
+					Inventory inv = Bukkit.createInventory(null, 54, "");
+					for (int i = 0; i < 54; i++)
+						inv.addItem(new Stack(Material.POTION, 1, 16421).display("§7» §fPoção"));
+					player.openInventory(inv);
+				}
+			}
+		}
 	}
 }
