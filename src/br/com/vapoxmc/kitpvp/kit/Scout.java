@@ -31,7 +31,7 @@ public final class Scout extends Kit implements Listener {
 		super.giveItems(player);
 		inv.setBoots(new Stack(Material.LEATHER_BOOTS).display("§aBota §7(§f§lScout§7)")
 				.lore("§7Utilize as §6botas §7para correr!"));
-		inv.addItem();
+		inv.addItem(POTION);
 	}
 
 	@EventHandler
