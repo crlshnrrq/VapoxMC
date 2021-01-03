@@ -131,6 +131,12 @@ public final class VapoxPvP extends JavaPlugin {
 		return enemyMap.containsKey(player.getUniqueId());
 	}
 
+	public static Player getCombatEnemy(Player player) {
+		if (isInCombat(player))
+			return Bukkit.getPlayer(enemyMap.get(player.getUniqueId()));
+		return null;
+	}
+
 	public static boolean setCombatTime(Player player, int time) {
 		if (isInCombat(player)) {
 			timeMap.put(player.getUniqueId(), time);
