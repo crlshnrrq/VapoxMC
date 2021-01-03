@@ -34,6 +34,7 @@ import br.com.vapoxmc.kitpvp.kit.Thor;
 import br.com.vapoxmc.kitpvp.kit.Urgal;
 import br.com.vapoxmc.kitpvp.kit.Viking;
 import br.com.vapoxmc.kitpvp.kit.Viper;
+import br.com.vapoxmc.kitpvp.listeners.KitPvPListeners;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
@@ -165,6 +166,8 @@ public final class VapoxPvP extends JavaPlugin {
 		super.onEnable();
 
 		PluginManager pm = Bukkit.getPluginManager();
+
+		pm.registerEvents(new KitPvPListeners(), this);
 
 		pm.registerEvents(new SeusKitsGUI(), this);
 
