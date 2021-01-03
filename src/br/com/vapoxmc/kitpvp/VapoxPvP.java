@@ -173,6 +173,7 @@ public final class VapoxPvP extends JavaPlugin {
 
 		pm.registerEvents(new Ajnin(), this);
 		pm.registerEvents(new Anchor(), this);
+		pm.registerEvents(new Archer(), this);
 		pm.registerEvents(new Critical(), this);
 		pm.registerEvents(new Fisherman(), this);
 		pm.registerEvents(new Kangaroo(), this);

@@ -9,8 +9,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
@@ -96,5 +98,13 @@ public final class KitPvPListeners implements Listener {
 				}
 			}
 		}
+	}
+
+	@EventHandler
+	private void onPlayerDropItem(PlayerDropItemEvent event) {
+		Player player = event.getPlayer();
+		ItemStack item = event.getItemDrop().getItemStack();
+		if (VapoxPvP.hasKit(player) && (item.getType().name().contains("_SWORD") || item.getType() == Material.COMPASS))
+			event.setCancelled(true);
 	}
 }

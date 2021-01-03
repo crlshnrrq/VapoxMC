@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -12,18 +13,18 @@ import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class Fisherman extends Kit implements Listener {
 
+	public static final Stack FISHERMAN_ROD = new Stack(Material.FISHING_ROD).display("§aVareta §7(§f§lFisherman§7)")
+			.lore("§7Clique com o §6direito §7para pescar seus oponentes.");
+
 	public Fisherman() {
-		super("Fisherman", "Pesque os seus oponentes!", new Stack(Material.FISHING_ROD),
-				new Stack(Material.FISHING_ROD).display("§aVareta §7(§f§lFisherman§7)")
-						.lore("§7Clique com o §6direito §7para pescar seus oponentes."));
+		super("Fisherman", "Pesque os seus oponentes!", new Stack(Material.FISHING_ROD), FISHERMAN_ROD);
 	}
 
 	@Override
 	public void giveItems(Player player) {
 		PlayerInventory inv = player.getInventory();
 		super.giveItems(player);
-		inv.addItem(new Stack(Material.FISHING_ROD).display("§aVareta §7(§f§lFisherman§7)")
-				.lore("§7Clique com o §6direito §7para pescar seus oponentes."));
+		inv.addItem(FISHERMAN_ROD);
 	}
 
 	@EventHandler
@@ -50,5 +51,13 @@ public final class Fisherman extends Kit implements Listener {
 				player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fEsse jogador não está em pvp!");
 			}
 		}
+	}
+
+	@EventHandler
+	private void onPlayerDropItem(PlayerDropItemEvent event) {
+		Player player = event.getPlayer();
+		if (VapoxPvP.getKit(player) instanceof Fisherman
+				&& event.getItemDrop().getItemStack().isSimilar(FISHERMAN_ROD.toItemStack()))
+			event.setCancelled(true);
 	}
 }

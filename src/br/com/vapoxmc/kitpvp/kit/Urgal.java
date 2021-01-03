@@ -5,6 +5,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
@@ -45,5 +46,13 @@ public final class Urgal extends Kit implements Listener {
 				player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fAguarde §c"
 						+ VapoxPvP.getFormattedKitCooldown(player) + " §fpara usar novamente!");
 		}
+	}
+
+	@EventHandler
+	private void onPlayerDropItem(PlayerDropItemEvent event) {
+		Player player = event.getPlayer();
+		if (VapoxPvP.getKit(player) instanceof Urgal
+				&& event.getItemDrop().getItemStack().isSimilar(POTION.toItemStack()))
+			event.setCancelled(true);
 	}
 }

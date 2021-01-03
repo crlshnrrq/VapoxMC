@@ -16,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.PlayerInventory;
@@ -99,5 +100,13 @@ public final class Kangaroo extends Kit implements Listener {
 			if (VapoxPvP.getKit(player) instanceof Kangaroo)
 				event.setDamage(3.5D);
 		}
+	}
+
+	@EventHandler
+	private void onPlayerDropItem(PlayerDropItemEvent event) {
+		Player player = event.getPlayer();
+		if (VapoxPvP.getKit(player) instanceof Kangaroo
+				&& event.getItemDrop().getItemStack().isSimilar(ROCKET.toItemStack()))
+			event.setCancelled(true);
 	}
 }

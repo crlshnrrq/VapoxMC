@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -41,5 +42,13 @@ public final class Thor extends Kit implements Listener {
 				player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fAguarde §c"
 						+ VapoxPvP.getFormattedKitCooldown(player) + " §fpara usar novamente!");
 		}
+	}
+
+	@EventHandler
+	private void onPlayerDropItem(PlayerDropItemEvent event) {
+		Player player = event.getPlayer();
+		if (VapoxPvP.getKit(player) instanceof Thor
+				&& event.getItemDrop().getItemStack().isSimilar(MJOLNIR.toItemStack()))
+			event.setCancelled(true);
 	}
 }

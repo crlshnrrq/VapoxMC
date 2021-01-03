@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
@@ -54,5 +55,13 @@ public final class Monk extends Kit implements Listener {
 			} else
 				player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fEsse jogador não está em combate!");
 		}
+	}
+
+	@EventHandler
+	private void onPlayerDropItem(PlayerDropItemEvent event) {
+		Player player = event.getPlayer();
+		if (VapoxPvP.getKit(player) instanceof Monk
+				&& event.getItemDrop().getItemStack().isSimilar(MONK_ROD.toItemStack()))
+			event.setCancelled(true);
 	}
 }
