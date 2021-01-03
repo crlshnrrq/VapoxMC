@@ -14,6 +14,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
+import br.com.vapoxmc.kitpvp.commands.KitCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.kit.Ajnin;
 import br.com.vapoxmc.kitpvp.kit.Anchor;
@@ -187,6 +188,8 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new Urgal(), this);
 		pm.registerEvents(new Viking(), this);
 		pm.registerEvents(new Viper(), this);
+
+		this.getCommand("kit").setExecutor(new KitCommand());
 
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
 		getKits().clear();
