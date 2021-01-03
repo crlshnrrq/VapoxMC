@@ -54,7 +54,7 @@ public final class Kangaroo extends Kit implements Listener {
 						player.setVelocity(player.getLocation().getDirection().multiply(1.2));
 						player.setVelocity(new Vector(player.getVelocity().getX(), 0.5, player.getVelocity().getZ()));
 						kangarooMap.put(player.getUniqueId(), 1);
-					} else if (kangarooMap.getOrDefault(player.getUniqueId(), 0) != 2) {
+					} else if (kangarooMap.get(player.getUniqueId()) != 2) {
 						player.setVelocity(player.getLocation().getDirection().multiply(1.2));
 						player.setVelocity(new Vector(player.getVelocity().getX(), 0.5, player.getVelocity().getZ()));
 						kangarooMap.put(player.getUniqueId(), 2);
@@ -62,7 +62,7 @@ public final class Kangaroo extends Kit implements Listener {
 				} else if (!fallList.contains(player.getUniqueId())) {
 					player.setVelocity(new Vector(player.getVelocity().getX(), 1.0, player.getVelocity().getZ()));
 					kangarooMap.put(player.getUniqueId(), 1);
-				} else if (kangarooMap.getOrDefault(player.getUniqueId(), 0) != 2) {
+				} else if (kangarooMap.get(player.getUniqueId()) != 2) {
 					player.setVelocity(new Vector(player.getVelocity().getX(), 1.0, player.getVelocity().getZ()));
 					kangarooMap.put(player.getUniqueId(), 2);
 				}
@@ -79,16 +79,16 @@ public final class Kangaroo extends Kit implements Listener {
 			if (block.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
 				if (block.getType() != Material.AIR) {
 					Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(),
-							() -> kangarooMap.remove(player.getUniqueId()), 1L);
+							() -> kangarooMap.put(player.getUniqueId(), 0), 1L);
 					fallList.remove(player.getUniqueId());
 				}
 				if (block.getRelative(BlockFace.DOWN).getType() != Material.AIR || block.getType() != Material.AIR) {
 					Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(),
-							() -> kangarooMap.remove(player.getUniqueId()), 1L);
+							() -> kangarooMap.put(player.getUniqueId(), 0), 1L);
 					fallList.remove(player.getUniqueId());
 				}
 			} else
-				fallList.remove(player.getUniqueId());
+				fallList.add(player.getUniqueId());
 		}
 	}
 
