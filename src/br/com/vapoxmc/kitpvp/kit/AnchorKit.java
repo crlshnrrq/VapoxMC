@@ -12,9 +12,9 @@ import org.bukkit.event.Listener;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Anchor extends Kit implements Listener {
+public final class AnchorKit extends Kit implements Listener {
 
-	public Anchor() {
+	public AnchorKit() {
 		super("Anchor", "Não tome e nem dê repulsão!", new Stack(Material.ANVIL));
 	}
 
@@ -22,12 +22,12 @@ public final class Anchor extends Kit implements Listener {
 	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			Player player = (Player) event.getEntity(), damager = (Player) event.getDamager();
-			if (VapoxPvP.getKit(player) instanceof Anchor) {
+			if (VapoxPvP.getKit(player) instanceof AnchorKit) {
 				player.setVelocity(new Vector());
 				player.playSound(player.getLocation(), Sound.ANVIL_BREAK, 4F, 4F);
 				Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.setVelocity(new Vector()), 1L);
 			}
-			if (VapoxPvP.getKit(damager) instanceof Anchor) {
+			if (VapoxPvP.getKit(damager) instanceof AnchorKit) {
 				damager.playSound(damager.getLocation(), Sound.ANVIL_BREAK, 4F, 4F);
 				player.setVelocity(new Vector());
 				Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.setVelocity(new Vector()), 1L);

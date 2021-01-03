@@ -25,14 +25,14 @@ import org.bukkit.util.Vector;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Kangaroo extends Kit implements Listener {
+public final class KangarooKit extends Kit implements Listener {
 
 	public static final Map<UUID, Integer> kangarooMap = new HashMap<>();
 	public static final List<UUID> fallList = new ArrayList<>();
 	public static final Stack ROCKET = new Stack(Material.FIREWORK).display("§aKangaroo §7(§fClique§7)")
 			.lore("§7Clique com o §6direito §7para pular duas vezes.");
 
-	public Kangaroo() {
+	public KangarooKit() {
 		super("Kangaroo", "Pule que nem um canguru!", new Stack(Material.FIREWORK), ROCKET);
 	}
 
@@ -46,7 +46,7 @@ public final class Kangaroo extends Kit implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	private void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Kangaroo && event.hasItem()
+		if (VapoxPvP.getKit(player) instanceof KangarooKit && event.hasItem()
 				&& event.getItem().isSimilar(ROCKET.toItemStack())) {
 			event.setCancelled(true);
 			if (!VapoxPvP.isInCombat(player)) {
@@ -75,7 +75,7 @@ public final class Kangaroo extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Kangaroo) {
+		if (VapoxPvP.getKit(player) instanceof KangarooKit) {
 			Block block = event.getFrom().getBlock();
 			if (block.getRelative(BlockFace.DOWN).getType() != Material.AIR) {
 				if (block.getType() != Material.AIR) {
@@ -97,7 +97,7 @@ public final class Kangaroo extends Kit implements Listener {
 	private void onEntityDamage(EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player && event.getCause() == DamageCause.FALL && event.getDamage() > 7D) {
 			Player player = (Player) event.getEntity();
-			if (VapoxPvP.getKit(player) instanceof Kangaroo)
+			if (VapoxPvP.getKit(player) instanceof KangarooKit)
 				event.setDamage(3.5D);
 		}
 	}
@@ -105,7 +105,7 @@ public final class Kangaroo extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Kangaroo
+		if (VapoxPvP.getKit(player) instanceof KangarooKit
 				&& event.getItemDrop().getItemStack().isSimilar(ROCKET.toItemStack()))
 			event.setCancelled(true);
 	}

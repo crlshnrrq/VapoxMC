@@ -14,12 +14,12 @@ import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
 @SuppressWarnings("deprecation")
-public final class Thor extends Kit implements Listener {
+public final class ThorKit extends Kit implements Listener {
 
 	public static final Stack MJOLNIR = new Stack(Material.GOLD_AXE).display("§aEspada §7(§f§lThor§7)")
 			.lore("§7Clique com o §6direitor §7para jogar raios.");
 
-	public Thor() {
+	public ThorKit() {
 		super("Thor", "Jogue raios com o seu machado!", new Stack(Material.GOLD_AXE), MJOLNIR);
 	}
 
@@ -33,7 +33,7 @@ public final class Thor extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Thor && event.getAction().name().contains("RIGHT") && event.hasItem()
+		if (VapoxPvP.getKit(player) instanceof ThorKit && event.getAction().name().contains("RIGHT") && event.hasItem()
 				&& event.getItem().isSimilar(MJOLNIR.toItemStack())) {
 			if (!VapoxPvP.hasKitCooldown(player)) {
 				VapoxPvP.addKitCooldown(player, 6);
@@ -47,7 +47,7 @@ public final class Thor extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Thor
+		if (VapoxPvP.getKit(player) instanceof ThorKit
 				&& event.getItemDrop().getItemStack().isSimilar(MJOLNIR.toItemStack()))
 			event.setCancelled(true);
 	}

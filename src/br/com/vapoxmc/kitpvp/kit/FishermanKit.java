@@ -11,12 +11,12 @@ import org.bukkit.inventory.PlayerInventory;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Fisherman extends Kit implements Listener {
+public final class FishermanKit extends Kit implements Listener {
 
 	public static final Stack FISHERMAN_ROD = new Stack(Material.FISHING_ROD).display("§aVareta §7(§f§lFisherman§7)")
 			.lore("§7Clique com o §6direito §7para pescar seus oponentes.");
 
-	public Fisherman() {
+	public FishermanKit() {
 		super("Fisherman", "Pesque os seus oponentes!", new Stack(Material.FISHING_ROD), FISHERMAN_ROD);
 	}
 
@@ -30,7 +30,7 @@ public final class Fisherman extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerFish(PlayerFishEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Fisherman && event.getCaught() instanceof Player) {
+		if (VapoxPvP.getKit(player) instanceof FishermanKit && event.getCaught() instanceof Player) {
 			Player caught = (Player) event.getCaught();
 			if (VapoxPvP.hasKit(caught)) {
 				if (player.getName().equals(caught.getName())) {
@@ -56,7 +56,7 @@ public final class Fisherman extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Fisherman
+		if (VapoxPvP.getKit(player) instanceof FishermanKit
 				&& event.getItemDrop().getItemStack().isSimilar(FISHERMAN_ROD.toItemStack()))
 			event.setCancelled(true);
 	}

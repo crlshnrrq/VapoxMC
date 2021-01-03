@@ -14,12 +14,12 @@ import org.bukkit.inventory.PlayerInventory;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Monk extends Kit implements Listener {
+public final class MonkKit extends Kit implements Listener {
 
 	public static final Stack MONK_ROD = new Stack(Material.BLAZE_ROD).display("§aVareta §7(§f§lMonk§7)")
 			.lore("§7Clique com o §6direito §7para bagunçar seus oponentes.");
 
-	public Monk() {
+	public MonkKit() {
 		super("Monk", "Bagunçe o inventário do seu oponente!", new Stack(Material.BLAZE_ROD), MONK_ROD);
 	}
 
@@ -33,7 +33,7 @@ public final class Monk extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Monk && player.getItemInHand().isSimilar(MONK_ROD.toItemStack())
+		if (VapoxPvP.getKit(player) instanceof MonkKit && player.getItemInHand().isSimilar(MONK_ROD.toItemStack())
 				&& event.getRightClicked() instanceof Player) {
 			Player righted = (Player) event.getRightClicked();
 			event.setCancelled(true);
@@ -60,7 +60,7 @@ public final class Monk extends Kit implements Listener {
 	@EventHandler
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Monk
+		if (VapoxPvP.getKit(player) instanceof MonkKit
 				&& event.getItemDrop().getItemStack().isSimilar(MONK_ROD.toItemStack()))
 			event.setCancelled(true);
 	}

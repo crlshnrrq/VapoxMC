@@ -16,20 +16,20 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Ajnin extends Kit implements Listener {
+public final class NinjaKit extends Kit implements Listener {
 
-	public static final Map<UUID, UUID> tegratMap = new HashMap<>();
+	public static final Map<UUID, UUID> targetMap = new HashMap<>();
 
-	public Ajnin() {
-		super("Ajnin", "Teleporte seu oponente até você!", new Stack(Material.NETHER_STAR));
+	public NinjaKit() {
+		super("Ninja", "Teleporte-se para seu oponente!", new Stack(Material.ENDER_PEARL));
 	}
 
 	@EventHandler
 	private void onEntityDamamgeByEntity(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			Player player = (Player) event.getEntity(), damager = (Player) event.getDamager();
-			if (VapoxPvP.getKit(damager) instanceof Ajnin)
-				tegratMap.put(damager.getUniqueId(), player.getUniqueId());
+			if (VapoxPvP.getKit(damager) instanceof NinjaKit)
+				targetMap.put(damager.getUniqueId(), player.getUniqueId());
 		}
 	}
 
@@ -39,19 +39,16 @@ public final class Ajnin extends Kit implements Listener {
 			return;
 
 		Player player = event.getPlayer();
-		if (VapoxPvP.getKit(player) instanceof Ajnin) {
+		if (VapoxPvP.getKit(player) instanceof NinjaKit) {
 			if (!VapoxPvP.hasKitCooldown(player)) {
-				if (tegratMap.containsKey(player.getUniqueId())) {
-					Player target = Bukkit.getPlayer(tegratMap.get(player.getUniqueId()));
+				if (targetMap.containsKey(player.getUniqueId())) {
+					Player target = Bukkit.getPlayer(targetMap.get(player.getUniqueId()));
 					if (target != null && !target.isDead() && player.getLocation().distance(target.getLocation()) <= 35D
 							&& VapoxPvP.hasKit(target)) {
 						VapoxPvP.addKitCooldown(player, 10);
-						player.sendMessage("§a§l[" + this.getName().toUpperCase() + "] §fVocê puxou o jogador §a"
-								+ target.getName() + "§faté você!");
-
-						target.teleport(player.getLocation());
-						target.sendMessage("§a§l[" + this.getName().toUpperCase() + "] §e" + player.getName()
-								+ " §fteleportou você até ele!");
+						player.teleport(target.getLocation());
+						player.sendMessage("§a§l[" + this.getName().toUpperCase() + "] §fTeleportado para o jogador §a"
+								+ target.getName() + "§f!");
 					} else
 						player.sendMessage(
 								"§c§l[" + this.getName().toUpperCase() + "] §cO seu ninja não encontrou ninguém!");
@@ -65,6 +62,6 @@ public final class Ajnin extends Kit implements Listener {
 
 	@EventHandler
 	private void onPlayerDeath(PlayerDeathEvent event) {
-		tegratMap.remove(event.getEntity().getUniqueId());
+		targetMap.remove(event.getEntity().getUniqueId());
 	}
 }

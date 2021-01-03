@@ -13,9 +13,9 @@ import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 
-public final class Stomper extends Kit implements Listener {
+public final class StomperKit extends Kit implements Listener {
 
-	public Stomper() {
+	public StomperKit() {
 		super("Stomper", "Esmague os seus oponentes!", new Stack(Material.IRON_BOOTS));
 	}
 
@@ -23,11 +23,11 @@ public final class Stomper extends Kit implements Listener {
 	private void onEntityDamage(EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player && event.getCause() == DamageCause.FALL && event.getDamage() > 6D) {
 			Player player = (Player) event.getEntity();
-			if (VapoxPvP.getKit(player) instanceof Stomper) {
+			if (VapoxPvP.getKit(player) instanceof StomperKit) {
 				player.getNearbyEntities(3.5D, 1D, 3.5D).stream().filter(entities -> entities instanceof Player)
 						.forEach(entities -> {
 							Player target = (Player) entities;
-							if (target.isSneaking() || VapoxPvP.getKit(target) instanceof AntiStomper)
+							if (target.isSneaking() || VapoxPvP.getKit(target) instanceof AntiStomperKit)
 								target.damage(4D, player);
 							else {
 								target.setHealth(0D);

@@ -13,9 +13,9 @@ import org.bukkit.potion.PotionEffectType;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Viper extends Kit implements Listener {
+public final class ViperKit extends Kit implements Listener {
 
-	public Viper() {
+	public ViperKit() {
 		super("Viper", "Tenha chancê de envenenar seus oponentes!", new Stack(Material.SPIDER_EYE));
 	}
 
@@ -24,7 +24,7 @@ public final class Viper extends Kit implements Listener {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player
 				&& new Random().nextInt(100) <= 30) {
 			Player player = (Player) event.getEntity(), damager = (Player) event.getDamager();
-			if (VapoxPvP.getKit(damager) instanceof Viper
+			if (VapoxPvP.getKit(damager) instanceof ViperKit
 					&& damager.getItemInHand().getType().name().contains("_SWORD"))
 				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 100, 0));
 		}

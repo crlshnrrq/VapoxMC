@@ -16,25 +16,25 @@ import org.bukkit.scheduler.BukkitTask;
 
 import br.com.vapoxmc.kitpvp.commands.KitCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
-import br.com.vapoxmc.kitpvp.kit.Ajnin;
-import br.com.vapoxmc.kitpvp.kit.Anchor;
-import br.com.vapoxmc.kitpvp.kit.AntiStomper;
-import br.com.vapoxmc.kitpvp.kit.Archer;
-import br.com.vapoxmc.kitpvp.kit.Critical;
-import br.com.vapoxmc.kitpvp.kit.Fisherman;
-import br.com.vapoxmc.kitpvp.kit.Kangaroo;
+import br.com.vapoxmc.kitpvp.kit.AjninKit;
+import br.com.vapoxmc.kitpvp.kit.AnchorKit;
+import br.com.vapoxmc.kitpvp.kit.AntiStomperKit;
+import br.com.vapoxmc.kitpvp.kit.ArcherKit;
+import br.com.vapoxmc.kitpvp.kit.CriticalKit;
+import br.com.vapoxmc.kitpvp.kit.FishermanKit;
+import br.com.vapoxmc.kitpvp.kit.KangarooKit;
 import br.com.vapoxmc.kitpvp.kit.Kit;
-import br.com.vapoxmc.kitpvp.kit.Magma;
-import br.com.vapoxmc.kitpvp.kit.Monk;
-import br.com.vapoxmc.kitpvp.kit.Ninja;
-import br.com.vapoxmc.kitpvp.kit.PvP;
-import br.com.vapoxmc.kitpvp.kit.Scout;
-import br.com.vapoxmc.kitpvp.kit.Snail;
-import br.com.vapoxmc.kitpvp.kit.Stomper;
-import br.com.vapoxmc.kitpvp.kit.Thor;
-import br.com.vapoxmc.kitpvp.kit.Urgal;
-import br.com.vapoxmc.kitpvp.kit.Viking;
-import br.com.vapoxmc.kitpvp.kit.Viper;
+import br.com.vapoxmc.kitpvp.kit.MagmaKit;
+import br.com.vapoxmc.kitpvp.kit.MonkKit;
+import br.com.vapoxmc.kitpvp.kit.NinjaKit;
+import br.com.vapoxmc.kitpvp.kit.PvPKit;
+import br.com.vapoxmc.kitpvp.kit.ScoutKit;
+import br.com.vapoxmc.kitpvp.kit.SnailKit;
+import br.com.vapoxmc.kitpvp.kit.StomperKit;
+import br.com.vapoxmc.kitpvp.kit.ThorKit;
+import br.com.vapoxmc.kitpvp.kit.UrgalKit;
+import br.com.vapoxmc.kitpvp.kit.VikingKit;
+import br.com.vapoxmc.kitpvp.kit.ViperKit;
 import br.com.vapoxmc.kitpvp.listeners.KitPvPListeners;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
@@ -88,8 +88,8 @@ public final class VapoxPvP extends JavaPlugin {
 	}
 
 	public static Kit removeKit(Player player) {
-		Ajnin.tegratMap.remove(player.getUniqueId());
-		Ninja.targetMap.remove(player.getUniqueId());
+		AjninKit.tegratMap.remove(player.getUniqueId());
+		NinjaKit.targetMap.remove(player.getUniqueId());
 		removeKitCooldown(player);
 		return getKitByName(kitMap.remove(player.getUniqueId()));
 	}
@@ -172,45 +172,45 @@ public final class VapoxPvP extends JavaPlugin {
 
 		pm.registerEvents(new SeusKitsGUI(), this);
 
-		pm.registerEvents(new Ajnin(), this);
-		pm.registerEvents(new Anchor(), this);
-		pm.registerEvents(new Archer(), this);
-		pm.registerEvents(new Critical(), this);
-		pm.registerEvents(new Fisherman(), this);
-		pm.registerEvents(new Kangaroo(), this);
-		pm.registerEvents(new Magma(), this);
-		pm.registerEvents(new Monk(), this);
-		pm.registerEvents(new Ninja(), this);
-		pm.registerEvents(new Scout(), this);
-		pm.registerEvents(new Snail(), this);
-		pm.registerEvents(new Stomper(), this);
-		pm.registerEvents(new Thor(), this);
-		pm.registerEvents(new Urgal(), this);
-		pm.registerEvents(new Viking(), this);
-		pm.registerEvents(new Viper(), this);
+		pm.registerEvents(new AjninKit(), this);
+		pm.registerEvents(new AnchorKit(), this);
+		pm.registerEvents(new ArcherKit(), this);
+		pm.registerEvents(new CriticalKit(), this);
+		pm.registerEvents(new FishermanKit(), this);
+		pm.registerEvents(new KangarooKit(), this);
+		pm.registerEvents(new MagmaKit(), this);
+		pm.registerEvents(new MonkKit(), this);
+		pm.registerEvents(new NinjaKit(), this);
+		pm.registerEvents(new ScoutKit(), this);
+		pm.registerEvents(new SnailKit(), this);
+		pm.registerEvents(new StomperKit(), this);
+		pm.registerEvents(new ThorKit(), this);
+		pm.registerEvents(new UrgalKit(), this);
+		pm.registerEvents(new VikingKit(), this);
+		pm.registerEvents(new ViperKit(), this);
 
 		this.getCommand("kit").setExecutor(new KitCommand());
 
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
 		getKits().clear();
-		getKits().add(defaultKit = new PvP());
-		getKits().add(new Ajnin());
-		getKits().add(new Anchor());
-		getKits().add(new AntiStomper());
-		getKits().add(new Archer());
-		getKits().add(new Critical());
-		getKits().add(new Fisherman());
-		getKits().add(new Kangaroo());
-		getKits().add(new Magma());
-		getKits().add(new Monk());
-		getKits().add(new Ninja());
-		getKits().add(new Scout());
-		getKits().add(new Snail());
-		getKits().add(new Stomper());
-		getKits().add(new Thor());
-		getKits().add(new Urgal());
-		getKits().add(new Viking());
-		getKits().add(new Viper());
+		getKits().add(defaultKit = new PvPKit());
+		getKits().add(new AjninKit());
+		getKits().add(new AnchorKit());
+		getKits().add(new AntiStomperKit());
+		getKits().add(new ArcherKit());
+		getKits().add(new CriticalKit());
+		getKits().add(new FishermanKit());
+		getKits().add(new KangarooKit());
+		getKits().add(new MagmaKit());
+		getKits().add(new MonkKit());
+		getKits().add(new NinjaKit());
+		getKits().add(new ScoutKit());
+		getKits().add(new SnailKit());
+		getKits().add(new StomperKit());
+		getKits().add(new ThorKit());
+		getKits().add(new UrgalKit());
+		getKits().add(new VikingKit());
+		getKits().add(new ViperKit());
 
 		PlayerAccount.createConnection();
 

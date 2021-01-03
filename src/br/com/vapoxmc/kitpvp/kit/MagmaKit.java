@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
-public final class Magma extends Kit implements Listener {
+public final class MagmaKit extends Kit implements Listener {
 
-	public Magma() {
+	public MagmaKit() {
 		super("Magma", "Tenha chancê de colocar fogo em seus oponentes!", new Stack(Material.FLINT_AND_STEEL));
 	}
 
@@ -22,7 +22,7 @@ public final class Magma extends Kit implements Listener {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player
 				&& (Math.random() > 0.4 && Math.random() < 0.1)) {
 			Player player = (Player) event.getEntity(), damager = (Player) event.getDamager();
-			if (VapoxPvP.getKit(damager) instanceof Magma)
+			if (VapoxPvP.getKit(damager) instanceof MagmaKit)
 				player.setFireTicks(150);
 		}
 	}
@@ -31,7 +31,7 @@ public final class Magma extends Kit implements Listener {
 	private void onPlayerMove(PlayerMoveEvent event) {
 		if (event.getFrom().getBlock().getType().name().contains("WATER")) {
 			Player player = event.getPlayer();
-			if (VapoxPvP.getKit(player) instanceof Magma)
+			if (VapoxPvP.getKit(player) instanceof MagmaKit)
 				player.damage(2D);
 		}
 	}
@@ -41,7 +41,7 @@ public final class Magma extends Kit implements Listener {
 		if (event.getEntity() instanceof Player
 				&& (event.getCause().name().contains("FIRE") || event.getCause().name().contains("LAVA"))) {
 			Player player = (Player) event.getEntity();
-			if (VapoxPvP.getKit(player) instanceof Magma)
+			if (VapoxPvP.getKit(player) instanceof MagmaKit)
 				event.setCancelled(true);
 		}
 	}
