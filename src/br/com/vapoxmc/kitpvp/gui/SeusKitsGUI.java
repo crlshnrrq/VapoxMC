@@ -16,7 +16,7 @@ import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class SeusKitsGUI implements Listener {
 
-	public static final Stack ICON = new Stack(Material.STORAGE_MINECART);
+	public static final Stack ICON = new Stack(Material.STORAGE_MINECART).display("§2» §aSelecione um kit.");
 
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
