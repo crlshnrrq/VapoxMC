@@ -77,8 +77,8 @@ public final class PlayerAccount {
 		public int getMoedas(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("geral", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Moedas");
+				if (set.next())
+					return set.getInt("Moedas");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -108,8 +108,8 @@ public final class PlayerAccount {
 		public int getPontos(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("geral", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Pontos");
+				if (set.next())
+					return set.getInt("Pontos");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -133,8 +133,8 @@ public final class PlayerAccount {
 		public int getKillStreak(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("geral", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("KillStreak");
+				if (set.next())
+					return set.getInt("KillStreak");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -158,8 +158,8 @@ public final class PlayerAccount {
 		public int getAbates(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("geral", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Abates");
+				if (set.next())
+					return set.getInt("Abates");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -187,8 +187,8 @@ public final class PlayerAccount {
 		public int getMortes(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("geral", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Mortes");
+				if (set.next())
+					return set.getInt("Mortes");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -223,8 +223,8 @@ public final class PlayerAccount {
 		public int getWinStreak(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("umvum", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("WinStreak");
+				if (set.next())
+					return set.getInt("WinStreak");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -248,8 +248,8 @@ public final class PlayerAccount {
 		public int getVitorias(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("umvum", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Vitorias");
+				if (set.next())
+					return set.getInt("Vitorias");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -277,8 +277,8 @@ public final class PlayerAccount {
 		public int getDerrotas(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("umvum", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Derrotas");
+				if (set.next())
+					return set.getInt("Derrotas");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -313,8 +313,8 @@ public final class PlayerAccount {
 		public int getWinStreak(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("sumo", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("WinStreak");
+				if (set.next())
+					return set.getInt("WinStreak");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -338,8 +338,8 @@ public final class PlayerAccount {
 		public int getVitorias(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("sumo", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Vitorias");
+				if (set.next())
+					return set.getInt("Vitorias");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
@@ -367,8 +367,8 @@ public final class PlayerAccount {
 		public int getDerrotas(Player player) {
 			try {
 				ResultSet set = mysql.selectFrom("sumo", "Nickname='" + player.getName() + "'");
-				set.next();
-				return set.getInt("Derrotas");
+				if (set.next())
+					return set.getInt("Derrotas");
 			} catch (SQLException ex) {
 				ex.printStackTrace();
 			}
