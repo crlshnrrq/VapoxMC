@@ -1,12 +1,14 @@
 package br.com.vapoxmc.kitpvp;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -15,7 +17,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import br.com.vapoxmc.kitpvp.commands.KitCommand;
+import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
+import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
+import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
+import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
 import br.com.vapoxmc.kitpvp.kit.AjninKit;
 import br.com.vapoxmc.kitpvp.kit.AnchorKit;
 import br.com.vapoxmc.kitpvp.kit.AntiStomperKit;
@@ -36,9 +42,18 @@ import br.com.vapoxmc.kitpvp.kit.UrgalKit;
 import br.com.vapoxmc.kitpvp.kit.VikingKit;
 import br.com.vapoxmc.kitpvp.kit.ViperKit;
 import br.com.vapoxmc.kitpvp.listeners.KitPvPListeners;
+import br.com.vapoxmc.kitpvp.listeners.PlayerListeners;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
+import br.com.vapoxmc.kitpvp.warp.FPSWarp;
+import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
+import br.com.vapoxmc.kitpvp.warp.KnockbackWarp;
+import br.com.vapoxmc.kitpvp.warp.LavaChallengeWarp;
+import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
+import br.com.vapoxmc.kitpvp.warp.SpawnWarp;
+import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
+import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class VapoxPvP extends JavaPlugin {
 
@@ -47,6 +62,10 @@ public final class VapoxPvP extends JavaPlugin {
 	private static final Map<UUID, Long> longMap = new HashMap<>();
 	private static final Map<UUID, BukkitTask> taskMap = new HashMap<>();
 	private static Kit noneKit, defaultKit;
+
+	private static final List<Warp> warps = new ArrayList<>();
+	private static final Map<UUID, String> warpMap = new HashMap<>();
+	private static Warp noneWarp, defaultWarp;
 
 	private static final Map<UUID, UUID> enemyMap = new HashMap<>();
 	private static final Map<UUID, Integer> timeMap = new HashMap<>();
@@ -79,7 +98,14 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static boolean setKit(Player player, Kit kit) {
 		try {
+			player.teleport(Arrays.asList(new Location(Bukkit.getWorlds().get(0), -44, 67, 0),
+					new Location(Bukkit.getWorlds().get(0), -63, 64, 34),
+					new Location(Bukkit.getWorlds().get(0), 11, 67, -33),
+					new Location(Bukkit.getWorlds().get(0), 51, 67, -12)).stream().findAny().get());
+
 			kit.applyKit(player);
+			VapoxPvP.removeCombat(player);
+			removeWarp(player);
 			kitMap.put(player.getUniqueId(), kit.getName());
 			return true;
 		} catch (Exception ex) {
@@ -88,10 +114,14 @@ public final class VapoxPvP extends JavaPlugin {
 	}
 
 	public static Kit removeKit(Player player) {
-		AjninKit.tegratMap.remove(player.getUniqueId());
-		NinjaKit.targetMap.remove(player.getUniqueId());
+		Kit kit = getKitByName(kitMap.remove(player.getUniqueId()));
+		if (kit instanceof AjninKit)
+			((AjninKit) kit).tegratMap.remove(player.getUniqueId());
+		if (kit instanceof NinjaKit)
+			((NinjaKit) kit).targetMap.remove(player.getUniqueId());
 		removeKitCooldown(player);
-		return getKitByName(kitMap.remove(player.getUniqueId()));
+		VapoxPvP.removeCombat(player);
+		return kit;
 	}
 
 	public static boolean hasKitCooldown(Player player) {
@@ -125,6 +155,54 @@ public final class VapoxPvP extends JavaPlugin {
 		longMap.remove(player.getUniqueId());
 		if (taskMap.containsKey(player.getUniqueId()))
 			taskMap.remove(player.getUniqueId()).cancel();
+	}
+
+	public static List<Warp> getWarps() {
+		return warps;
+	}
+
+	public static Warp getWarpByName(String name) {
+		return getWarps().stream().filter(warp -> warp.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
+	}
+
+	public static Warp getNoneWarp() {
+		return noneWarp;
+	}
+
+	public static Warp getDefaultWarp() {
+		return defaultWarp;
+	}
+
+	public static int getPlayersInWarp(Warp warp) {
+		return (int) warpMap.values().stream().filter(string -> string.equals(warp.getName())).count();
+	}
+
+	public static Warp getWarp(Player player) {
+		if (warpMap.containsKey(player.getUniqueId()))
+			return getWarpByName(warpMap.get(player.getUniqueId()));
+		return getNoneWarp();
+	}
+
+	public static boolean setWarp(Player player, Warp warp) {
+		try {
+			player.teleport(warp.getLocation());
+			warp.giveItems(player);
+			VapoxPvP.removeCombat(player);
+			removeKit(player);
+			((UMvUMWarp) getWarpByName("1v1")).removeEnemy(player);
+			warpMap.put(player.getUniqueId(), warp.getName());
+			return true;
+		} catch (Exception ex) {
+		}
+		return false;
+	}
+
+	public static Warp removeWarp(Player player) {
+		Warp warp = getWarpByName(warpMap.remove(player.getUniqueId()));
+		VapoxPvP.removeCombat(player);
+		if (warp instanceof UMvUMWarp)
+			((UMvUMWarp) warp).removeEnemy(player);
+		return warp;
 	}
 
 	public static boolean isInCombat(Player player) {
@@ -183,8 +261,10 @@ public final class VapoxPvP extends JavaPlugin {
 		PluginManager pm = Bukkit.getPluginManager();
 
 		pm.registerEvents(new KitPvPListeners(), this);
+		pm.registerEvents(new PlayerListeners(), this);
 
 		pm.registerEvents(new SeusKitsGUI(), this);
+		pm.registerEvents(new WarpsGUI(), this);
 
 		pm.registerEvents(new AjninKit(), this);
 		pm.registerEvents(new AnchorKit(), this);
@@ -203,7 +283,18 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new VikingKit(), this);
 		pm.registerEvents(new ViperKit(), this);
 
+		pm.registerEvents(new FishermanWarp(), this);
+		pm.registerEvents(new FPSWarp(), this);
+		pm.registerEvents(new KnockbackWarp(), this);
+		pm.registerEvents(new LavaChallengeWarp(), this);
+		pm.registerEvents(new PotPvPWarp(), this);
+		pm.registerEvents(new SpawnWarp(), this);
+		pm.registerEvents(new UMvUMWarp(), this);
+
 		this.getCommand("kit").setExecutor(new KitCommand());
+		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
+		this.getCommand("spawn").setExecutor(new SpawnCommand());
+		this.getCommand("warp").setExecutor(new WarpCommand());
 
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
 		getKits().clear();
@@ -225,6 +316,16 @@ public final class VapoxPvP extends JavaPlugin {
 		getKits().add(new UrgalKit());
 		getKits().add(new VikingKit());
 		getKits().add(new ViperKit());
+
+		noneWarp = new Warp("Nenhuma", new Stack(Material.STAINED_GLASS_PANE), null);
+		getWarps().clear();
+		getWarps().add(defaultWarp = new SpawnWarp());
+		getWarps().add(new FishermanWarp());
+		getWarps().add(new FPSWarp());
+		getWarps().add(new KnockbackWarp());
+		getWarps().add(new LavaChallengeWarp());
+		getWarps().add(new PotPvPWarp());
+		getWarps().add(new UMvUMWarp());
 
 		PlayerAccount.createConnection();
 
