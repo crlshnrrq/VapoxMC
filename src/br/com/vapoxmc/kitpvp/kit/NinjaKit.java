@@ -18,7 +18,7 @@ import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class NinjaKit extends Kit implements Listener {
 
-	public static final Map<UUID, UUID> targetMap = new HashMap<>();
+	public final Map<UUID, UUID> targetMap = new HashMap<>();
 
 	public NinjaKit() {
 		super("Ninja", "Teleporte-se para seu oponente!", new Stack(Material.ENDER_PEARL));

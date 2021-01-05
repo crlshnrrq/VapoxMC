@@ -18,7 +18,7 @@ import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class AjninKit extends Kit implements Listener {
 
-	public static final Map<UUID, UUID> tegratMap = new HashMap<>();
+	public final Map<UUID, UUID> tegratMap = new HashMap<>();
 
 	public AjninKit() {
 		super("Ajnin", "Teleporte seu oponente até você!", new Stack(Material.NETHER_STAR));

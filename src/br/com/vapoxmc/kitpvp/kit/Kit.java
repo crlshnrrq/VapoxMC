@@ -73,10 +73,13 @@ public class Kit {
 		inv.setArmorContents(null);
 		inv.clear();
 
+		player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
 		player.setGameMode(GameMode.SURVIVAL);
 		player.setAllowFlight(false);
 
 		player.resetMaxHealth();
+		player.setHealth(20D);
+		player.setFoodLevel(20);
 
 		inv.setItem(0, new Stack(Material.STONE_SWORD).display("§aEspada §7(§f§l" + this.getName() + "§7)")
 				.lore("§7Clique com o §6esquerdo §7para atacar um oponente."));
@@ -89,5 +92,7 @@ public class Kit {
 
 		for (int i = 0; i < 36; i++)
 			inv.addItem(new Stack(Material.MUSHROOM_SOUP));
+
+		player.closeInventory();
 	}
 }
