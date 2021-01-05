@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
+import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class PlayerListeners implements Listener {
@@ -19,6 +20,9 @@ public final class PlayerListeners implements Listener {
 	private void onPlayerJoin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
 		event.setJoinMessage(null);
+
+		if (!PlayerAccount.existAccount(player.getName()))
+			PlayerAccount.createAccount(player);
 
 		Warp warp = VapoxPvP.getDefaultWarp();
 		VapoxPvP.setWarp(player, warp);
