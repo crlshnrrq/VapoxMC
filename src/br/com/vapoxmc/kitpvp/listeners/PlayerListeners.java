@@ -6,6 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
@@ -37,5 +39,17 @@ public final class PlayerListeners implements Listener {
 
 		VapoxPvP.setWarp(player, warp);
 		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.teleport(warp.getLocation()), 10L);
+	}
+
+	@EventHandler
+	private void onPlayerQuit(PlayerQuitEvent event) {
+		Player player = event.getPlayer();
+		VapoxPvP.removeKitCooldown(player);
+	}
+
+	@EventHandler
+	private void onPlayerKick(PlayerKickEvent event) {
+		Player player = event.getPlayer();
+		VapoxPvP.removeKitCooldown(player);
 	}
 }
