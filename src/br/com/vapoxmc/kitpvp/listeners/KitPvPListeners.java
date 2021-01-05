@@ -85,9 +85,9 @@ public final class KitPvPListeners implements Listener {
 				} else if (sign.getLine(1).equals("§aRecraft!")) {
 					Inventory inv = Bukkit.createInventory(null, 9, "");
 
-					inv.setItem(3, new Stack(Material.BOWL, 64).display("§7» §fRecraft").lore(""));
-					inv.setItem(4, new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft").lore(""));
-					inv.setItem(5, new Stack(Material.RED_MUSHROOM, 64).display("§7» Recraft").lore(""));
+					inv.setItem(3, new Stack(Material.BOWL, 64).display("§7» §fRecraft"));
+					inv.setItem(4, new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft"));
+					inv.setItem(5, new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft"));
 
 					player.openInventory(inv);
 				} else if (sign.getLine(1).equals("§aPoção!")) {
