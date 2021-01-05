@@ -7,3 +7,9 @@ authors: [SudanoJ, Carlos Henrique#0240]
 commands:
   kit:
     description: Pegue seu kitpvp!
+  resetkit:
+    description: Remova o seu kit!
+  spawn:
+    description: Teleporte-se para o spawn!
+  warp:
+    description: Veja as warps do servidor
