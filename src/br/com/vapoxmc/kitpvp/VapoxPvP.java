@@ -46,6 +46,7 @@ import br.com.vapoxmc.kitpvp.listeners.CombatLogListeners;
 import br.com.vapoxmc.kitpvp.listeners.JumpListeners;
 import br.com.vapoxmc.kitpvp.listeners.KitPvPListeners;
 import br.com.vapoxmc.kitpvp.listeners.PlayerListeners;
+import br.com.vapoxmc.kitpvp.listeners.WorldListeners;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
@@ -268,6 +269,7 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new JumpListeners(), this);
 		pm.registerEvents(new KitPvPListeners(), this);
 		pm.registerEvents(new PlayerListeners(), this);
+		pm.registerEvents(new WorldListeners(), this);
 
 		pm.registerEvents(new SeusKitsGUI(), this);
 		pm.registerEvents(new WarpsGUI(), this);
