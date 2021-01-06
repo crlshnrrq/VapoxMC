@@ -14,16 +14,23 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
+import br.com.vapoxmc.kitpvp.utils.Strings;
 import br.com.vapoxmc.kitpvp.warp.LavaChallengeWarp;
 import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class KitPvPListeners implements Listener {
+
+	@EventHandler
+	private void onServerListPing(ServerListPingEvent event) {
+		event.setMotd(Strings.getMotd());
+	}
 
 	@EventHandler
 	private void onSignChange(SignChangeEvent event) {
