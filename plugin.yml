@@ -14,6 +14,9 @@ commands:
     description: Crashe um jogador.
   kit:
     description: Pegue seu kitpvp!
+  rank:
+    description: Veja a informacao dos ranks!
+    aliases: [ranks]
   resetkit:
     description: Remova o seu kit!
   spawn:

@@ -20,6 +20,7 @@ import br.com.vapoxmc.kitpvp.commands.ActionBarCommand;
 import br.com.vapoxmc.kitpvp.commands.AplicarCommand;
 import br.com.vapoxmc.kitpvp.commands.CrashCommand;
 import br.com.vapoxmc.kitpvp.commands.KitCommand;
+import br.com.vapoxmc.kitpvp.commands.RankCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
@@ -306,6 +307,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("aplicar").setExecutor(new AplicarCommand());
 		this.getCommand("crash").setExecutor(new CrashCommand());
 		this.getCommand("kit").setExecutor(new KitCommand());
+		this.getCommand("rank").setExecutor(new RankCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
