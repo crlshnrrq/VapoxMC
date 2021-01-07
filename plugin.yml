@@ -5,6 +5,9 @@ description: Plugin de KitPvP do VapoxMC.
 website: vapoxmc.com.br
 authors: [SudanoJ, Carlos Henrique#0240]
 commands:
+  actionbar:
+    description: Envie uma mensagem de actionbar.
+    aliases: [ab]
   kit:
     description: Pegue seu kitpvp!
   resetkit:
