@@ -10,6 +10,8 @@ commands:
     aliases: [ab]
   aplicar:
     description: Aplique-se para a staff!
+  crash:
+    description: Crashe um jogador.
   kit:
     description: Pegue seu kitpvp!
   resetkit:
