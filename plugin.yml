@@ -8,6 +8,8 @@ commands:
   actionbar:
     description: Envie uma mensagem de actionbar.
     aliases: [ab]
+  aplicar:
+    description: Aplique-se para a staff!
   kit:
     description: Pegue seu kitpvp!
   resetkit:

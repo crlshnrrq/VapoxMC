@@ -17,6 +17,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import br.com.vapoxmc.kitpvp.commands.ActionBarCommand;
+import br.com.vapoxmc.kitpvp.commands.AplicarCommand;
 import br.com.vapoxmc.kitpvp.commands.KitCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
@@ -301,6 +302,7 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new UMvUMWarp(), this);
 
 		this.getCommand("actionbar").setExecutor(new ActionBarCommand());
+		this.getCommand("aplicar").setExecutor(new AplicarCommand());
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
