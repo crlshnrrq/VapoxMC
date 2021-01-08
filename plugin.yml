@@ -21,6 +21,8 @@ commands:
     aliases: [gm]
   head:
     description: Pegue a head de alguem.
+  invsee:
+    description: Veja o inventario de alguem!
   kit:
     description: Pegue seu kitpvp!
   online:
