@@ -19,6 +19,8 @@ commands:
   gamemode:
     description: Altere seu modo de jogo.
     aliases: [gm]
+  head:
+    description: Pegue a head de alguem.
   kit:
     description: Pegue seu kitpvp!
   rank:
