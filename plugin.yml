@@ -34,6 +34,8 @@ commands:
   rank:
     description: Veja a informacao dos ranks!
     aliases: [ranks]
+  refresh:
+    description: Reinicia o servidor.
   resetkit:
     description: Remova o seu kit!
   spawn:
