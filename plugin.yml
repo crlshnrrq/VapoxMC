@@ -10,6 +10,8 @@ commands:
     aliases: [ab]
   aplicar:
     description: Aplique-se para a staff!
+  aviso:
+    description: Faca um anuncio global.
   crash:
     description: Crashe um jogador.
   kit:
