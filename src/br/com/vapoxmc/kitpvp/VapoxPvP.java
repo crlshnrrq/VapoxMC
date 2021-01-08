@@ -32,6 +32,7 @@ import br.com.vapoxmc.kitpvp.commands.RankCommand;
 import br.com.vapoxmc.kitpvp.commands.RefreshCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
+import br.com.vapoxmc.kitpvp.commands.StaffChatCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
@@ -74,6 +75,8 @@ import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class VapoxPvP extends JavaPlugin {
 
+	private static final List<UUID> ignoreStaffChat = new ArrayList<>();
+
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
 	private static final Map<UUID, Long> longMap = new HashMap<>();
@@ -86,6 +89,19 @@ public final class VapoxPvP extends JavaPlugin {
 
 	private static final Map<UUID, UUID> enemyMap = new HashMap<>();
 	private static final Map<UUID, Integer> timeMap = new HashMap<>();
+
+	public static boolean isIgnoreStaffChat(Player player) {
+		return ignoreStaffChat.contains(player.getUniqueId());
+	}
+
+	public static void addIgnoreStaffChat(Player player) {
+		if (!isIgnoreStaffChat(player))
+			ignoreStaffChat.add(player.getUniqueId());
+	}
+
+	public static void removeIgnoreStaffChat(Player player) {
+		ignoreStaffChat.remove(player.getUniqueId());
+	}
 
 	public static List<Kit> getKits() {
 		return kits;
@@ -328,6 +344,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("refresh").setExecutor(new RefreshCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
+		this.getCommand("sc").setExecutor(new StaffChatCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
 
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
