@@ -21,6 +21,8 @@ commands:
     aliases: [gm]
   head:
     description: Pegue a head de alguem.
+  infocommand:
+    description: Veja a informacao de um jogador!
   invsee:
     description: Veja o inventario de alguem!
   kit:
