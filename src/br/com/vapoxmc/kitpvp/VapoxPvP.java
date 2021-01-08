@@ -35,6 +35,7 @@ import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
 import br.com.vapoxmc.kitpvp.commands.StaffChatCommand;
 import br.com.vapoxmc.kitpvp.commands.TellCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
+import br.com.vapoxmc.kitpvp.commands.YouTuberCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
 import br.com.vapoxmc.kitpvp.gui.YouTuberGUI;
@@ -377,6 +378,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("sc").setExecutor(new StaffChatCommand());
 		this.getCommand("tell").setExecutor(new TellCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
+		this.getCommand("youtuber").setExecutor(new YouTuberCommand());
 
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
 		getKits().clear();

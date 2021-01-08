@@ -46,3 +46,6 @@ commands:
     description: Envie mensagens privadas!
   warp:
     description: Veja as warps do servidor
+  youtuber:
+    description: Veja os requitios para youtuber!
+    aliases: [yt]
