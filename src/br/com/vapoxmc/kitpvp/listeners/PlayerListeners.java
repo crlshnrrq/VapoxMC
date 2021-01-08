@@ -30,6 +30,9 @@ public final class PlayerListeners implements Listener {
 		if (!PlayerAccount.existAccount(player.getName()))
 			PlayerAccount.createAccount(player);
 
+		VapoxPvP.removeTellDisabled(player);
+		VapoxPvP.removeSpyingTell(player);
+
 		Warp warp = VapoxPvP.getDefaultWarp();
 		VapoxPvP.setWarp(player, warp);
 
