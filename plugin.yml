@@ -42,5 +42,7 @@ commands:
     description: Teleporte-se para o spawn!
   sc:
     description: fale algo no StaffChat
+  tell:
+    description: Envie mensagens privadas!
   warp:
     description: Veja as warps do servidor

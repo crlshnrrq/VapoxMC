@@ -33,6 +33,7 @@ import br.com.vapoxmc.kitpvp.commands.RefreshCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
 import br.com.vapoxmc.kitpvp.commands.StaffChatCommand;
+import br.com.vapoxmc.kitpvp.commands.TellCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
@@ -75,7 +76,8 @@ import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class VapoxPvP extends JavaPlugin {
 
-	private static final List<UUID> ignoreStaffChat = new ArrayList<>();
+	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
+			spyingTell = new ArrayList<>();
 
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
@@ -101,6 +103,32 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static void removeIgnoreStaffChat(Player player) {
 		ignoreStaffChat.remove(player.getUniqueId());
+	}
+
+	public static boolean isTellDisabled(Player player) {
+		return tellDisabled.contains(player.getUniqueId());
+	}
+
+	public static void addTellDisabled(Player player) {
+		if (!isTellDisabled(player))
+			tellDisabled.add(player.getUniqueId());
+	}
+
+	public static void removeTellDisabled(Player player) {
+		tellDisabled.remove(player.getUniqueId());
+	}
+
+	public static boolean isSpyingTell(Player player) {
+		return spyingTell.contains(player.getUniqueId());
+	}
+
+	public static void addSpyingTell(Player player) {
+		if (!isSpyingTell(player))
+			spyingTell.add(player.getUniqueId());
+	}
+
+	public static void removeSpyingTell(Player player) {
+		spyingTell.remove(player.getUniqueId());
 	}
 
 	public static List<Kit> getKits() {
@@ -345,6 +373,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
 		this.getCommand("sc").setExecutor(new StaffChatCommand());
+		this.getCommand("tell").setExecutor(new TellCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
 
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
