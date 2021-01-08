@@ -27,6 +27,8 @@ commands:
     description: Veja o inventario de alguem!
   kit:
     description: Pegue seu kitpvp!
+  lastlogin:
+    description: Veja o ultimo acesso de alguem!
   online:
     description: Veja os jogadores online!
   ping:
