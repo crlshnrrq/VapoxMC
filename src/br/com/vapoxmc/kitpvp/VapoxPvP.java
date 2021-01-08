@@ -19,6 +19,7 @@ import org.bukkit.scheduler.BukkitTask;
 import br.com.vapoxmc.kitpvp.commands.ActionBarCommand;
 import br.com.vapoxmc.kitpvp.commands.AplicarCommand;
 import br.com.vapoxmc.kitpvp.commands.AvisoCommand;
+import br.com.vapoxmc.kitpvp.commands.BuildCommand;
 import br.com.vapoxmc.kitpvp.commands.CrashCommand;
 import br.com.vapoxmc.kitpvp.commands.DiscordCommand;
 import br.com.vapoxmc.kitpvp.commands.GameModeCommand;
@@ -85,7 +86,7 @@ import br.com.vapoxmc.kitpvp.warp.Warp;
 public final class VapoxPvP extends JavaPlugin {
 
 	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
-			spyingTell = new ArrayList<>();
+			spyingTell = new ArrayList<>(), build = new ArrayList<>();
 
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
@@ -137,6 +138,19 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static void removeSpyingTell(Player player) {
 		spyingTell.remove(player.getUniqueId());
+	}
+
+	public static boolean hasBuild(Player player) {
+		return build.contains(player.getUniqueId());
+	}
+
+	public static void addBuild(Player player) {
+		if (!hasBuild(player))
+			build.add(player.getUniqueId());
+	}
+
+	public static void removeBuild(Player player) {
+		build.remove(player.getUniqueId());
 	}
 
 	public static List<Kit> getKits() {
@@ -369,6 +383,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("actionbar").setExecutor(new ActionBarCommand());
 		this.getCommand("aplicar").setExecutor(new AplicarCommand());
 		this.getCommand("aviso").setExecutor(new AvisoCommand());
+		this.getCommand("build").setExecutor(new BuildCommand());
 		this.getCommand("crash").setExecutor(new CrashCommand());
 		this.getCommand("discord").setExecutor(new DiscordCommand());
 		this.getCommand("gamemode").setExecutor(new GameModeCommand());
