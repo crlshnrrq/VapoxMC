@@ -25,6 +25,7 @@ import br.com.vapoxmc.kitpvp.commands.GameModeCommand;
 import br.com.vapoxmc.kitpvp.commands.HeadCommand;
 import br.com.vapoxmc.kitpvp.commands.KitCommand;
 import br.com.vapoxmc.kitpvp.commands.OnlineCommand;
+import br.com.vapoxmc.kitpvp.commands.PingCommand;
 import br.com.vapoxmc.kitpvp.commands.RankCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
@@ -317,6 +318,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("head").setExecutor(new HeadCommand());
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("online").setExecutor(new OnlineCommand());
+		this.getCommand("ping").setExecutor(new PingCommand());
 		this.getCommand("rank").setExecutor(new RankCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());

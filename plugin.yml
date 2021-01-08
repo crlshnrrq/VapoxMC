@@ -25,6 +25,8 @@ commands:
     description: Pegue seu kitpvp!
   online:
     description: Veja os jogadores online!
+  ping:
+    description: Veja a velocidade de conexao de alguem.
   rank:
     description: Veja a informacao dos ranks!
     aliases: [ranks]
