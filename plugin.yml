@@ -23,6 +23,8 @@ commands:
     description: Pegue a head de alguem.
   kit:
     description: Pegue seu kitpvp!
+  online:
+    description: Veja os jogadores online!
   rank:
     description: Veja a informacao dos ranks!
     aliases: [ranks]
