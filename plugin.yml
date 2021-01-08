@@ -16,6 +16,9 @@ commands:
     description: Crashe um jogador.
   discord:
     description: Veja o convite do discord do servidor.
+  gamemode:
+    description: Altere seu modo de jogo.
+    aliases: [gm]
   kit:
     description: Pegue seu kitpvp!
   rank:
