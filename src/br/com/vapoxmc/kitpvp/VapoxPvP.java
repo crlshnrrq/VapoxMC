@@ -34,6 +34,7 @@ import br.com.vapoxmc.kitpvp.commands.RefreshCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
 import br.com.vapoxmc.kitpvp.commands.StaffChatCommand;
+import br.com.vapoxmc.kitpvp.commands.TeleportCommand;
 import br.com.vapoxmc.kitpvp.commands.TellCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.commands.YouTuberCommand;
@@ -378,6 +379,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
 		this.getCommand("sc").setExecutor(new StaffChatCommand());
+		this.getCommand("teleport").setExecutor(new TeleportCommand());
 		this.getCommand("tell").setExecutor(new TellCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
 		this.getCommand("youtuber").setExecutor(new YouTuberCommand());
