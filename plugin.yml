@@ -47,6 +47,9 @@ commands:
   teleport:
     description: Teleporte para alguem.
     aliases: [tp]
+  teleporthere:
+    description: Teleporte alguem para voce.
+    aliases: [tphere, tph]
   tell:
     description: Envie mensagens privadas!
   warp:
