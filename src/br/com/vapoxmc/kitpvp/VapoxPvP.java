@@ -12,11 +12,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 
 import br.com.vapoxmc.kitpvp.commands.ActionBarCommand;
+import br.com.vapoxmc.kitpvp.commands.AdminCommand;
 import br.com.vapoxmc.kitpvp.commands.AplicarCommand;
 import br.com.vapoxmc.kitpvp.commands.AvisoCommand;
 import br.com.vapoxmc.kitpvp.commands.BuildCommand;
@@ -87,7 +89,8 @@ import br.com.vapoxmc.kitpvp.warp.Warp;
 public final class VapoxPvP extends JavaPlugin {
 
 	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
-			spyingTell = new ArrayList<>(), build = new ArrayList<>();
+			spyingTell = new ArrayList<>(), build = new ArrayList<>(), admin = new ArrayList<>();
+	private static final Map<UUID, PlayerInventory> saveInventoryMap = new HashMap<>();
 
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
@@ -152,6 +155,35 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static void removeBuild(Player player) {
 		build.remove(player.getUniqueId());
+	}
+
+	public static boolean hasAdmin(Player player) {
+		return admin.contains(player.getUniqueId());
+	}
+
+	public static void addAdmin(Player player) {
+		if (!hasAdmin(player))
+			admin.add(player.getUniqueId());
+	}
+
+	public static boolean hasInventorySave(Player player) {
+		return saveInventoryMap.containsKey(player.getUniqueId());
+	}
+
+	public static PlayerInventory getInventorySave(Player player) {
+		return saveInventoryMap.get(player.getUniqueId());
+	}
+
+	public static void setInventorySave(Player player, PlayerInventory inventory) {
+		saveInventoryMap.put(player.getUniqueId(), inventory);
+	}
+
+	public static PlayerInventory removeInventorySave(Player player) {
+		return saveInventoryMap.remove(player.getUniqueId());
+	}
+
+	public static void removeAdmin(Player player) {
+		admin.remove(player.getUniqueId());
 	}
 
 	public static List<Kit> getKits() {
@@ -383,6 +415,7 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new UMvUMWarp(), this);
 
 		this.getCommand("actionbar").setExecutor(new ActionBarCommand());
+		this.getCommand("admin").setExecutor(new AdminCommand());
 		this.getCommand("aplicar").setExecutor(new AplicarCommand());
 		this.getCommand("aviso").setExecutor(new AvisoCommand());
 		this.getCommand("build").setExecutor(new BuildCommand());

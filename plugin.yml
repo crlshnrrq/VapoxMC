@@ -8,6 +8,8 @@ commands:
   actionbar:
     description: Envie uma mensagem de actionbar.
     aliases: [ab]
+  admin:
+    description: Acesse o modo admin!
   aplicar:
     description: Aplique-se para a staff!
   aviso:
