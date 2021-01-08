@@ -44,6 +44,8 @@ commands:
     description: Teleporte-se para o spawn!
   sc:
     description: fale algo no StaffChat
+  tpall:
+    description: Teleporte todo mundo ate voce.
   teleport:
     description: Teleporte para alguem.
     aliases: [tp]
