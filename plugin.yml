@@ -63,6 +63,8 @@ commands:
   status:
     description: Veja o seu proprio status.
     aliases: [stats]
+  tag:
+    description: Altere sua tag.
   tpall:
     description: Teleporte todo mundo ate voce.
   teleport:
