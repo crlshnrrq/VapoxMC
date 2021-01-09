@@ -22,6 +22,7 @@ import br.com.vapoxmc.kitpvp.commands.AdminCommand;
 import br.com.vapoxmc.kitpvp.commands.AplicarCommand;
 import br.com.vapoxmc.kitpvp.commands.AvisoCommand;
 import br.com.vapoxmc.kitpvp.commands.BuildCommand;
+import br.com.vapoxmc.kitpvp.commands.ChatCommand;
 import br.com.vapoxmc.kitpvp.commands.CheckCommand;
 import br.com.vapoxmc.kitpvp.commands.CrashCommand;
 import br.com.vapoxmc.kitpvp.commands.DiscordCommand;
@@ -92,6 +93,7 @@ import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class VapoxPvP extends JavaPlugin {
 
+	private static boolean chat = true;
 	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
 			spyingTell = new ArrayList<>(), build = new ArrayList<>(), admin = new ArrayList<>(),
 			useReport = new ArrayList<>();
@@ -109,6 +111,14 @@ public final class VapoxPvP extends JavaPlugin {
 
 	private static final Map<UUID, UUID> enemyMap = new HashMap<>();
 	private static final Map<UUID, Integer> timeMap = new HashMap<>();
+
+	public static boolean getChat() {
+		return chat;
+	}
+
+	public static void setChat(boolean value) {
+		chat = value;
+	}
 
 	public static boolean isIgnoreStaffChat(Player player) {
 		return ignoreStaffChat.contains(player.getUniqueId());
@@ -438,6 +448,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("aplicar").setExecutor(new AplicarCommand());
 		this.getCommand("aviso").setExecutor(new AvisoCommand());
 		this.getCommand("build").setExecutor(new BuildCommand());
+		this.getCommand("chat").setExecutor(new ChatCommand());
 		this.getCommand("check").setExecutor(new CheckCommand());
 		this.getCommand("crash").setExecutor(new CrashCommand());
 		this.getCommand("discord").setExecutor(new DiscordCommand());
