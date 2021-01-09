@@ -46,6 +46,8 @@ commands:
     description: Reinicia o servidor.
   report:
     description: Reporte um jogador!
+  rtp:
+    description: Teleporte-se para alguem.
   resetkit:
     description: Remova o seu kit!
   spawn:
