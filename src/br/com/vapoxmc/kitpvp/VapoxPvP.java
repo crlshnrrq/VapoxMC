@@ -1,5 +1,6 @@
 package br.com.vapoxmc.kitpvp;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
-import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
@@ -121,7 +122,7 @@ public final class VapoxPvP extends JavaPlugin {
 	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
 			spyingTell = new ArrayList<>(), build = new ArrayList<>(), admin = new ArrayList<>(),
 			useReport = new ArrayList<>();
-	private static final Map<UUID, PlayerInventory> saveInventoryMap = new HashMap<>();
+	private static final Map<UUID, ItemStack[]> armorMap = new HashMap<>(), inventoryMap = new HashMap<>();
 	private static final Map<UUID, Integer> clickTestMap = new HashMap<>();
 
 	private static boolean eventoActive = false, eventoPvP = false, eventoBuild = false, eventoOpen = false;
@@ -226,20 +227,26 @@ public final class VapoxPvP extends JavaPlugin {
 		useReport.remove(player.getUniqueId());
 	}
 
-	public static boolean hasInventorySave(Player player) {
-		return saveInventoryMap.containsKey(player.getUniqueId());
+	public static boolean hasArmorAndInventory(Player player) {
+		return armorMap.containsKey(player.getUniqueId()) && inventoryMap.containsKey(player.getUniqueId());
 	}
 
-	public static PlayerInventory getInventorySave(Player player) {
-		return saveInventoryMap.get(player.getUniqueId());
+	public static ItemStack[] getArmor(Player player) {
+		return armorMap.get(player.getUniqueId());
 	}
 
-	public static void setInventorySave(Player player, PlayerInventory inventory) {
-		saveInventoryMap.put(player.getUniqueId(), inventory);
+	public static ItemStack[] getInventory(Player player) {
+		return inventoryMap.get(player.getUniqueId());
 	}
 
-	public static PlayerInventory removeInventorySave(Player player) {
-		return saveInventoryMap.remove(player.getUniqueId());
+	public static void setArmorAndInventory(Player player, ItemStack[] armor, ItemStack[] inventory) {
+		armorMap.put(player.getUniqueId(), armor);
+		inventoryMap.put(player.getUniqueId(), inventory);
+	}
+
+	public static void removeArmorAndInventory(Player player) {
+		inventoryMap.remove(player.getUniqueId());
+		armorMap.remove(player.getUniqueId());
 	}
 
 	public static boolean hasClickTest(Player player) {
@@ -633,13 +640,15 @@ public final class VapoxPvP extends JavaPlugin {
 		defaultSidebar = new Sidebar("Principal", Strings.getName()) {
 			@Override
 			public void update(Player player) {
+				DecimalFormat df = new DecimalFormat("###,###.##");
 				this.updateLine(player, "§fCargo: §a", PlayerGroup.getGroup(player).getColoredName());
 				this.updateLine(player, "§fRank: §a", PlayerRank.getRank(player).getColoredName());
-				this.updateLine(player, "§fKills: §a", "" + PlayerAccount.getGeral().getAbates(player));
-				this.updateLine(player, "§fDeaths: §a", "" + PlayerAccount.getGeral().getMortes(player));
-				this.updateLine(player, "§fKillStreak: §a", "" + PlayerAccount.getGeral().getKillStreak(player));
-				this.updateLine(player, "§fMoedas: §a", "" + PlayerAccount.getGeral().getMoedas(player));
-				this.updateLine(player, "§fPontos: §a", "" + PlayerAccount.getGeral().getPontos(player));
+				this.updateLine(player, "§fKills: §a", "" + df.format(PlayerAccount.getGeral().getAbates(player)));
+				this.updateLine(player, "§fDeaths: §a", "" + df.format(PlayerAccount.getGeral().getMortes(player)));
+				this.updateLine(player, "§fKillStreak: §a",
+						"" + df.format(PlayerAccount.getGeral().getKillStreak(player)));
+				this.updateLine(player, "§fMoedas: §a", "" + df.format(PlayerAccount.getGeral().getMoedas(player)));
+				this.updateLine(player, "§fPontos: §a", "" + df.format(PlayerAccount.getGeral().getPontos(player)));
 			}
 		};
 		defaultSidebar.addLine(" ");
@@ -691,9 +700,11 @@ public final class VapoxPvP extends JavaPlugin {
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(players -> {
 			updateSidebar(players);
+			if (VapoxPvP.hasAdmin(players))
+				VapoxUtils.sendActionBar(players, "§fVocê está no modo §cADMIN§f.");
 			VapoxUtils.sendTab(players, Strings.getName() + "\n§fServidor: §aKitPvP\n",
 					"\n§fDiscord: §a" + Strings.getDiscord() + "\n§fJogadores: §a" + Bukkit.getOnlinePlayers().size());
-		}), 0L, 60L);
+		}), 0L, 40L);
 
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §aPlugin habilitado (§7" + this.getDescription().getVersion() + "§a).");

@@ -30,16 +30,12 @@ public final class AdminCommand implements CommandExecutor {
 					Bukkit.getOnlinePlayers().stream()
 							.filter(players -> !players.hasPermission("ciphen.comandos.admin"))
 							.forEach(players -> players.hidePlayer(player));
-					VapoxPvP.setInventorySave(player, player.getInventory());
 					player.setGameMode(GameMode.CREATIVE);
 					player.setFlying(true);
 					player.sendMessage("§e§l[ADMIN] §fVocê §a§lentrou §fno modo admin.");
-					Bukkit.getScheduler().runTaskTimer(VapoxPvP.getInstance(), () -> {
-						if (VapoxPvP.hasAdmin(player))
-							VapoxUtils.sendActionBar(player, "§fVOcê está no modo §cADMIN§f.");
-					}, 0L, 40L);
 
 					PlayerInventory inv = player.getInventory();
+					VapoxPvP.setArmorAndInventory(player, inv.getArmorContents(), inv.getContents());
 					inv.setArmorContents(null);
 					inv.clear();
 
@@ -54,10 +50,11 @@ public final class AdminCommand implements CommandExecutor {
 					VapoxUtils.sendActionBar(player, "§fVocê saiu do modo §cADMIN§f.");
 
 					player.setGameMode(GameMode.CREATIVE);
-					if (VapoxPvP.hasInventorySave(player)) {
-						PlayerInventory inv = player.getInventory(), saveInv = VapoxPvP.removeInventorySave(player);
-						inv.setArmorContents(saveInv.getArmorContents());
-						inv.setContents(saveInv.getContents());
+					if (VapoxPvP.hasArmorAndInventory(player)) {
+						PlayerInventory inv = player.getInventory();
+						inv.setArmorContents(VapoxPvP.getArmor(player));
+						inv.setContents(VapoxPvP.getInventory(player));
+						VapoxPvP.removeArmorAndInventory(player);
 					}
 					player.updateInventory();
 					player.sendMessage("§e§l[ADMIN] §fVocê §c§lsaiu §fdo modo admin.");
