@@ -24,7 +24,9 @@ public final class Stack extends ItemStack implements Cloneable {
 	}
 
 	public Stack ench(Enchantment ench, int lvl) {
-		this.addUnsafeEnchantment(ench, lvl);
+		ItemMeta meta = this.getItemMeta();
+		meta.addEnchant(ench, lvl, false);
+		this.setItemMeta(meta);
 		return this;
 	}
 

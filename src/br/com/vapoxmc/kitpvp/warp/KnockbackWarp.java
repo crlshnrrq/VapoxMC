@@ -34,7 +34,8 @@ public final class KnockbackWarp extends Warp implements Listener {
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
 		if (VapoxPvP.getWarp(player) instanceof KnockbackWarp
-				&& event.getItemDrop().getItemStack().isSimilar(STICK.toItemStack()))
+				&& event.getItemDrop().getItemStack().isSimilar(STICK.toItemStack())) {
 			event.setCancelled(true);
+		}
 	}
 }
