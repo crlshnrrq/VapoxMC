@@ -34,8 +34,7 @@ public final class StaffChatCommand implements CommandExecutor {
 							player.sendMessage(
 									"§c§l[SC] §fUm membro da equipe pode precisar de você e você pode não ver.");
 						}
-					}
-					if (!VapoxPvP.isIgnoreStaffChat(player)) {
+					} else if (!VapoxPvP.isIgnoreStaffChat(player)) {
 						PlayerGroup group = PlayerGroup.getGroup(player);
 						String message = ChatColor.translateAlternateColorCodes('&',
 								StringUtils.join(Arrays.copyOfRange(args, 0, args.length), " "));
