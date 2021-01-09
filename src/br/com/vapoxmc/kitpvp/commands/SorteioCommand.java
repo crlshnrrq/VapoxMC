@@ -40,7 +40,7 @@ public final class SorteioCommand implements CommandExecutor {
 							player.sendMessage(
 									"§c§l[SORTEIO] §c§lSORTEIO CANCELADO§f! Jogadores insuficientes para fazer o sorteio!");
 
-						Player vencedor = jogadores.stream().findAny().get();
+						Player vencedor = jogadores.stream().findAny().orElse(null);
 						int chance = jogadores.size() / 100;
 
 						Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
