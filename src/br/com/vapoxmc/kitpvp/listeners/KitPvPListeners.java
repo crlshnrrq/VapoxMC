@@ -22,6 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
+import br.com.vapoxmc.kitpvp.warp.EventoWarp;
 import br.com.vapoxmc.kitpvp.warp.LavaChallengeWarp;
 import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.kitpvp.warp.Warp;
@@ -129,6 +130,12 @@ public final class KitPvPListeners implements Listener {
 					&& (!(VapoxPvP.getWarp(damager) instanceof UMvUMWarp)
 							|| !((UMvUMWarp) VapoxPvP.getWarp(damager)).hasEnemy(damager)))
 				event.setCancelled(true);
+			else if (VapoxPvP.getWarp(player) instanceof EventoWarp) {
+				if (VapoxPvP.getEventoPvP())
+					event.setCancelled(false);
+				else
+					event.setCancelled(true);
+			}
 		}
 	}
 
@@ -138,6 +145,12 @@ public final class KitPvPListeners implements Listener {
 			Player player = (Player) event.getEntity();
 			if (!VapoxPvP.hasKit(player) || !(VapoxPvP.getWarp(player) instanceof Warp))
 				event.setCancelled(true);
+			if (VapoxPvP.getWarp(player) instanceof EventoWarp) {
+				if (VapoxPvP.getEventoPvP())
+					event.setCancelled(false);
+				else
+					event.setCancelled(true);
+			}
 		}
 	}
 
