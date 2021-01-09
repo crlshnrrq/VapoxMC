@@ -26,6 +26,8 @@ commands:
     description: Crashe um jogador.
   discord:
     description: Veja o convite do discord do servidor.
+  fly:
+    description: Ative o seu modo voar!
   gamemode:
     description: Altere seu modo de jogo.
     aliases: [gm]
