@@ -60,6 +60,7 @@ import br.com.vapoxmc.kitpvp.commands.TransferirCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.commands.YouTuberCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
+import br.com.vapoxmc.kitpvp.gui.ShopGUI;
 import br.com.vapoxmc.kitpvp.gui.StatusGUI;
 import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
 import br.com.vapoxmc.kitpvp.gui.YouTuberGUI;
@@ -442,6 +443,7 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new WorldListeners(), this);
 
 		pm.registerEvents(new SeusKitsGUI(), this);
+		pm.registerEvents(new ShopGUI(), this);
 		pm.registerEvents(new StatusGUI(), this);
 		pm.registerEvents(new WarpsGUI(), this);
 		pm.registerEvents(new YouTuberGUI(), this);
