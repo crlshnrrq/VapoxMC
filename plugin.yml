@@ -41,6 +41,8 @@ commands:
     description: Pegue seu kitpvp!
   lastlogin:
     description: Veja o ultimo acesso de alguem!
+  money:
+    description: Veja o seu saldo.
   online:
     description: Veja os jogadores online!
   ping:
