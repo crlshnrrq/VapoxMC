@@ -25,7 +25,7 @@ public final class SetMoneyCommand implements CommandExecutor {
 							DecimalFormat df = new DecimalFormat("###,###.##");
 
 							PlayerAccount.getGeral().setMoedas(target, amount);
-							player.sendMessage("§a§l[MOEDAS] §fVocê set §a" + df.format(amount) + " §fmoedas para §a"
+							player.sendMessage("§a§l[MOEDAS] §fVocê setou §a" + df.format(amount) + " §fmoedas para §a"
 									+ target.getName());
 							target.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + df.format(amount) + " §fmoedas de §a"
 									+ player.getName());
