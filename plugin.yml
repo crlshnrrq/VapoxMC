@@ -33,6 +33,8 @@ commands:
   gamemode:
     description: Altere seu modo de jogo.
     aliases: [gm]
+  group:
+    description: Altere o grupo de um jogador.
   head:
     description: Pegue a head de alguem.
   infocommand:

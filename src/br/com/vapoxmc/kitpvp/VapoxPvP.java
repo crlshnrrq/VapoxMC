@@ -30,6 +30,7 @@ import br.com.vapoxmc.kitpvp.commands.CrashCommand;
 import br.com.vapoxmc.kitpvp.commands.DiscordCommand;
 import br.com.vapoxmc.kitpvp.commands.FlyCommand;
 import br.com.vapoxmc.kitpvp.commands.GameModeCommand;
+import br.com.vapoxmc.kitpvp.commands.GroupCommand;
 import br.com.vapoxmc.kitpvp.commands.HeadCommand;
 import br.com.vapoxmc.kitpvp.commands.InfoCommand;
 import br.com.vapoxmc.kitpvp.commands.InvseeCommand;
@@ -483,6 +484,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("discord").setExecutor(new DiscordCommand());
 		this.getCommand("fly").setExecutor(new FlyCommand());
 		this.getCommand("gamemode").setExecutor(new GameModeCommand());
+		this.getCommand("group").setExecutor(new GroupCommand());
 		this.getCommand("head").setExecutor(new HeadCommand());
 		this.getCommand("infocommand").setExecutor(new InfoCommand());
 		this.getCommand("invsee").setExecutor(new InvseeCommand());
