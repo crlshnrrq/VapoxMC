@@ -14,6 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -146,5 +147,12 @@ public final class KitPvPListeners implements Listener {
 		ItemStack item = event.getItemDrop().getItemStack();
 		if (VapoxPvP.hasKit(player) && (item.getType().name().contains("_SWORD") || item.getType() == Material.COMPASS))
 			event.setCancelled(true);
+	}
+
+	@EventHandler
+	private void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
+		Player player = event.getPlayer();
+		if (player.getAllowFlight() && VapoxPvP.hasKit(player))
+			player.setAllowFlight(false);
 	}
 }
