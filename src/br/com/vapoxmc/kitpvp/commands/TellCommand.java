@@ -42,7 +42,7 @@ public final class TellCommand implements CommandExecutor {
 					} else
 						player.sendMessage("§cComando incorreto, utilize /" + label + " [ON/OFF] ou /" + label
 								+ " [Jogador] [Mensagem]");
-				} else if (args.length > 2) {
+				} else if (args.length > 1) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
 						if (!VapoxPvP.isTellDisabled(target)) {
