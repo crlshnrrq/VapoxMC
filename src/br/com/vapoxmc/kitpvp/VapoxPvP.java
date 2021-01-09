@@ -47,6 +47,7 @@ import br.com.vapoxmc.kitpvp.commands.ReportTeleportCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.ServerCommand;
 import br.com.vapoxmc.kitpvp.commands.SetMoneyCommand;
+import br.com.vapoxmc.kitpvp.commands.ShopCommand;
 import br.com.vapoxmc.kitpvp.commands.SorteioCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
 import br.com.vapoxmc.kitpvp.commands.StaffChatCommand;
@@ -507,6 +508,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("server").setExecutor(new ServerCommand());
 		this.getCommand("setmoney").setExecutor(new SetMoneyCommand());
+		this.getCommand("shop").setExecutor(new ShopCommand());
 		this.getCommand("sorteio").setExecutor(new SorteioCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
 		this.getCommand("sc").setExecutor(new StaffChatCommand());

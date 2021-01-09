@@ -68,6 +68,8 @@ commands:
     description: Veja as informacoes do servidor.
   setmoney:
     description: Defina o dinheiro de alguem!
+  shop:
+    description: Veja a loja do servidor.
   sorteio:
     description: Efetue um sorteio de moedas!
   spawn:
