@@ -43,8 +43,8 @@ public final class GroupCommand implements CommandExecutor {
 
 								Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 										"pex user " + target.getName() + " group set " + args[1]);
-								Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "tag " + args[1]);
-								target.sendMessage("§a§l[GRUPO] §fSeu grupo foi alterado para " + group.getColoredName()
+								Bukkit.dispatchCommand(target, "tag " + args[1]);
+								target.sendMessage("§b§l[GRUPO] §fSeu grupo foi alterado para " + group.getColoredName()
 										+ " §fpor §b" + player.getName() + " §fpermanentemente!");
 							} else
 								player.sendMessage(
