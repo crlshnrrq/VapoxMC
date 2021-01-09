@@ -66,6 +66,8 @@ commands:
     description: Teleporte-se para alguem.
   resetkit:
     description: Remova o seu kit!
+  score:
+    description: Desative a sua scoreboard
   server:
     description: Veja as informacoes do servidor.
   setmoney:

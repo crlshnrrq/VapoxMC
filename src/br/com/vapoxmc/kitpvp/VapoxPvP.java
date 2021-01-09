@@ -17,6 +17,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import br.com.vapoxmc.kitpvp.commands.ActionBarCommand;
 import br.com.vapoxmc.kitpvp.commands.AddMoneyCommand;
@@ -47,6 +48,7 @@ import br.com.vapoxmc.kitpvp.commands.RemoveMoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportTeleportCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
+import br.com.vapoxmc.kitpvp.commands.ScoreCommand;
 import br.com.vapoxmc.kitpvp.commands.ServerCommand;
 import br.com.vapoxmc.kitpvp.commands.SetMoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.ShopCommand;
@@ -97,6 +99,9 @@ import br.com.vapoxmc.kitpvp.listeners.KitPvPListeners;
 import br.com.vapoxmc.kitpvp.listeners.PlayerListeners;
 import br.com.vapoxmc.kitpvp.listeners.WorldListeners;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
+import br.com.vapoxmc.kitpvp.player.PlayerGroup;
+import br.com.vapoxmc.kitpvp.player.PlayerRank;
+import br.com.vapoxmc.kitpvp.player.Sidebar;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
 import br.com.vapoxmc.kitpvp.warp.EventoWarp;
@@ -121,6 +126,9 @@ public final class VapoxPvP extends JavaPlugin {
 	private static boolean eventoActive = false, eventoPvP = false, eventoBuild = false, eventoOpen = false;
 	private static final List<UUID> players = new ArrayList<>();
 	private static final List<Block> placedBlocks = new ArrayList<>();
+
+	private static final Map<UUID, Sidebar> sidebarMap = new HashMap<>();
+	private static Sidebar defaultSidebar;
 
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
@@ -312,6 +320,34 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static List<Block> getPlacedblocks() {
 		return placedBlocks;
+	}
+
+	public static Sidebar getDefaultSidebar() {
+		return defaultSidebar;
+	}
+
+	public static boolean hasSidebar(Player player) {
+		return sidebarMap.containsKey(player.getUniqueId());
+	}
+
+	public static Sidebar getSidebar(Player player) {
+		return sidebarMap.get(player.getUniqueId());
+	}
+
+	public static void setSidebar(Player player, Sidebar sidebar) {
+		sidebar.sendSidebar(player);
+		sidebarMap.put(player.getUniqueId(), sidebar);
+		updateSidebar(player);
+	}
+
+	public static void updateSidebar(Player player) {
+		if (hasSidebar(player))
+			getSidebar(player).update(player);
+	}
+
+	public static Sidebar removeSidebar(Player player) {
+		player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+		return sidebarMap.remove(player.getUniqueId());
 	}
 
 	public static List<Kit> getKits() {
@@ -576,6 +612,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("report").setExecutor(new ReportCommand());
 		this.getCommand("rtp").setExecutor(new ReportTeleportCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
+		this.getCommand("score").setExecutor(new ScoreCommand());
 		this.getCommand("server").setExecutor(new ServerCommand());
 		this.getCommand("setmoney").setExecutor(new SetMoneyCommand());
 		this.getCommand("shop").setExecutor(new ShopCommand());
@@ -591,6 +628,31 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("transferir").setExecutor(new TransferirCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
 		this.getCommand("youtuber").setExecutor(new YouTuberCommand());
+
+		defaultSidebar = new Sidebar("Principal", Strings.getName()) {
+			@Override
+			public void update(Player player) {
+				this.updateLine(player, "§fCargo: §a", PlayerGroup.getGroup(player).getColoredName());
+				this.updateLine(player, "§fRank: §a", PlayerRank.getRank(player).getColoredName());
+				this.updateLine(player, "§fKills: §a", "" + PlayerAccount.getGeral().getAbates(player));
+				this.updateLine(player, "§fDeaths: §a", "" + PlayerAccount.getGeral().getMortes(player));
+				this.updateLine(player, "§fKillStreak: §a", "" + PlayerAccount.getGeral().getKillStreak(player));
+				this.updateLine(player, "§fMoedas: §a", "" + PlayerAccount.getGeral().getMoedas(player));
+				this.updateLine(player, "§fPontos: §a", "" + PlayerAccount.getGeral().getPontos(player));
+			}
+		};
+		defaultSidebar.addLine(" ");
+		defaultSidebar.addLine("§fCargo: §a");
+		defaultSidebar.addLine("§fRank: §a");
+		defaultSidebar.addLine(" ");
+		defaultSidebar.addLine("§fKills: §a");
+		defaultSidebar.addLine("§fDeaths: §a");
+		defaultSidebar.addLine("§fKillStreak: §a");
+		defaultSidebar.addLine(" ");
+		defaultSidebar.addLine("§fMoedas: §a");
+		defaultSidebar.addLine("§fPontos: §a");
+		defaultSidebar.addLine(" ");
+		defaultSidebar.addLine("§7vapoxmc.com.br");
 
 		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
 		getKits().clear();
@@ -625,6 +687,9 @@ public final class VapoxPvP extends JavaPlugin {
 		getWarps().add(new EventoWarp());
 
 		PlayerAccount.createConnection();
+
+		Bukkit.getScheduler().runTaskTimer(this,
+				() -> Bukkit.getOnlinePlayers().forEach(players -> updateSidebar(players)), 0L, 60L);
 
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §aPlugin habilitado (§7" + this.getDescription().getVersion() + "§a).");

@@ -27,6 +27,9 @@ public final class PlayerListeners implements Listener {
 		Player player = event.getPlayer();
 		event.setJoinMessage(null);
 
+		if (!player.hasPlayedBefore())
+			player.kickPlayer("§c§lVAPOXMC\n\n§cPor favor, conecte-se novamente para validarmos a sua conta.");
+
 		if (!PlayerAccount.existAccount(player.getName()))
 			PlayerAccount.createAccount(player);
 
@@ -40,6 +43,10 @@ public final class PlayerListeners implements Listener {
 			player.teleport(new Location(Bukkit.getWorlds().get(0), 1000, 102, 1000));
 		} catch (Exception ex) {
 		}
+
+		player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+
+		VapoxPvP.setSidebar(player, VapoxPvP.getDefaultSidebar());
 
 		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.teleport(warp.getLocation()), 10L);
 		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> warp.giveItems(player), 20L);
@@ -144,6 +151,9 @@ public final class PlayerListeners implements Listener {
 				if (VapoxPvP.isInCombat(player))
 					VapoxPvP.removeCombat(player);
 				player.sendMessage("§c§l[MORTE] §fVocê morreu para o jogador §c" + killer.getName() + "§f.");
+
+				if (VapoxPvP.hasEventoPlayer(player))
+					player.sendMessage("§c§l[EVENTO] §fVocê foi desclassificado do evento.");
 			}
 			if (PlayerAccount.getGeral().getKillStreak(player) > 5)
 				Bukkit.broadcastMessage("§c§l[KILLSTREAK] §fO jogador §c" + player.getName()
@@ -157,6 +167,7 @@ public final class PlayerListeners implements Listener {
 						+ " §fatingiu um killstreak de §e§l" + killStreak + " §fabates!");
 		} else
 			player.sendMessage("§c§l[MORTE] §fVocê morreu por §ccausas desconhecidas§f, portanto §cnão foi contado§f.");
+		VapoxPvP.removeEventoPlayer(player);
 	}
 
 	@EventHandler
@@ -179,6 +190,7 @@ public final class PlayerListeners implements Listener {
 
 		((UMvUMWarp) VapoxPvP.getWarpByName("1v1")).removeEnemy(player);
 		VapoxPvP.removeKit(player);
+		VapoxPvP.removeEventoPlayer(player);
 	}
 
 	@EventHandler
