@@ -21,7 +21,7 @@ public final class YouTuberGUI implements Listener {
 	}
 
 	public static void openGUI(Player player) {
-		Inventory inv = Bukkit.createInventory(null, 27, "§eRequisitos YouTuber!");
+		Inventory inv = Bukkit.createInventory(null, 27, "§e§lRequisitos YouTuber!");
 
 		inv.setItem(12,
 				new Stack(Material.SKULL_ITEM, 1, 3).owner("Plotinum").display("§b§lYOUTUBER").lore(
