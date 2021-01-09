@@ -45,6 +45,14 @@ public enum PlayerGroup {
 		return this.getColor() + "§l" + this.getName();
 	}
 
+	public static PlayerGroup getByName(String name) {
+		for (PlayerGroup group : values()) {
+			if (group.name().equalsIgnoreCase(name))
+				return group;
+		}
+		return null;
+	}
+
 	public static PlayerGroup getGroup(Player player) {
 		for (PlayerGroup group : values()) {
 			if (player.hasPermission(group.getPermission()))
