@@ -28,8 +28,7 @@ public final class ShopKDRGUI implements Listener {
 
 			if (display.equals("§c§lReset KDR")) {
 				if (geral.getMoedas(player) >= 5000) {
-					geral.drawMoedas(player, 5000).setAbates(player, 0).setMortes(player, 0).setKillStreak(player, 0)
-							.setPontos(player, 0);
+					geral.drawMoedas(player, 5000).setAbates(player, 0).setMortes(player, 0).setKillStreak(player, 0);
 
 					PlayerAccount.get1v1().setVitorias(player, 0).setDerrotas(player, 0).setWinStreak(player, 0);
 					PlayerAccount.getSumo().setVitorias(player, 0).setDerrotas(player, 0).setWinStreak(player, 0);
