@@ -15,6 +15,11 @@ import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 
 public final class AdminCommand implements CommandExecutor {
 
+	public static final Stack KNOCKBACK = new Stack(Material.IRON_FENCE).display("§7» §bKnockback Teste"),
+			QUICKADMIN = new Stack(Material.MAGMA_CREAM).display("§7» §bQuick Admin"),
+			INFO = new Stack(Material.BOOK).display("§7» §bInformações"),
+			CLICKTEST = new Stack(Material.WOOD_SWORD).display("§7» §bTeste de Cliques");
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
@@ -38,10 +43,10 @@ public final class AdminCommand implements CommandExecutor {
 					inv.setArmorContents(null);
 					inv.clear();
 
-					inv.setItem(2, new Stack(Material.IRON_FENCE).display("§7» §bKnockback Teste"));
-					inv.setItem(4, new Stack(Material.MAGMA_CREAM).display("§7» §bQuick Admin"));
-					inv.setItem(6, new Stack(Material.BOOK).display("§7» §bInformações"));
-					inv.setItem(8, new Stack(Material.WOOD_SWORD).display("§7» §bTeste de Cliques"));
+					inv.setItem(2, KNOCKBACK);
+					inv.setItem(4, QUICKADMIN);
+					inv.setItem(6, INFO);
+					inv.setItem(8, CLICKTEST);
 					player.updateInventory();
 				} else {
 					VapoxPvP.removeAdmin(player);
