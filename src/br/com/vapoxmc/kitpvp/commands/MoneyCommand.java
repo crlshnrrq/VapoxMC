@@ -25,7 +25,7 @@ public final class MoneyCommand implements CommandExecutor {
 				Player target = Bukkit.getPlayer(args[0]);
 				if (target != null) {
 					player.sendMessage("§a§l[MOEDAS] §fO saldo de §a" + target.getName() + " §fé de: §a"
-							+ df.format(PlayerAccount.getGeral().getMoedas(target) + " §fmoedas!"));
+							+ df.format(PlayerAccount.getGeral().getMoedas(target)) + " §fmoedas!");
 					TextComponent transfer = new TextComponent(
 							"§e§l[DICA] §fClique §e§lAQUI §fpara transferir moedas para §a" + target.getName());
 					transfer.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
@@ -37,7 +37,7 @@ public final class MoneyCommand implements CommandExecutor {
 					player.sendMessage("§cJogador \"" + args[0] + "\" não encontrado.");
 			} else {
 				player.sendMessage("§a§l[MOEDAS] §fSeu saldo é de: §a"
-						+ df.format(PlayerAccount.getGeral().getMoedas(player) + " §fmoedas!"));
+						+ df.format(PlayerAccount.getGeral().getMoedas(player)) + " §fmoedas!");
 				player.sendMessage("§e§l[DICA] §fUtilize §a/transferir [Jogador] [Moedas] §fpara enviar moedas!");
 			}
 		} else
