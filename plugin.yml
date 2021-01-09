@@ -19,7 +19,9 @@ commands:
   chat:
     description: Altere as preferencias do chat.
   check:
-    description: Acesse o modo admin!
+    description: Veja o grupo de alguem.
+  clicktest:
+    description: Veja os cliques de alguem
   crash:
     description: Crashe um jogador.
   discord:

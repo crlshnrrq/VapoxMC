@@ -24,6 +24,7 @@ import br.com.vapoxmc.kitpvp.commands.AvisoCommand;
 import br.com.vapoxmc.kitpvp.commands.BuildCommand;
 import br.com.vapoxmc.kitpvp.commands.ChatCommand;
 import br.com.vapoxmc.kitpvp.commands.CheckCommand;
+import br.com.vapoxmc.kitpvp.commands.ClickTestCommand;
 import br.com.vapoxmc.kitpvp.commands.CrashCommand;
 import br.com.vapoxmc.kitpvp.commands.DiscordCommand;
 import br.com.vapoxmc.kitpvp.commands.GameModeCommand;
@@ -98,6 +99,7 @@ public final class VapoxPvP extends JavaPlugin {
 			spyingTell = new ArrayList<>(), build = new ArrayList<>(), admin = new ArrayList<>(),
 			useReport = new ArrayList<>();
 	private static final Map<UUID, PlayerInventory> saveInventoryMap = new HashMap<>();
+	private static final Map<UUID, Integer> clickTestMap = new HashMap<>();
 
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
@@ -208,6 +210,22 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static PlayerInventory removeInventorySave(Player player) {
 		return saveInventoryMap.remove(player.getUniqueId());
+	}
+
+	public static boolean hasClickTest(Player player) {
+		return clickTestMap.containsKey(player.getUniqueId());
+	}
+
+	public static int getClickTest(Player player) {
+		return clickTestMap.getOrDefault(player.getUniqueId(), 0);
+	}
+
+	public static void setClickTest(Player player, int i) {
+		clickTestMap.put(player.getUniqueId(), i);
+	}
+
+	public static int removeClickTest(Player player) {
+		return clickTestMap.remove(player.getUniqueId());
 	}
 
 	public static void removeAdmin(Player player) {
@@ -450,6 +468,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("build").setExecutor(new BuildCommand());
 		this.getCommand("chat").setExecutor(new ChatCommand());
 		this.getCommand("check").setExecutor(new CheckCommand());
+		this.getCommand("clicktest").setExecutor(new ClickTestCommand());
 		this.getCommand("crash").setExecutor(new CrashCommand());
 		this.getCommand("discord").setExecutor(new DiscordCommand());
 		this.getCommand("gamemode").setExecutor(new GameModeCommand());
