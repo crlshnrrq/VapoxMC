@@ -13,7 +13,7 @@ public final class BuildListeners implements Listener {
 	@EventHandler
 	private void onBlockPlace(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.hasBuild(player))
+		if (VapoxPvP.hasBuild(player) || (VapoxPvP.hasEventoPlayer(player) && VapoxPvP.getEventoBuild()))
 			event.setCancelled(false);
 		else
 			event.setCancelled(true);
@@ -22,7 +22,7 @@ public final class BuildListeners implements Listener {
 	@EventHandler
 	private void onBlockBreak(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.hasBuild(player))
+		if (VapoxPvP.hasBuild(player) || (VapoxPvP.hasEventoPlayer(player) && VapoxPvP.getEventoBuild()))
 			event.setCancelled(false);
 		else
 			event.setCancelled(true);

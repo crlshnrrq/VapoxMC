@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.PlayerInventory;
@@ -28,6 +29,7 @@ import br.com.vapoxmc.kitpvp.commands.CheckCommand;
 import br.com.vapoxmc.kitpvp.commands.ClickTestCommand;
 import br.com.vapoxmc.kitpvp.commands.CrashCommand;
 import br.com.vapoxmc.kitpvp.commands.DiscordCommand;
+import br.com.vapoxmc.kitpvp.commands.EventoCommand;
 import br.com.vapoxmc.kitpvp.commands.FlyCommand;
 import br.com.vapoxmc.kitpvp.commands.GameModeCommand;
 import br.com.vapoxmc.kitpvp.commands.GroupCommand;
@@ -97,6 +99,7 @@ import br.com.vapoxmc.kitpvp.listeners.WorldListeners;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
+import br.com.vapoxmc.kitpvp.warp.EventoWarp;
 import br.com.vapoxmc.kitpvp.warp.FPSWarp;
 import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
 import br.com.vapoxmc.kitpvp.warp.KnockbackWarp;
@@ -114,6 +117,10 @@ public final class VapoxPvP extends JavaPlugin {
 			useReport = new ArrayList<>();
 	private static final Map<UUID, PlayerInventory> saveInventoryMap = new HashMap<>();
 	private static final Map<UUID, Integer> clickTestMap = new HashMap<>();
+
+	private static boolean eventoActive = false, eventoPvP = false, eventoBuild = false, eventoOpen = false;
+	private static final List<UUID> players = new ArrayList<>();
+	private static final List<Block> placedBlocks = new ArrayList<>();
 
 	private static final List<Kit> kits = new ArrayList<>();
 	private static final Map<UUID, String> kitMap = new HashMap<>();
@@ -244,6 +251,67 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static void removeAdmin(Player player) {
 		admin.remove(player.getUniqueId());
+	}
+
+	public static boolean isEventoActive() {
+		return eventoActive;
+	}
+
+	public static void setEventoActive(boolean value) {
+		eventoActive = value;
+	}
+
+	public static boolean getEventoPvP() {
+		return eventoPvP;
+	}
+
+	public static void setEventoPvP(boolean value) {
+		eventoPvP = value;
+	}
+
+	public static boolean getEventoBuild() {
+		return eventoBuild;
+	}
+
+	public static void setEventoBuild(boolean value) {
+		eventoBuild = value;
+	}
+
+	public static boolean isEventoOpen() {
+		return eventoOpen;
+	}
+
+	public static void setEventoOpen(boolean value) {
+		eventoOpen = value;
+	}
+
+	public static List<Player> getEventoPlayers() {
+		List<Player> list = new ArrayList<>();
+		players.forEach(uuid -> {
+			Player player = Bukkit.getPlayer(uuid);
+			if (player != null)
+				list.add(player);
+			else
+				players.remove(uuid);
+		});
+		return list;
+	}
+
+	public static boolean hasEventoPlayer(Player player) {
+		return players.contains(player.getUniqueId());
+	}
+
+	public static void addEventoPlayer(Player player) {
+		if (!hasEventoPlayer(player))
+			players.add(player.getUniqueId());
+	}
+
+	public static void removeEventoPlayer(Player player) {
+		players.remove(player.getUniqueId());
+	}
+
+	public static List<Block> getPlacedblocks() {
+		return placedBlocks;
 	}
 
 	public static List<Kit> getKits() {
@@ -477,6 +545,7 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new PotPvPWarp(), this);
 		pm.registerEvents(new SpawnWarp(), this);
 		pm.registerEvents(new UMvUMWarp(), this);
+		pm.registerEvents(new EventoWarp(), this);
 
 		this.getCommand("actionbar").setExecutor(new ActionBarCommand());
 		this.getCommand("addmoney").setExecutor(new AddMoneyCommand());
@@ -489,6 +558,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("clicktest").setExecutor(new ClickTestCommand());
 		this.getCommand("crash").setExecutor(new CrashCommand());
 		this.getCommand("discord").setExecutor(new DiscordCommand());
+		this.getCommand("evento").setExecutor(new EventoCommand());
 		this.getCommand("fly").setExecutor(new FlyCommand());
 		this.getCommand("gamemode").setExecutor(new GameModeCommand());
 		this.getCommand("group").setExecutor(new GroupCommand());
@@ -552,6 +622,7 @@ public final class VapoxPvP extends JavaPlugin {
 		getWarps().add(new LavaChallengeWarp());
 		getWarps().add(new PotPvPWarp());
 		getWarps().add(new UMvUMWarp());
+		getWarps().add(new EventoWarp());
 
 		PlayerAccount.createConnection();
 
