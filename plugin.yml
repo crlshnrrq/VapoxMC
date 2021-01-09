@@ -77,6 +77,8 @@ commands:
     aliases: [tphere, tph]
   tell:
     description: Envie mensagens privadas!
+  transferir:
+    description: Envie moedas para um jogador!
   warp:
     description: Veja as warps do servidor
   youtuber:

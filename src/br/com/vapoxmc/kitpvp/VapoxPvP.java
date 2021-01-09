@@ -50,6 +50,7 @@ import br.com.vapoxmc.kitpvp.commands.TeleportAllCommand;
 import br.com.vapoxmc.kitpvp.commands.TeleportCommand;
 import br.com.vapoxmc.kitpvp.commands.TeleportHereCommand;
 import br.com.vapoxmc.kitpvp.commands.TellCommand;
+import br.com.vapoxmc.kitpvp.commands.TransferirCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.commands.YouTuberCommand;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
@@ -497,6 +498,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("teleport").setExecutor(new TeleportCommand());
 		this.getCommand("teleporthere").setExecutor(new TeleportHereCommand());
 		this.getCommand("tell").setExecutor(new TellCommand());
+		this.getCommand("transferir").setExecutor(new TransferirCommand());
 		this.getCommand("warp").setExecutor(new WarpCommand());
 		this.getCommand("youtuber").setExecutor(new YouTuberCommand());
 
