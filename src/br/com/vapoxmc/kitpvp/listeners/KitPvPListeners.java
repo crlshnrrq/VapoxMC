@@ -73,7 +73,8 @@ public final class KitPvPListeners implements Listener {
 					for (Entity entities : player.getNearbyEntities(i, i, i)) {
 						if (entities instanceof Player) {
 							Player players = (Player) entities;
-							if (player.getLocation().distance(players.getLocation()) > 0) {
+							if (!VapoxPvP.hasAdmin(players)
+									&& player.getLocation().distance(players.getLocation()) > 0) {
 								player.setCompassTarget(players.getLocation());
 								player.sendMessage("§a§l[COMPASS] §fBússola apontando para §a" + players.getName());
 								return;

@@ -135,6 +135,12 @@ public final class UMvUMWarp extends Warp implements Listener {
 						player.hidePlayer(players);
 						enemy.hidePlayer(players);
 					});
+			Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players)).forEach(players -> {
+				if (!player.hasPermission("ciphen.comandos.admin"))
+					player.hidePlayer(players);
+				if (!enemy.hasPermission("ciphen.comandos.admin"))
+					enemy.hidePlayer(players);
+			});
 
 			this.setEnemy(player, enemy);
 			this.setEnemy(enemy, player);

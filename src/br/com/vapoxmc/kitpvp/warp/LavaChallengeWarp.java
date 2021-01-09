@@ -40,7 +40,7 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 	private boolean isAbusing(Player player) {
 		return player.isFlying() || player.getAllowFlight() || player.getGameMode() == GameMode.CREATIVE
 				|| !player.getActivePotionEffects().isEmpty()
-				|| !(VapoxPvP.getWarp(player) instanceof LavaChallengeWarp);
+				|| !(VapoxPvP.getWarp(player) instanceof LavaChallengeWarp) || VapoxPvP.hasAdmin(player);
 	}
 
 	@EventHandler

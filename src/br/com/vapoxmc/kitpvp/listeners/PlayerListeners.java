@@ -49,8 +49,12 @@ public final class PlayerListeners implements Listener {
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nte player " + player.getName() + " priority 19");
 		player.setDisplayName("§7" + player.getName());
 
-		if (player.hasPermission("ciphen.comandos.gamemode"))
-			player.setGameMode(GameMode.CREATIVE);
+		if (!player.hasPermission("ciphen.comandos.admin"))
+			Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players))
+					.forEach(players -> player.hidePlayer(players));
+		if (!player.hasPermission(""))
+			if (player.hasPermission("ciphen.comandos.gamemode"))
+				player.setGameMode(GameMode.CREATIVE);
 
 		for (int i = 0; i < 200; i++)
 			player.sendMessage(" ");
@@ -74,9 +78,21 @@ public final class PlayerListeners implements Listener {
 				UMvUMWarp warp = (UMvUMWarp) VapoxPvP.getWarp(player);
 				if (warp.hasEnemy(player)) {
 					Player enemy = warp.getEnemy(player);
-
 					warp.removeEnemy(player);
 					warp.removeEnemy(enemy);
+
+					Bukkit.getOnlinePlayers().forEach(players -> {
+						player.showPlayer(players);
+						enemy.showPlayer(players);
+					});
+					Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players))
+							.forEach(players -> {
+								if (!player.hasPermission("ciphen.comandos.admin"))
+									player.hidePlayer(players);
+								if (!enemy.hasPermission("ciphen.comandos.admin"))
+									enemy.hidePlayer(players);
+							});
+
 					PlayerAccount.getGeral().addAbate(enemy).addMorte(player);
 					PlayerAccount.get1v1().addVitoria(enemy).addDerrota(player);
 					player.sendMessage("§c§l[1V1] §fVocê perdeu a batalha contra §c" + enemy.getName() + "§f.");
