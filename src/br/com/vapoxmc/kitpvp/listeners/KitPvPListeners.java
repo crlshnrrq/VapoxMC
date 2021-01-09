@@ -156,9 +156,8 @@ public final class KitPvPListeners implements Listener {
 
 	@EventHandler
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
-		Player player = event.getPlayer();
 		ItemStack item = event.getItemDrop().getItemStack();
-		if (VapoxPvP.hasKit(player) && (item.getType().name().contains("_SWORD") || item.getType() == Material.COMPASS))
+		if (item.getType().name().contains("_SWORD") || item.getType() == Material.COMPASS)
 			event.setCancelled(true);
 	}
 
