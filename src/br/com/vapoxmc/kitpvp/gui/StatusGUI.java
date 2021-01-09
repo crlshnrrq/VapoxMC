@@ -58,128 +58,130 @@ public final class StatusGUI implements Listener {
 						"§fBooster: §a" + (target.hasPermission("ciphen.doublexp") ? "x2.0" : "x1.0")));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.UNRANKED.getPontos())
-			inv.setItem(19,
+			inv.setItem(28,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-							.display("§7(" + PlayerRank.UNRANKED.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.UNRANKED.getColoredSymbol() + "§7) | "
 									+ PlayerRank.UNRANKED.getColoredName())
 							.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
-			inv.setItem(19,
+			inv.setItem(28,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-							.display("§7(" + PlayerRank.UNRANKED.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.UNRANKED.getColoredSymbol() + "§7) | "
 									+ PlayerRank.UNRANKED.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.PRIMARY.getPontos())
-			inv.setItem(20,
+			inv.setItem(29,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-							.display("§7(" + PlayerRank.PRIMARY.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.PRIMARY.getColoredSymbol() + "§7) | "
 									+ PlayerRank.PRIMARY.getColoredName())
 							.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
-			inv.setItem(20,
+			inv.setItem(29,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-							.display("§7(" + PlayerRank.PRIMARY.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.PRIMARY.getColoredSymbol() + "§7) | "
 									+ PlayerRank.PRIMARY.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.ADVANCED.getPontos())
-			inv.setItem(21,
+			inv.setItem(30,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-							.display("§7(" + PlayerRank.ADVANCED.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.ADVANCED.getColoredSymbol() + "§7) | "
 									+ PlayerRank.ADVANCED.getColoredName())
 							.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
-			inv.setItem(21,
+			inv.setItem(30,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-							.display("§7(" + PlayerRank.ADVANCED.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.ADVANCED.getColoredSymbol() + "§7) | "
 									+ PlayerRank.ADVANCED.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.PLATINA.getPontos())
-			inv.setItem(22,
+			inv.setItem(31,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-							.display("§7(" + PlayerRank.PLATINA.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.PLATINA.getColoredSymbol() + "§7) | "
 									+ PlayerRank.PLATINA.getColoredName())
 							.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
-			inv.setItem(22,
+			inv.setItem(31,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-							.display("§7(" + PlayerRank.PLATINA.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.PLATINA.getColoredSymbol() + "§7) | "
 									+ PlayerRank.PLATINA.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.GOLD.getPontos())
 			inv.setItem(32, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-					.display("§7(" + PlayerRank.GOLD.getColoredSymbol() + "§7) |" + PlayerRank.GOLD.getColoredName())
+					.display("§7(" + PlayerRank.GOLD.getColoredSymbol() + "§7) | " + PlayerRank.GOLD.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
 			inv.setItem(32, new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-					.display("§7(" + PlayerRank.GOLD.getColoredSymbol() + "§7) |" + PlayerRank.GOLD.getColoredName())
+					.display("§7(" + PlayerRank.GOLD.getColoredSymbol() + "§7) | " + PlayerRank.GOLD.getColoredName())
 					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.DIAMANTE.getPontos())
 			inv.setItem(33,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-							.display("§7(" + PlayerRank.DIAMANTE.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.DIAMANTE.getColoredSymbol() + "§7) | "
 									+ PlayerRank.DIAMANTE.getColoredName())
 							.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
 			inv.setItem(33,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-							.display("§7(" + PlayerRank.DIAMANTE.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.DIAMANTE.getColoredSymbol() + "§7) | "
 									+ PlayerRank.DIAMANTE.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.ESMERALDA.getPontos())
 			inv.setItem(34,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-							.display("§7(" + PlayerRank.ESMERALDA.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.ESMERALDA.getColoredSymbol() + "§7) | "
 									+ PlayerRank.ESMERALDA.getColoredName())
 							.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
 			inv.setItem(34,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-							.display("§7(" + PlayerRank.ESMERALDA.getColoredSymbol() + "§7) |"
+							.display("§7(" + PlayerRank.ESMERALDA.getColoredSymbol() + "§7) | "
 									+ PlayerRank.ESMERALDA.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.RUBY.getPontos())
 			inv.setItem(37, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-					.display("§7(" + PlayerRank.RUBY.getColoredSymbol() + "§7) |" + PlayerRank.RUBY.getColoredName())
+					.display("§7(" + PlayerRank.RUBY.getColoredSymbol() + "§7) | " + PlayerRank.RUBY.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
 			inv.setItem(37, new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-					.display("§7(" + PlayerRank.RUBY.getColoredSymbol() + "§7) |" + PlayerRank.RUBY.getColoredName())
+					.display("§7(" + PlayerRank.RUBY.getColoredSymbol() + "§7) | " + PlayerRank.RUBY.getColoredName())
 					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.ELITE.getPontos())
 			inv.setItem(38, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-					.display("§7(" + PlayerRank.ELITE.getColoredSymbol() + "§7) |" + PlayerRank.ELITE.getColoredName())
+					.display("§7(" + PlayerRank.ELITE.getColoredSymbol() + "§7) | " + PlayerRank.ELITE.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
 			inv.setItem(38, new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-					.display("§7(" + PlayerRank.ELITE.getColoredSymbol() + "§7) |" + PlayerRank.ELITE.getColoredName())
+					.display("§7(" + PlayerRank.ELITE.getColoredSymbol() + "§7) | " + PlayerRank.ELITE.getColoredName())
 					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.SAFIRA.getPontos())
-			inv.setItem(39, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-					.display(
-							"§7(" + PlayerRank.SAFIRA.getColoredSymbol() + "§7) |" + PlayerRank.SAFIRA.getColoredName())
-					.lore("§a" + target.getName() + " já atingiu esse rank!."));
+			inv.setItem(39,
+					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
+							.display("§7(" + PlayerRank.SAFIRA.getColoredSymbol() + "§7) | "
+									+ PlayerRank.SAFIRA.getColoredName())
+							.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
-			inv.setItem(39, new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-					.display(
-							"§7(" + PlayerRank.SAFIRA.getColoredSymbol() + "§7) |" + PlayerRank.SAFIRA.getColoredName())
-					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
+			inv.setItem(39,
+					new Stack(Material.STAINED_GLASS_PANE, 1, 14)
+							.display("§7(" + PlayerRank.SAFIRA.getColoredSymbol() + "§7) | "
+									+ PlayerRank.SAFIRA.getColoredName())
+							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.VAPOX.getPontos())
 			inv.setItem(40, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
-					.display("§7(" + PlayerRank.VAPOX.getColoredSymbol() + "§7) |" + PlayerRank.VAPOX.getColoredName())
+					.display("§7(" + PlayerRank.VAPOX.getColoredSymbol() + "§7) | " + PlayerRank.VAPOX.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));
 		else
 			inv.setItem(40, new Stack(Material.STAINED_GLASS_PANE, 1, 14)
-					.display("§7(" + PlayerRank.VAPOX.getColoredSymbol() + "§7) |" + PlayerRank.VAPOX.getColoredName())
+					.display("§7(" + PlayerRank.VAPOX.getColoredSymbol() + "§7) | " + PlayerRank.VAPOX.getColoredName())
 					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
 		player.openInventory(inv);

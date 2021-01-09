@@ -4,13 +4,17 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public enum PlayerRank {
-	// NOME, SÍMBOLO, COR, PONTOS
-	UNRANKED("Unranked", '-', ChatColor.WHITE, 2000), PRIMARY("Primary", '⚌', ChatColor.GREEN, 4000),
-	ADVANCED("Advanced", '✳', ChatColor.GRAY, 6000), PLATINA("Platina", '✮', ChatColor.RED, 8000),
-	GOLD("Gold", '✸', ChatColor.GOLD, 10000), DIAMANTE("Diamante", '❂', ChatColor.AQUA, 12000),
-	ESMERALDA("Esmeralda", '✷', ChatColor.GREEN, 14000), RUBY("Ruby", '♦', ChatColor.RED, 16000),
-	ELITE("Elite", '♜', ChatColor.RED, 18000), SAFIRA("Safira", '✡', ChatColor.AQUA, 20000),
-	VAPOX("Vapox", '✪', ChatColor.DARK_RED, Integer.MAX_VALUE);
+	VAPOX("Vapox", '✪', ChatColor.DARK_RED, 20000),
+	SAFIRA("Safira", '✡', ChatColor.AQUA, 18000),
+	ELITE("Elite", '♜', ChatColor.RED, 16000),
+	RUBY("Ruby", '♦', ChatColor.RED, 14000),
+	ESMERALDA("Esmeralda", '✷', ChatColor.GREEN, 12000),
+	DIAMANTE("Diamante", '❂', ChatColor.AQUA, 10000),
+	GOLD("Gold", '✸', ChatColor.GOLD, 8000),
+	PLATINA("Platina", '✮', ChatColor.RED, 6000),
+	ADVANCED("Advanced", '✳', ChatColor.GRAY, 4000),
+	PRIMARY("Primary", '⚌', ChatColor.GREEN, 2000),
+	UNRANKED("Unranked", '-', ChatColor.WHITE, 0);
 
 	private final String name;
 	private final char symbol;
@@ -55,9 +59,9 @@ public enum PlayerRank {
 	public static PlayerRank getRank(Player player) {
 		int pontos = PlayerAccount.getGeral().getPontos(player);
 		for (PlayerRank rank : values()) {
-			if (pontos <= rank.getPontos())
+			if (pontos >= rank.getPontos())
 				return rank;
 		}
-		return UNRANKED;
+		return VAPOX;
 	}
 }
