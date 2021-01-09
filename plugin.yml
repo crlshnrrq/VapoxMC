@@ -62,6 +62,8 @@ commands:
     description: Teleporte-se para alguem.
   resetkit:
     description: Remova o seu kit!
+  server:
+    description: Veja as informacoes do servidor.
   setmoney:
     description: Defina o dinheiro de alguem!
   spawn:
