@@ -104,6 +104,7 @@ import br.com.vapoxmc.kitpvp.player.PlayerRank;
 import br.com.vapoxmc.kitpvp.player.Sidebar;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
+import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 import br.com.vapoxmc.kitpvp.warp.EventoWarp;
 import br.com.vapoxmc.kitpvp.warp.FPSWarp;
 import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
@@ -688,8 +689,11 @@ public final class VapoxPvP extends JavaPlugin {
 
 		PlayerAccount.createConnection();
 
-		Bukkit.getScheduler().runTaskTimer(this,
-				() -> Bukkit.getOnlinePlayers().forEach(players -> updateSidebar(players)), 0L, 60L);
+		Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(players -> {
+			updateSidebar(players);
+			VapoxUtils.sendTab(players, Strings.getName() + "\n§fServidor: KitPvP\n",
+					"\n§fDiscord: §a" + Strings.getDiscord() + "\n§fJogadores: §a" + Bukkit.getOnlinePlayers().size());
+		}), 0L, 60L);
 
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §aPlugin habilitado (§7" + this.getDescription().getVersion() + "§a).");
