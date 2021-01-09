@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.PlayerInventory;
 
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
+import br.com.vapoxmc.kitpvp.gui.ShopGUI;
 import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
@@ -23,6 +24,6 @@ public final class SpawnWarp extends Warp implements Listener {
 
 		inv.setItem(2, WarpsGUI.ICON);
 		inv.setItem(4, SeusKitsGUI.ICON);
-		inv.setItem(6, new Stack(Material.EMERALD).display("§1» §9Loja de moedas."));
+		inv.setItem(6, ShopGUI.ICON);
 	}
 }
