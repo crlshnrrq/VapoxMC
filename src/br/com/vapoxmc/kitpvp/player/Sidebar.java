@@ -54,8 +54,9 @@ public class Sidebar {
 	public void sendSidebar(Player player) {
 		Scoreboard scoreboard = player.getScoreboard();
 		Objective objective = scoreboard.getObjective(this.getName());
-		if (objective != null) {
+		if (objective != null)
 			objective.unregister();
+		if (objective == null) {
 			objective = scoreboard.registerNewObjective(this.getName(), "dummy");
 			objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 			objective.setDisplayName(this.getDisplayName());
@@ -74,6 +75,7 @@ public class Sidebar {
 				team = scoreboard.registerNewTeam("line-" + index);
 			team.setPrefix(prefix);
 			team.setSuffix("");
+			team.addEntry(line);
 
 			objective.getScore(line).setScore(index);
 			index--;
