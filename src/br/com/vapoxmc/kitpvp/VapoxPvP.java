@@ -691,7 +691,7 @@ public final class VapoxPvP extends JavaPlugin {
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(players -> {
 			updateSidebar(players);
-			VapoxUtils.sendTab(players, Strings.getName() + "\n§fServidor: KitPvP\n",
+			VapoxUtils.sendTab(players, Strings.getName() + "\n§fServidor: §aKitPvP\n",
 					"\n§fDiscord: §a" + Strings.getDiscord() + "\n§fJogadores: §a" + Bukkit.getOnlinePlayers().size());
 		}), 0L, 60L);
 
