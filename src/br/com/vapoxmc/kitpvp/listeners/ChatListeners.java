@@ -5,6 +5,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
+import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerRank;
 
 public final class ChatListeners implements Listener {
@@ -20,6 +21,11 @@ public final class ChatListeners implements Listener {
 			format += "§f" + message;
 		else
 			format += "§7" + message.toLowerCase();
+
+		if (!VapoxPvP.getChat() && !player.hasPermission("ciphen.chat.bypass")) {
+			event.setCancelled(true);
+			player.sendMessage("§c§l[CHAT] §fO chat está §c§ldesativado§f!");
+		}
 
 		event.setFormat(format);
 	}
