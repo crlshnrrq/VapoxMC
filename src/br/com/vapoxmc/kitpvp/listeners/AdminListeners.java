@@ -57,6 +57,8 @@ public final class AdminListeners implements Listener {
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
+		if (VapoxPvP.hasClickTest(player) && event.getAction().name().contains("LEFT"))
+			VapoxPvP.setClickTest(player, VapoxPvP.getClickTest(player) + 1);
 		if (VapoxPvP.hasAdmin(player) && event.hasItem()
 				&& event.getItem().isSimilar(AdminCommand.QUICKADMIN.toItemStack())) {
 			Bukkit.getOnlinePlayers().forEach(players -> players.showPlayer(player));
