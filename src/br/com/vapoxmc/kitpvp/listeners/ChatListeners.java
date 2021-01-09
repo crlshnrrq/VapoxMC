@@ -14,8 +14,7 @@ public final class ChatListeners implements Listener {
 	private void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		String message = event.getMessage().replace("%", "%%"),
-				format = "§7(" + PlayerRank.getRank(player).getColoredSymbol() + "§7) §r" + player.getDisplayName()
-						+ " §7» §7" + message.toLowerCase();
+				format = "§7(" + PlayerRank.getRank(player).getColoredSymbol() + "§7) §r" + player.getDisplayName() + " §7» ";
 
 		if (player.hasPermission("ciphen.chat.colorido"))
 			format += "§f" + message;
