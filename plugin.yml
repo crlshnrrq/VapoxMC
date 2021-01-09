@@ -16,6 +16,8 @@ commands:
     description: Faca um anuncio global.
   build:
     description: Ative e desative o modo build.
+  check:
+    description: Acesse o modo admin!
   crash:
     description: Crashe um jogador.
   discord:
