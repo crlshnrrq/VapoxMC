@@ -54,6 +54,8 @@ commands:
     aliases: [ranks]
   refresh:
     description: Reinicia o servidor.
+  remmoney:
+    description: Retire o dinheiro de alguém!
   report:
     description: Reporte um jogador!
   rtp:

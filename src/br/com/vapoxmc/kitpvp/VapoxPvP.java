@@ -40,6 +40,7 @@ import br.com.vapoxmc.kitpvp.commands.OnlineCommand;
 import br.com.vapoxmc.kitpvp.commands.PingCommand;
 import br.com.vapoxmc.kitpvp.commands.RankCommand;
 import br.com.vapoxmc.kitpvp.commands.RefreshCommand;
+import br.com.vapoxmc.kitpvp.commands.RemoveMoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportTeleportCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
@@ -490,6 +491,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("ping").setExecutor(new PingCommand());
 		this.getCommand("rank").setExecutor(new RankCommand());
 		this.getCommand("refresh").setExecutor(new RefreshCommand());
+		this.getCommand("remmoney").setExecutor(new RemoveMoneyCommand());
 		this.getCommand("report").setExecutor(new ReportCommand());
 		this.getCommand("rtp").setExecutor(new ReportTeleportCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
