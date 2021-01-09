@@ -35,6 +35,7 @@ import br.com.vapoxmc.kitpvp.commands.OnlineCommand;
 import br.com.vapoxmc.kitpvp.commands.PingCommand;
 import br.com.vapoxmc.kitpvp.commands.RankCommand;
 import br.com.vapoxmc.kitpvp.commands.RefreshCommand;
+import br.com.vapoxmc.kitpvp.commands.ReportCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
 import br.com.vapoxmc.kitpvp.commands.SpawnCommand;
 import br.com.vapoxmc.kitpvp.commands.StaffChatCommand;
@@ -91,7 +92,8 @@ import br.com.vapoxmc.kitpvp.warp.Warp;
 public final class VapoxPvP extends JavaPlugin {
 
 	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
-			spyingTell = new ArrayList<>(), build = new ArrayList<>(), admin = new ArrayList<>();
+			spyingTell = new ArrayList<>(), build = new ArrayList<>(), admin = new ArrayList<>(),
+			useReport = new ArrayList<>();
 	private static final Map<UUID, PlayerInventory> saveInventoryMap = new HashMap<>();
 
 	private static final List<Kit> kits = new ArrayList<>();
@@ -166,6 +168,19 @@ public final class VapoxPvP extends JavaPlugin {
 	public static void addAdmin(Player player) {
 		if (!hasAdmin(player))
 			admin.add(player.getUniqueId());
+	}
+
+	public static boolean hasUseReport(Player player) {
+		return useReport.contains(player.getUniqueId());
+	}
+
+	public static void addUseReport(Player player) {
+		if (!hasUseReport(player))
+			useReport.add(player.getUniqueId());
+	}
+
+	public static void removeUseReport(Player player) {
+		useReport.remove(player.getUniqueId());
 	}
 
 	public static boolean hasInventorySave(Player player) {
@@ -435,6 +450,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("ping").setExecutor(new PingCommand());
 		this.getCommand("rank").setExecutor(new RankCommand());
 		this.getCommand("refresh").setExecutor(new RefreshCommand());
+		this.getCommand("report").setExecutor(new ReportCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
 		this.getCommand("spawn").setExecutor(new SpawnCommand());
 		this.getCommand("sc").setExecutor(new StaffChatCommand());

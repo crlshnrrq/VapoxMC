@@ -44,6 +44,8 @@ commands:
     aliases: [ranks]
   refresh:
     description: Reinicia o servidor.
+  report:
+    description: Reporte um jogador!
   resetkit:
     description: Remova o seu kit!
   spawn:
