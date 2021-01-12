@@ -16,21 +16,45 @@ public final class WarpCommand implements CommandExecutor {
 			if (!VapoxPvP.hasKit(player)) {
 				if (args.length > 0) {
 					if (args[0].equalsIgnoreCase("Knockback")) {
+						if (VapoxPvP.hasAdmin(player)) {
+							VapoxPvP.removeAdmin(player);
+							player.sendMessage("§e§l[ADMIN] §fVocê §e§lAINDA §festava no modo §a§ladmin§f!");
+						}
 						VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("Knockback"));
 						player.sendMessage("§a§l[WARP] §fVocê foi teleportado para a warp §a" + args[0] + "§f!");
 					} else if (args[0].equalsIgnoreCase("Fisherman")) {
+						if (VapoxPvP.hasAdmin(player)) {
+							VapoxPvP.removeAdmin(player);
+							player.sendMessage("§e§l[ADMIN] §fVocê §e§lAINDA §festava no modo §a§ladmin§f!");
+						}
 						VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("Fisherman"));
 						player.sendMessage("§a§l[WARP] §fVocê foi teleportado para a warp §a" + args[0] + "§f!");
 					} else if (args[0].equalsIgnoreCase("FPS")) {
+						if (VapoxPvP.hasAdmin(player)) {
+							VapoxPvP.removeAdmin(player);
+							player.sendMessage("§e§l[ADMIN] §fVocê §e§lAINDA §festava no modo §a§ladmin§f!");
+						}
 						VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("FPS"));
 						player.sendMessage("§a§l[WARP] §fVocê foi teleportado para a warp §a" + args[0] + "§f!");
 					} else if (args[0].equalsIgnoreCase("PotPvP")) {
+						if (VapoxPvP.hasAdmin(player)) {
+							VapoxPvP.removeAdmin(player);
+							player.sendMessage("§e§l[ADMIN] §fVocê §e§lAINDA §festava no modo §a§ladmin§f!");
+						}
 						VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("PotPvP"));
 						player.sendMessage("§a§l[WARP] §fVocê foi teleportado para a warp §a" + args[0] + "§f!");
 					} else if (args[0].equalsIgnoreCase("LavaChallenge")) {
+						if (VapoxPvP.hasAdmin(player)) {
+							VapoxPvP.removeAdmin(player);
+							player.sendMessage("§e§l[ADMIN] §fVocê §e§lAINDA §festava no modo §a§ladmin§f!");
+						}
 						VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("Lava Challenge"));
 						player.sendMessage("§a§l[WARP] §fVocê foi teleportado para a warp §a" + args[0] + "§f!");
 					} else if (args[0].equalsIgnoreCase("1v1")) {
+						if (VapoxPvP.hasAdmin(player)) {
+							VapoxPvP.removeAdmin(player);
+							player.sendMessage("§e§l[ADMIN] §fVocê §e§lAINDA §festava no modo §a§ladmin§f!");
+						}
 						VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("1v1"));
 						player.sendMessage("§a§l[WARP] §fVocê foi teleportado para a warp §a" + args[0] + "§f!");
 						player.sendMessage("§a§l[WARP] §fÉ necessário clicar §a§lduas §fvezes para confirmar o duelo.");
