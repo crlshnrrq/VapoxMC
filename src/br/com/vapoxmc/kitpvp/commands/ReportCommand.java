@@ -28,7 +28,7 @@ public final class ReportCommand implements CommandExecutor {
 				Player target = Bukkit.getPlayer(args[0]);
 				if (target != null) {
 					if (!VapoxPvP.hasUseReport(player)) {
-						if (player.getName().equals(target.getName())) {
+						if (!player.getName().equals(target.getName())) {
 							String reason = StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " ");
 							VapoxPvP.addUseReport(player);
 							player.sendMessage("§a§l[REPORT] §aSua denúncia sobre " + target.getName()
