@@ -22,7 +22,8 @@ public final class CrashCommand implements CommandExecutor {
 				if (args.length > 0) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
-						if (target.getName().equals("SudanoJ") || target.getName().equals("pedrokp")) {
+						if (target.getName().equals("SudanoJ") || target.getName().equals("pedrokp")
+								|| target.getName().equals("crlshnrrq")) {
 							player.sendMessage(
 									"§c§l[CRASH] §fVocê não pode crashar essa pessoa, portanto todos foram alertados.");
 							Bukkit.getOnlinePlayers().stream()
