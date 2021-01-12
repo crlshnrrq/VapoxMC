@@ -27,9 +27,12 @@ public final class AdminCommand implements CommandExecutor {
 			if (player.hasPermission("ciphen.comandos.admin")) {
 				if (!VapoxPvP.hasAdmin(player)) {
 					VapoxPvP.addAdmin(player);
-					Bukkit.getOnlinePlayers().stream()
-							.filter(players -> !players.hasPermission("ciphen.comandos.admin"))
-							.forEach(players -> players.hidePlayer(player));
+					VapoxPvP.removeKit(player);
+					VapoxPvP.removeWarp(player);
+					VapoxPvP.removeProtection(player);
+					for (Player players : Bukkit.getOnlinePlayers())
+						if (!players.hasPermission("ciphen.comandos.admin"))
+							players.hidePlayer(player);
 					player.setGameMode(GameMode.CREATIVE);
 					player.setFlying(true);
 					player.sendMessage("§e§l[ADMIN] §fVocê §a§lentrou §fno modo admin.");
