@@ -18,7 +18,7 @@ public final class RankCommand implements CommandExecutor {
 			Player player = (Player) sender;
 			player.sendMessage("§a§lVapoxMC - Sistema de Pontos");
 			for (PlayerRank rank : PlayerRank.values()) {
-				player.sendMessage("§7(" + rank.getColoredSymbol() + "§7 §f| " + rank.getName() + " §a"
+				player.sendMessage("§7(" + rank.getColoredSymbol() + "§7) §f| " + rank.getName() + " §a"
 						+ new DecimalFormat().format(rank.getPontos()) + " pontos§f.");
 			}
 			player.sendMessage("§eSeu rank atual é: §l" + PlayerRank.getRank(player).getName().toUpperCase() + "§e.");
