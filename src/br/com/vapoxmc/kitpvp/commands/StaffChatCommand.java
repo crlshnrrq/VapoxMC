@@ -42,8 +42,8 @@ public final class StaffChatCommand implements CommandExecutor {
 								.filter(players -> players.hasPermission("ciphen.comandos.staffchat")
 										&& !VapoxPvP.isIgnoreStaffChat(players))
 								.forEach(players -> players
-										.sendMessage("§c§l[SC] §7[KitPvP] " + group.getBoldColoredName() + " "
-												+ group.getColor() + player.getName() + " §7» §f" + message));
+										.sendMessage("§c§l[SC] §7[KitPvP] " + group.getBoldColoredName().toUpperCase()
+												+ " " + group.getColor() + player.getName() + " §7» §f" + message));
 					} else
 						player.sendMessage("§c§l[SC] §fSeu staffchat está §cdesativado§f, ative usando §c/sc off.");
 				} else
