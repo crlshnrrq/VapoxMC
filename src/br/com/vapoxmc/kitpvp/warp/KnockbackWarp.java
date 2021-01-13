@@ -28,6 +28,8 @@ public final class KnockbackWarp extends Warp implements Listener {
 		super.giveItems(player);
 
 		inv.setItem(0, STICK);
+
+		VapoxPvP.removeProtection(player);
 	}
 
 	@EventHandler
