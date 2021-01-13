@@ -7,8 +7,8 @@ import org.bukkit.entity.Player;
 
 import br.com.vapoxmc.kitpvp.utils.Strings;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
+import net.md_5.bungee.api.chat.TextComponent;
 
 public final class DiscordCommand implements CommandExecutor {
 
