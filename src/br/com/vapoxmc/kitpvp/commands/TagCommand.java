@@ -36,7 +36,7 @@ public final class TagCommand implements CommandExecutor {
 				String tags = "";
 				for (PlayerTag tag : PlayerTag.values()) {
 					if (player.hasPermission("ciphen.tag." + tag.name().toLowerCase()))
-						tags += (!tags.isEmpty() ? "§f, " : "") + tag.getPrefix();
+						tags += (!tags.isEmpty() ? "§f, " : "") + tag.getColor() + "§l" + tag.name();
 				}
 				player.sendMessage("§e§l[TAGS] " + tags);
 			}
