@@ -59,8 +59,8 @@ public final class ShopKDRGUI implements Listener {
 		inv.setItem(22,
 				new Stack(Material.REDSTONE).display("§c§lReset KDR").lore("§fO que acontecerá ao §acomprar§f:",
 						"§fAbates definidos para: §a§l0", "§fMortes definidos para: §a§l0",
-						"§fPontos definidos para: §a§l0", "§fEstatísticas de warp definidas para: §a§l0",
-						"§e§lOBS: §fas moedas §cnão §fsão resetadas!", "§fValor: §a5.000 §fmoedas."));
+						"§fEstatísticas de warp definidas para: §a§l0", "§e§lOBS: §fas moedas §cnão §fsão resetadas!",
+						"§fValor: §a5.000 §fmoedas."));
 
 		player.openInventory(inv);
 	}
