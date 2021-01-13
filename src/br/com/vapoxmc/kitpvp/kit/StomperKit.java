@@ -9,9 +9,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
-import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
-import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 
 public final class StomperKit extends Kit implements Listener {
 
@@ -29,24 +27,14 @@ public final class StomperKit extends Kit implements Listener {
 							Player target = (Player) entities;
 							if (target.isSneaking() || VapoxPvP.getKit(target) instanceof AntiStomperKit)
 								target.damage(4D, player);
-							else {
-								target.setHealth(0D);
-								target.sendMessage(
-										"§c§l[MORTE] §fVocê morreu para o jogador §c" + player.getName() + "§f.");
-
-								int moedas = VapoxUtils.getRandomCoins(), pontos = VapoxUtils.getRandomPoints();
-								PlayerAccount.getGeral().addMoedas(player, moedas).addPontos(player, pontos);
-								player.sendMessage("§c§l[MORTE] §fVocê matou o jogador §c" + target.getName() + "§f.");
-								player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + pontos + " §fpontos!");
-								if (player.hasPermission("ciphen.doublexp")) {
-									PlayerAccount.getGeral().addPontos(player, pontos);
-									player.sendMessage(
-											"§a§l[MOEDAS] §fVocê recebeu §a" + (moedas * 2) + " §fmoedas! §a§l(X2)");
-								} else
-									player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + moedas + " §fmoedas!");
-							}
+							else
+								target.damage(event.getDamage(), player);
+							target.sendMessage("§e§l[" + this.getName().toUpperCase() + "] §fVocê foi stompado por §e"
+									+ player.getName() + "§f!");
 
 							player.getWorld().playSound(player.getLocation(), Sound.ANVIL_LAND, 2F, 1F);
+							player.sendMessage("§e§l[" + this.getName().toUpperCase() + "] §fVocê stompou §e"
+									+ target.getName() + "§f!");
 						});
 				event.setDamage(4D);
 			}
