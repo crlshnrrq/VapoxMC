@@ -13,13 +13,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.inventory.PlayerInventory;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
+import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
+import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 
 public final class UMvUMWarp extends Warp implements Listener {
 
@@ -39,6 +42,7 @@ public final class UMvUMWarp extends Warp implements Listener {
 		super.giveItems(player);
 		inv.setItem(0, INVITE_ITEM);
 
+		VapoxPvP.addProtection(player);
 		Bukkit.getOnlinePlayers().forEach(players -> player.showPlayer(players));
 	}
 
@@ -120,6 +124,8 @@ public final class UMvUMWarp extends Warp implements Listener {
 			inv.addItem(new Stack(Material.MUSHROOM_SOUP));
 
 		player.closeInventory();
+
+		VapoxPvP.removeProtection(player);
 	}
 
 	public void startDuel(Player player, Player enemy) {
@@ -179,6 +185,44 @@ public final class UMvUMWarp extends Warp implements Listener {
 							+ " §fpara uma batalha, ele tem §e§l5 §fsegundos para aceitar!");
 				}
 			}
+		}
+	}
+
+	@EventHandler
+	private void onPlayerDeath(PlayerDeathEvent event) {
+		Player player = event.getEntity();
+		if (this.hasEnemy(player)) {
+			Player enemy = this.getEnemy(player);
+
+			Bukkit.getOnlinePlayers().forEach(players -> {
+				player.showPlayer(players);
+				enemy.showPlayer(players);
+			});
+			Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players)).forEach(players -> {
+				if (!player.hasPermission("ciphen.comandos.admin"))
+					player.hidePlayer(players);
+				if (!enemy.hasPermission("ciphen.comandos.admin"))
+					enemy.hidePlayer(players);
+			});
+
+			PlayerAccount.getGeral().addAbate(enemy).addMorte(player);
+			PlayerAccount.get1v1().addVitoria(enemy).addDerrota(player);
+			player.sendMessage("§c§l[1V1] §fVocê perdeu a batalha contra §c" + enemy.getName() + "§f.");
+
+			int coins = VapoxUtils.getRandomCoins(), points = VapoxUtils.getRandomPoints();
+			PlayerAccount.getGeral().addMoedas(enemy, coins).addPontos(enemy, points);
+			enemy.sendMessage("§c§l[1V1] §fVocê venceu a batalha contra §a" + player.getName() + "§f.");
+			if (enemy.hasPermission("ciphen.doublexp")) {
+				PlayerAccount.getGeral().addMoedas(enemy, coins);
+				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+			} else
+				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
+			enemy.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
+
+			this.removeEnemy(player);
+			this.removeEnemy(enemy);
+
+			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> VapoxPvP.setWarp(enemy, this), 10L);
 		}
 	}
 
