@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 
 public enum PlayerTag {
 	MEMBRO("§7", ChatColor.GRAY, 19), VIP("§a§lVIP §a", ChatColor.GREEN, 18), MVP("§9§lMVP §9", ChatColor.BLUE, 17),
-	PRO("§7§lPRO §6", ChatColor.GOLD, 16), HYPER("§b§lHYPER §b", ChatColor.AQUA, 15),
+	PRO("§6§lPRO §6", ChatColor.GOLD, 16), HYPER("§b§lHYPER §b", ChatColor.AQUA, 15),
 	TORNEIO("§e§lTORNEIO §e", ChatColor.YELLOW, 14), BETA("§e§lBETA §e", ChatColor.YELLOW, 13),
 	BUILDER("§2§lBUILDER §2", ChatColor.DARK_GREEN, 12), YOUTUBER("§b§lYT §b", ChatColor.AQUA, 11),
 	YOUTUBERPLUS("§3§lYT+ §3", ChatColor.DARK_AQUA, 10), AJUDANTE("§9§lAJUDANTE §9", ChatColor.BLUE, 9),
