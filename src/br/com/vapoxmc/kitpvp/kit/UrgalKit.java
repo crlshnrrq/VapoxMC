@@ -39,7 +39,7 @@ public final class UrgalKit extends Kit implements Listener {
 			if (!VapoxPvP.hasKitCooldown(player)) {
 				VapoxPvP.addKitCooldown(player, 15);
 				player.playSound(player.getLocation(), Sound.BLAZE_DEATH, 1F, 1F);
-				player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 1), true);
+				player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 100, 0), true);
 				player.sendMessage("§a§l[" + this.getName().toUpperCase()
 						+ "] §fVocê recebeu efeito de §aforça §fpor §a5 segundos§f!");
 			} else
