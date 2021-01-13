@@ -121,7 +121,7 @@ public final class VapoxPvP extends JavaPlugin {
 	private static boolean chat = true;
 	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
 			spyingTell = new ArrayList<>(), build = new ArrayList<>(), admin = new ArrayList<>(),
-			useReport = new ArrayList<>();
+			useReport = new ArrayList<>(), protection = new ArrayList<>();
 	private static final Map<UUID, ItemStack[]> armorMap = new HashMap<>(), inventoryMap = new HashMap<>();
 	private static final Map<UUID, Integer> clickTestMap = new HashMap<>();
 
@@ -205,6 +205,18 @@ public final class VapoxPvP extends JavaPlugin {
 		build.remove(player.getUniqueId());
 	}
 
+	public static List<Player> getAdmins() {
+		List<Player> list = new ArrayList<>();
+		admin.forEach(uuid -> {
+			Player player = Bukkit.getPlayer(uuid);
+			if (player != null)
+				list.add(player);
+			else
+				admin.remove(uuid);
+		});
+		return list;
+	}
+
 	public static boolean hasAdmin(Player player) {
 		return admin.contains(player.getUniqueId());
 	}
@@ -225,6 +237,19 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static void removeUseReport(Player player) {
 		useReport.remove(player.getUniqueId());
+	}
+
+	public static boolean hasProtection(Player player) {
+		return protection.contains(player.getUniqueId());
+	}
+
+	public static void addProtection(Player player) {
+		if (!hasProtection(player))
+			protection.add(player.getUniqueId());
+	}
+
+	public static void removeProtection(Player player) {
+		protection.remove(player.getUniqueId());
 	}
 
 	public static boolean hasArmorAndInventory(Player player) {
@@ -392,6 +417,7 @@ public final class VapoxPvP extends JavaPlugin {
 					new Location(Bukkit.getWorlds().get(0), 51, 67, -12)).stream().findAny().get());
 
 			kit.applyKit(player);
+			VapoxPvP.removeProtection(player);
 			VapoxPvP.removeCombat(player);
 			removeWarp(player);
 			kitMap.put(player.getUniqueId(), kit.getName());
@@ -428,7 +454,7 @@ public final class VapoxPvP extends JavaPlugin {
 		if (hasKitCooldown(player))
 			return (int) ((longMap.getOrDefault(player.getUniqueId(), System.currentTimeMillis() + 1000L)
 					- System.currentTimeMillis()) / 1000L);
-		return 0;
+		return 1;
 	}
 
 	public static void addKitCooldown(Player player, int seconds) {
@@ -704,6 +730,9 @@ public final class VapoxPvP extends JavaPlugin {
 				VapoxUtils.sendActionBar(players, "§fVocê está no modo §cADMIN§f.");
 			VapoxUtils.sendTab(players, Strings.getName() + "\n§fServidor: §aKitPvP\n",
 					"\n§fDiscord: §a" + Strings.getDiscord() + "\n§fJogadores: §a" + Bukkit.getOnlinePlayers().size());
+			if (!players.hasPermission("ciphen.comandos.admin"))
+				getAdmins().stream().filter(admins -> players.canSee(admins))
+						.forEach(admins -> players.hidePlayer(admins));
 		}), 0L, 40L);
 
 		Bukkit.getConsoleSender().sendMessage(
