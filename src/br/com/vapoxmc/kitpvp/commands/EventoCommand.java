@@ -1,8 +1,11 @@
 package br.com.vapoxmc.kitpvp.commands;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -215,12 +218,12 @@ public final class EventoCommand implements CommandExecutor {
 
 											inv.setItem(0, new Stack(Material.DIAMOND_SWORD)
 													.ench(Enchantment.DAMAGE_ALL, 1).display("§4» §cEspada"));
-											inv.setItem(6, new Stack(Material.POTION, 8259));
-											inv.setItem(7, new Stack(Material.POTION, 8201));
-											inv.setItem(8, new Stack(Material.POTION, 8194));
+											inv.setItem(6, new Stack(Material.POTION, 1, 8259));
+											inv.setItem(7, new Stack(Material.POTION, 1, 8201));
+											inv.setItem(8, new Stack(Material.POTION, 1, 8194));
 
 											for (int i = 0; i < 36; i++)
-												inv.addItem(new Stack(Material.POTION, 16421));
+												inv.addItem(new Stack(Material.POTION, 1, 16421));
 
 											players.sendMessage(
 													"§e§l[EVENTO] §fVocê recebeu o kit §e" + args[1] + "§f!");
@@ -302,11 +305,16 @@ public final class EventoCommand implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("ClearArena")) {
 						if (player.hasPermission("ciphen.comandos.evento")) {
 							if (VapoxPvP.isEventoActive()) {
-								VapoxPvP.getPlacedblocks().forEach(blocks -> {
-									if (VapoxPvP.getPlacedblocks().remove(blocks))
+								int index = 0;
+								if (!VapoxPvP.getPlacedblocks().isEmpty()) {
+									for (Block blocks : new ArrayList<>(VapoxPvP.getPlacedblocks())) {
 										blocks.setType(Material.AIR);
-								});
-								player.sendMessage("§e§l[EVENTO] §fVocê retirou os blocos do §eevento§f!");
+										VapoxPvP.getPlacedblocks().remove(blocks);
+										index++;
+									}
+								}
+								player.sendMessage("§e§l[EVENTO] §fVocê retirou os blocos do §eevento§f! §7(" + index
+										+ " blocos)");
 							} else
 								player.sendMessage("§c§l[EVENTO] §fNão há eventos no momento!");
 						} else
@@ -333,12 +341,12 @@ public final class EventoCommand implements CommandExecutor {
 								VapoxPvP.setEventoBuild(false);
 								VapoxPvP.setEventoOpen(false);
 								VapoxPvP.setEventoActive(false);
-								VapoxPvP.getPlacedblocks().forEach(blocks -> {
-									if (VapoxPvP.getPlacedblocks().remove(blocks))
-										blocks.setType(Material.AIR);
+								new ArrayList<>(VapoxPvP.getPlacedblocks()).forEach(blocks -> {
+									blocks.setType(Material.AIR);
+									VapoxPvP.getPlacedblocks().remove(blocks);
 								});
 								player.sendMessage("§e§l[EVENTO] §fVocê forçou o §cdesligamento §fdo evento!");
-								VapoxPvP.getEventoPlayers().forEach(players -> {
+								new ArrayList<>(VapoxPvP.getEventoPlayers()).forEach(players -> {
 									VapoxPvP.removeEventoPlayer(players);
 									VapoxPvP.setWarp(players, VapoxPvP.getDefaultWarp());
 									players.sendMessage("§e§l[EVENTO] §fO evento foi §cfinalizado§f.");
