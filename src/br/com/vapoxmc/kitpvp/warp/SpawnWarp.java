@@ -5,6 +5,8 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -28,6 +30,15 @@ public final class SpawnWarp extends Warp implements Listener {
 		inv.setItem(2, WarpsGUI.ICON);
 		inv.setItem(4, SeusKitsGUI.ICON);
 		inv.setItem(6, ShopGUI.ICON);
+
+		VapoxPvP.addProtection(player);
+	}
+
+	@EventHandler
+	private void onEntityDamage(EntityDamageEvent event) {
+		if (event.getEntity() instanceof Player && VapoxPvP.getWarp((Player) event.getEntity()) instanceof SpawnWarp
+				&& event.getCause() == DamageCause.VOID)
+			event.getEntity().teleport(this.getLocation());
 	}
 
 	@EventHandler
