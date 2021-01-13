@@ -11,10 +11,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -22,10 +20,6 @@ import org.bukkit.inventory.ItemStack;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
-import br.com.vapoxmc.kitpvp.warp.EventoWarp;
-import br.com.vapoxmc.kitpvp.warp.LavaChallengeWarp;
-import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
-import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class KitPvPListeners implements Listener {
 
@@ -118,40 +112,14 @@ public final class KitPvPListeners implements Listener {
 
 	@EventHandler
 	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
-			Player player = (Player) event.getEntity(), damager = (Player) event.getDamager();
-			if (VapoxPvP.getWarp(player) instanceof LavaChallengeWarp && event.getCause() != DamageCause.LAVA)
-				event.setCancelled(true);
-			else if (!VapoxPvP.hasKit(player) || (VapoxPvP.getWarp(player) instanceof UMvUMWarp
-					&& !((UMvUMWarp) VapoxPvP.getWarp(player)).hasEnemy(player)))
-				event.setCancelled(true);
-			else if (VapoxPvP.getWarp(player) instanceof UMvUMWarp
-					&& ((UMvUMWarp) VapoxPvP.getWarp(player)).hasEnemy(player)
-					&& (!(VapoxPvP.getWarp(damager) instanceof UMvUMWarp)
-							|| !((UMvUMWarp) VapoxPvP.getWarp(damager)).hasEnemy(damager)))
-				event.setCancelled(true);
-			else if (VapoxPvP.getWarp(player) instanceof EventoWarp) {
-				if (VapoxPvP.getEventoPvP())
-					event.setCancelled(false);
-				else
-					event.setCancelled(true);
-			}
-		}
+		if (event.getDamager() instanceof Player && VapoxPvP.hasProtection((Player) event.getDamager()))
+			event.setCancelled(true);
 	}
 
 	@EventHandler
 	private void onEntityDamage(EntityDamageEvent event) {
-		if (event.getEntity() instanceof Player) {
-			Player player = (Player) event.getEntity();
-			if (!VapoxPvP.hasKit(player) || !(VapoxPvP.getWarp(player) instanceof Warp))
-				event.setCancelled(true);
-			if (VapoxPvP.getWarp(player) instanceof EventoWarp) {
-				if (VapoxPvP.getEventoPvP())
-					event.setCancelled(false);
-				else
-					event.setCancelled(true);
-			}
-		}
+		if (event.getEntity() instanceof Player && VapoxPvP.hasProtection((Player) event.getEntity()))
+			event.setCancelled(true);
 	}
 
 	@EventHandler
@@ -159,12 +127,5 @@ public final class KitPvPListeners implements Listener {
 		ItemStack item = event.getItemDrop().getItemStack();
 		if (item.getType().name().contains("_SWORD") || item.getType() == Material.COMPASS)
 			event.setCancelled(true);
-	}
-
-	@EventHandler
-	private void onPlayerToggleFlight(PlayerToggleFlightEvent event) {
-		Player player = event.getPlayer();
-		if (player.getAllowFlight() && VapoxPvP.hasKit(player))
-			player.setAllowFlight(false);
 	}
 }
