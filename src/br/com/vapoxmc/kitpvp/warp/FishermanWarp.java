@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -48,7 +49,34 @@ public final class FishermanWarp extends Warp implements Listener {
 
 		inv.setItem(0, ROD);
 
-		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 1200, 10));
+		player.addPotionEffect(new PotionEffect(PotionEffectType.REGENERATION, 12000, 10));
+		VapoxPvP.removeProtection(player);
+	}
+
+	@EventHandler
+	private void onPlayerFish(PlayerFishEvent event) {
+		Player player = event.getPlayer();
+		if (VapoxPvP.getWarp(player) instanceof FishermanWarp && event.getCaught() instanceof Player) {
+			Player caught = (Player) event.getCaught();
+			if (VapoxPvP.getWarp(caught) instanceof FishermanWarp) {
+				if (player.getName().equals(caught.getName())) {
+					event.setCancelled(true);
+					player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fVocê não pode fisgar a si mesmo!");
+				} else {
+					caught.teleport(player.getLocation());
+					caught.sendMessage(
+							"§a§l[" + this.getName().toUpperCase() + "] §fVocê foi pescado por §a" + player.getName());
+					player.sendMessage(
+							"§a§l[" + this.getName().toUpperCase() + "] §fVocê pescou o jogador §a" + caught.getName());
+				}
+
+				player.getItemInHand().setDurability((short) 0);
+				player.updateInventory();
+			} else {
+				event.setCancelled(true);
+				player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fEsse jogador não está em pvp!");
+			}
+		}
 	}
 
 	@EventHandler
