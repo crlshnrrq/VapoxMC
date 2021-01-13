@@ -40,6 +40,8 @@ public final class FPSWarp extends Warp implements Listener {
 
 		for (int i = 0; i < 36; i++)
 			inv.addItem(new Stack(Material.MUSHROOM_SOUP));
+
+		VapoxPvP.removeProtection(player);
 	}
 
 	@EventHandler
