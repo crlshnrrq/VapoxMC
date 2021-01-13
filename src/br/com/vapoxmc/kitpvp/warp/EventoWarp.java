@@ -11,6 +11,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -22,6 +23,13 @@ public final class EventoWarp extends Warp implements Listener {
 
 	public EventoWarp() {
 		super("Evento", new Stack(Material.CAKE), new Location(Bukkit.getWorlds().get(0), 4000, 102, 4000));
+	}
+
+	@Override
+	public void giveItems(Player player) {
+		super.giveItems(player);
+
+		VapoxPvP.removeProtection(player);
 	}
 
 	@EventHandler
@@ -44,6 +52,13 @@ public final class EventoWarp extends Warp implements Listener {
 	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player
 				&& VapoxPvP.hasEventoPlayer((Player) event.getEntity()) && !VapoxPvP.getEventoPvP())
+			event.setCancelled(true);
+	}
+
+	@EventHandler
+	private void onEntityDamage(EntityDamageEvent event) {
+		if (event.getEntity() instanceof Player && VapoxPvP.hasEventoPlayer((Player) event.getEntity())
+				&& !VapoxPvP.getEventoPvP())
 			event.setCancelled(true);
 	}
 
