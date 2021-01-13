@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.PlayerInventory;
@@ -35,6 +36,8 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 
 		for (int i = 0; i < 36; i++)
 			inv.addItem(new Stack(Material.MUSHROOM_SOUP));
+
+		VapoxPvP.removeProtection(player);
 	}
 
 	private boolean isAbusing(Player player) {
@@ -120,5 +123,12 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 				}
 			}
 		}
+	}
+
+	@EventHandler
+	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+		if (event.getEntity() instanceof Player
+				&& VapoxPvP.getWarp((Player) event.getEntity()) instanceof LavaChallengeWarp)
+			event.setCancelled(true);
 	}
 }
