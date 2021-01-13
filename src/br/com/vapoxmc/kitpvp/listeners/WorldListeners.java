@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.potion.PotionEffectType;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 
@@ -55,10 +56,13 @@ public final class WorldListeners implements Listener {
 
 	@EventHandler
 	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		event.setDamage(event.getDamage() - 2.5D);
+		event.setDamage(event.getDamage() - 1.5D);
 
 		if (event.getDamager() instanceof Player) {
 			Player player = (Player) event.getDamager();
+			if (player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE))
+				event.setDamage(event.getDamage() - 6.3D);
+
 			if (player.getItemInHand().getType().name().contains("_SWORD")
 					|| player.getItemInHand().getType().name().contains("_AXE")) {
 				player.getItemInHand().setDurability((short) 0);
