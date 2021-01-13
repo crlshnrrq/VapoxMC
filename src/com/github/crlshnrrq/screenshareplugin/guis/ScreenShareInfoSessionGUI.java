@@ -18,7 +18,6 @@ import org.jpaste.exceptions.PasteException;
 import org.jpaste.pastebin.Pastebin;
 
 import com.github.crlshnrrq.screenshareplugin.ScreenShare;
-import com.github.crlshnrrq.screenshareplugin.ScreenShareAPI;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
 
 public final class ScreenShareInfoSessionGUI implements Listener {

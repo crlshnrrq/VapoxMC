@@ -1,7 +1,6 @@
 package com.github.crlshnrrq.screenshareplugin.guis;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

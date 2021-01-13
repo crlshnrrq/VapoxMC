@@ -5,8 +5,6 @@ import java.util.UUID;
 
 import org.bukkit.entity.Player;
 
-import com.github.crlshnrrq.screenshareplugin.ScreenShareMessages;
-
 public final class ScreenShareConfigAPI {
 
 	private static final HashMap<UUID, Edit<?>> editMap = new HashMap<>();

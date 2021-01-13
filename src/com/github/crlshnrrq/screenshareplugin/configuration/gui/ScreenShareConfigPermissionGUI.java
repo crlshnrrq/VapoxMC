@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.PermissionDefault;
 
-import com.github.crlshnrrq.screenshareplugin.ScreenShareMessages;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePermissions;
 import com.github.crlshnrrq.screenshareplugin.configuration.ConfigModificationType;
 import com.github.crlshnrrq.screenshareplugin.configuration.ScreenShareConfigAPI;

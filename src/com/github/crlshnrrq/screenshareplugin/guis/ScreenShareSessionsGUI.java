@@ -14,7 +14,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import com.github.crlshnrrq.screenshareplugin.ScreenShare;
-import com.github.crlshnrrq.screenshareplugin.ScreenShareMessages;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePermissions;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
 

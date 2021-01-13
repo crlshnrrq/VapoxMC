@@ -40,14 +40,13 @@ public class ScreenShareListeners implements Listener {
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.NORMAL)
 	private void onTimeSecond(TimeSecondEvent event) {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			for (Player players : Bukkit.getOnlinePlayers()) {
-				if (ScreenShareAPI.hasScreenShare(player)) {
+			if (ScreenShareAPI.hasScreenShare(player)) {
+				for (Player players : ScreenShareAPI.getTotalScreenSharePlayers()) {
 					if (ScreenShareAPI.getScreenShare(player).getAllPlayersInScreenShare().contains(players.getName()))
 						player.showPlayer(players);
 					else
 						player.hidePlayer(players);
-				} else
-					player.showPlayer(players);
+				}
 			}
 		}
 	}

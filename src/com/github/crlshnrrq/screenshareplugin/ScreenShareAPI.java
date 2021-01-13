@@ -1,9 +1,10 @@
 package com.github.crlshnrrq.screenshareplugin;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 import java.util.TimeZone;
 import java.util.UUID;
@@ -36,6 +37,18 @@ public final class ScreenShareAPI {
 			id += values[new Random().nextInt(values.length)];
 
 		return id;
+	}
+
+	public static List<Player> getTotalScreenSharePlayers() {
+		List<Player> players = new ArrayList<>();
+		screenShareMap.keySet().forEach(uuid -> {
+			Player player = Bukkit.getPlayer(uuid);
+			if (player != null)
+				players.add(player);
+			else
+				ScreenShareAPI.finalizeScreenShare(player, getScreenShare(player));
+		});
+		return players;
 	}
 
 	public static boolean hasScreenShare(Player player) {

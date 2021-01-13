@@ -1,7 +1,6 @@
 package com.github.crlshnrrq.screenshareplugin.configuration;
 
 import java.util.List;
-import java.util.Map;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

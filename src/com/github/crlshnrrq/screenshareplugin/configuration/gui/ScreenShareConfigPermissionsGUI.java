@@ -1,7 +1,6 @@
 package com.github.crlshnrrq.screenshareplugin.configuration.gui;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,10 +13,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.github.crlshnrrq.screenshareplugin.ScreenShareMessages;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePermissions;
-import com.github.crlshnrrq.screenshareplugin.configuration.ConfigModificationType;
-import com.github.crlshnrrq.screenshareplugin.configuration.ScreenShareConfigAPI;
 
 public final class ScreenShareConfigPermissionsGUI implements Listener {
 
