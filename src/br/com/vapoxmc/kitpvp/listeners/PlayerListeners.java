@@ -13,6 +13,8 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.PlayerInventory;
 
+import com.nickuc.login.api.events.AuthenticateEvent;
+
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
@@ -21,6 +23,12 @@ import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class PlayerListeners implements Listener {
+
+	@EventHandler
+	private void on(AuthenticateEvent event) {
+		Player player = event.getPlayer();
+		VapoxPvP.setWarp(player, VapoxPvP.getDefaultWarp());
+	}
 
 	@EventHandler
 	private void onPlayerJoin(PlayerJoinEvent event) {
@@ -81,45 +89,7 @@ public final class PlayerListeners implements Listener {
 		event.setNewExp(0);
 
 		if (killer != null && killer != player) {
-			if (VapoxPvP.getWarp(player) instanceof UMvUMWarp) {
-				UMvUMWarp warp = (UMvUMWarp) VapoxPvP.getWarp(player);
-				if (warp.hasEnemy(player)) {
-					Player enemy = warp.getEnemy(player);
-					warp.removeEnemy(player);
-					warp.removeEnemy(enemy);
-
-					Bukkit.getOnlinePlayers().forEach(players -> {
-						player.showPlayer(players);
-						enemy.showPlayer(players);
-					});
-					Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players))
-							.forEach(players -> {
-								if (!player.hasPermission("ciphen.comandos.admin"))
-									player.hidePlayer(players);
-								if (!enemy.hasPermission("ciphen.comandos.admin"))
-									enemy.hidePlayer(players);
-							});
-
-					PlayerAccount.getGeral().addAbate(enemy).addMorte(player);
-					PlayerAccount.get1v1().addVitoria(enemy).addDerrota(player);
-					player.sendMessage("§c§l[1V1] §fVocê perdeu a batalha contra §c" + enemy.getName() + "§f.");
-
-					int coins = VapoxUtils.getRandomCoins(), points = VapoxUtils.getRandomPoints();
-					PlayerAccount.getGeral().addMoedas(enemy, coins).addPontos(enemy, points);
-					enemy.sendMessage("§c§l[1V1] §fVocê venceu a batalha contra §a" + player.getName() + "§f.");
-					if (enemy.hasPermission("ciphen.doublexp")) {
-						PlayerAccount.getGeral().addMoedas(enemy, coins);
-						enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
-					} else
-						enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
-					enemy.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
-
-					Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
-						VapoxPvP.setWarp(player, warp);
-						VapoxPvP.setWarp(enemy, warp);
-					}, 10L);
-				}
-			} else {
+			if (!(VapoxPvP.getWarp(player) instanceof UMvUMWarp)) {
 				if (VapoxPvP.isInCombat(killer))
 					VapoxPvP.removeCombat(killer);
 				int coins = VapoxUtils.getRandomCoins(), points = VapoxUtils.getRandomPoints();
@@ -163,7 +133,7 @@ public final class PlayerListeners implements Listener {
 
 			int killStreak = PlayerAccount.getGeral().addKillStreak(killer).getKillStreak(killer);
 			if (killStreak % 5 == 0)
-				Bukkit.broadcastMessage("§e§l[KILLSTREAK] §fO jogador §e" + player.getName()
+				Bukkit.broadcastMessage("§e§l[KILLSTREAK] §fO jogador §e" + killer.getName()
 						+ " §fatingiu um killstreak de §e§l" + killStreak + " §fabates!");
 		} else
 			player.sendMessage("§c§l[MORTE] §fVocê morreu por §ccausas desconhecidas§f, portanto §cnão foi contado§f.");
@@ -189,6 +159,7 @@ public final class PlayerListeners implements Listener {
 		inv.clear();
 
 		((UMvUMWarp) VapoxPvP.getWarpByName("1v1")).removeEnemy(player);
+		VapoxPvP.removeWarp(player);
 		VapoxPvP.removeKit(player);
 		VapoxPvP.removeEventoPlayer(player);
 	}
