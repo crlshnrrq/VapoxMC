@@ -18,7 +18,13 @@ public final class ScreenShareCommand implements CommandExecutor {
 			Player player = (Player) sender;
 			if (player.hasPermission(ScreenSharePermissions.USE_COMMAND.toPermission())) {
 				if (args.length > 0) {
-					if (args[0].equalsIgnoreCase("-sessions")) {
+					if (args[0].equalsIgnoreCase("teleport") || args[0].equalsIgnoreCase("tp")) {
+						if (player.hasPermission(ScreenSharePermissions.SCREENSHARE_TELEPORT.toPermission())) {
+							player.teleport(ScreenSharePlugin.getScreenShareLocation());
+							ScreenShareMessages.COMMAND_TELEPORT_TO_SCREENSHARE.sendMessage(player);
+						} else
+							ScreenShareMessages.COMMAND_INSUFICIENT_PERMISSIONS.sendMessage(player);
+					} else if (args[0].equalsIgnoreCase("-sessions")) {
 						if (player.hasPermission(ScreenSharePermissions.VIEW_SESSIONS.toPermission())) {
 							ScreenShareSessionsGUI.openGUI(player);
 							ScreenShareMessages.COMMAND_OPEN_SESSIONS.sendMessage(player);

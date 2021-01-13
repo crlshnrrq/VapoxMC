@@ -19,6 +19,8 @@ public enum ScreenShareMessages {
 	COMMAND_OPEN_HISTORY_SESSIONS("command.open-history-sessions", "&aVocê abriu o Histórico de Sessões!"),
 	COMMAND_OPEN_CONFIG("command.open-config", "&eVocê abriu o Menu de Configurações."),
 	COMMAND_OPEN_PLAYER_INFO("command.open-player-info", "&aVocê abriu as Informações de <nickname>!"),
+	COMMAND_TELEPORT_TO_SCREENSHARE("command.teleport-to-screenshare",
+			"&aVocê foi teleportado para o local da ScreenShare."),
 	SESSION_INITIATE_SESSION("session.initiate-session", "&aVocê puxou <nickname> para uma ScreenShare!"),
 	SESSION_FINALIZE_SESSION("session.finalize-session", "&aVocê finalizou a ScreenShare de <nickname>!"),
 	SESSION_JOIN_SESSION("session.join-session", "&aVocê entrou na Sessão de <nickname>!"),

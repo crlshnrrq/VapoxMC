@@ -11,6 +11,8 @@ public enum ScreenSharePermissions {
 			PermissionDefault.OP),
 	VIEW_HISTORY("screenshareplugin.viewhistory", "Permissão para ver o Histórico de Sessões de ScreenShare's.",
 			PermissionDefault.OP),
+	SCREENSHARE_TELEPORT("screenshareplugin.teleport", "Permissão para teleportar até o local da ScreenShare.",
+			PermissionDefault.OP),
 	OPEN_CONFIG("screenshareplugin.config", "Permissão para abrir o Menu de Configurações do Plugin de ScreenShare.",
 			PermissionDefault.OP),
 	SPY_SESSIONS("screenshareplugin.spy", "Permissão para espionar os Registros das Sessões em Andamento.",
