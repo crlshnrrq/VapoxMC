@@ -97,6 +97,8 @@ commands:
     description: Envie mensagens privadas!
   transferir:
     description: Envie moedas para um jogador!
+   screenshare:
+    aliases: [ss]
   warp:
     description: Veja as warps do servidor
   youtuber:

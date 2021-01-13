@@ -20,6 +20,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.DisplaySlot;
 
+import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
+
 import br.com.vapoxmc.kitpvp.commands.ActionBarCommand;
 import br.com.vapoxmc.kitpvp.commands.AddMoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.AdminCommand;
@@ -117,6 +119,12 @@ import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.kitpvp.warp.Warp;
 
 public final class VapoxPvP extends JavaPlugin {
+
+	private static ScreenSharePlugin screenSharePlugin;
+
+	public static ScreenSharePlugin getScreenSharePlugin() {
+		return screenSharePlugin;
+	}
 
 	private static boolean chat = true;
 	private static final List<UUID> ignoreStaffChat = new ArrayList<>(), tellDisabled = new ArrayList<>(),
@@ -723,6 +731,8 @@ public final class VapoxPvP extends JavaPlugin {
 		getWarps().add(new EventoWarp());
 
 		PlayerAccount.createConnection();
+
+		screenSharePlugin = new ScreenSharePlugin(this);
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(players -> {
 			updateSidebar(players);
