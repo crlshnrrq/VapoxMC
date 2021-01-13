@@ -47,14 +47,14 @@ public final class AjninKit extends Kit implements Listener {
 							&& VapoxPvP.hasKit(target)) {
 						VapoxPvP.addKitCooldown(player, 10);
 						player.sendMessage("§a§l[" + this.getName().toUpperCase() + "] §fVocê puxou o jogador §a"
-								+ target.getName() + "§faté você!");
+								+ target.getName() + " §faté você!");
 
 						target.teleport(player.getLocation());
 						target.sendMessage("§a§l[" + this.getName().toUpperCase() + "] §e" + player.getName()
 								+ " §fteleportou você até ele!");
 					} else
 						player.sendMessage(
-								"§c§l[" + this.getName().toUpperCase() + "] §cO seu ninja não encontrou ninguém!");
+								"§c§l[" + this.getName().toUpperCase() + "] §cO seu ajnin não encontrou ninguém!");
 				} else
 					player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §cVocê não atingiu ninguém!");
 			} else
