@@ -33,8 +33,8 @@ public final class SeusKitsGUI implements Listener {
 			Player player = (Player) event.getWhoClicked();
 			event.setCancelled(true);
 
-			if (display.equals("§a§l[STATUS]")) {
-			}
+			if (display.equals("§a§l[STATUS]"))
+				StatusGUI.openGUI(player, player);
 
 			if (!VapoxPvP.hasKit(player) && display.startsWith("§a")) {
 				Kit kit = VapoxPvP.getKitByName(ChatColor.stripColor(display));
