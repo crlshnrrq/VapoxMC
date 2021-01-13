@@ -4,16 +4,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public enum PlayerRank {
-	VAPOX("Vapox", '✪', ChatColor.DARK_RED, 20000),
-	SAFIRA("Safira", '✡', ChatColor.AQUA, 18000),
-	ELITE("Elite", '♜', ChatColor.RED, 16000),
-	RUBY("Ruby", '♦', ChatColor.RED, 14000),
-	ESMERALDA("Esmeralda", '✷', ChatColor.GREEN, 12000),
-	DIAMANTE("Diamante", '❂', ChatColor.AQUA, 10000),
-	GOLD("Gold", '✸', ChatColor.GOLD, 8000),
-	PLATINA("Platina", '✮', ChatColor.RED, 6000),
-	ADVANCED("Advanced", '✳', ChatColor.GRAY, 4000),
-	PRIMARY("Primary", '⚌', ChatColor.GREEN, 2000),
+	VAPOX("Vapox", '✪', ChatColor.DARK_RED, 20000), SAFIRA("Safira", '✡', ChatColor.AQUA, 18000),
+	ELITE("Elite", '♜', ChatColor.RED, 16000), RUBY("Ruby", '♦', ChatColor.RED, 14000),
+	ESMERALDA("Esmeralda", '✷', ChatColor.GREEN, 12000), DIAMANTE("Diamante", '❂', ChatColor.AQUA, 10000),
+	GOLD("Gold", '✸', ChatColor.GOLD, 8000), PLATINA("Platina", '✮', ChatColor.RED, 6000),
+	ADVANCED("Advanced", '✳', ChatColor.GRAY, 4000), PRIMARY("Primary", '⚌', ChatColor.GREEN, 2000),
 	UNRANKED("Unranked", '-', ChatColor.WHITE, 0);
 
 	private final String name;
