@@ -31,7 +31,8 @@ public final class VikingKit extends Kit implements Listener {
 	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			Player damager = (Player) event.getDamager();
-			if (VapoxPvP.getKit(damager) instanceof VikingKit && damager.getItemInHand().getType().name().contains("_AXE"))
+			if (VapoxPvP.getKit(damager) instanceof VikingKit
+					&& damager.getItemInHand().getType().name().contains("_AXE"))
 				event.setDamage(event.getDamage() + 2D);
 		}
 	}
