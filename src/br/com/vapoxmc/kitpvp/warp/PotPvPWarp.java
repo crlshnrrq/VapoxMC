@@ -40,6 +40,8 @@ public final class PotPvPWarp extends Warp implements Listener {
 
 		for (int i = 0; i < 36; i++)
 			inv.addItem(new Stack(Material.POTION, 1, 16421).display("§7» §fPoção"));
+
+		VapoxPvP.removeProtection(player);
 	}
 
 	@EventHandler
