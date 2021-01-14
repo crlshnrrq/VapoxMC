@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
+import br.com.vapoxmc.kitpvp.commons.medalhas.MedalhaAPI;
 import br.com.vapoxmc.kitpvp.player.PlayerRank;
 import net.md_5.bungee.api.ChatColor;
 
@@ -17,8 +18,13 @@ public final class ChatListeners implements Listener {
 		String message = event.getMessage().replace("%", "%%").replace("&k", ""), format = "§7("
 				+ PlayerRank.getRank(player).getColoredSymbol() + "§7) §r" + player.getDisplayName() + " §7» ";
 
+		if (MedalhaAPI.hasMedalha(player))
+			format = " " + MedalhaAPI.getMedalha(player).getColoredSymbol() + " " + format;
+
 		if (player.hasPermission("ciphen.chat.colorido"))
-			format += "§f" + ChatColor.translateAlternateColorCodes('&', message);
+			message = ChatColor.translateAlternateColorCodes('&', message);
+		if (player.hasPermission("ciphen.chat.destaque"))
+			format += "§f" + message;
 		else
 			format += "§7" + message.toLowerCase();
 
