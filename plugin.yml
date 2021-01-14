@@ -47,6 +47,9 @@ commands:
     description: Pegue seu kitpvp!
   lastlogin:
     description: Veja o ultimo acesso de alguem!
+  medalha:
+    description: Altere sua medalha.
+    aliases: [medal]
   money:
     description: Veja o seu saldo.
   online:

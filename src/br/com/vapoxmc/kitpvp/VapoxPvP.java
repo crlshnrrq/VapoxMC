@@ -67,6 +67,7 @@ import br.com.vapoxmc.kitpvp.commands.TellCommand;
 import br.com.vapoxmc.kitpvp.commands.TransferirCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.commands.YouTuberCommand;
+import br.com.vapoxmc.kitpvp.commons.medalhas.MedalhasAddon;
 import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.gui.ShopGUI;
 import br.com.vapoxmc.kitpvp.gui.ShopKDRGUI;
@@ -124,6 +125,12 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static ScreenSharePlugin getScreenSharePlugin() {
 		return screenSharePlugin;
+	}
+
+	private static MedalhasAddon medalhasAddon;
+
+	public static MedalhasAddon getMedalhasAddon() {
+		return medalhasAddon;
 	}
 
 	private static boolean chat = true;
@@ -734,6 +741,9 @@ public final class VapoxPvP extends JavaPlugin {
 
 		PlayerAccount.createConnection();
 
+		medalhasAddon = new MedalhasAddon(this);
+		getMedalhasAddon().onEnable();
+
 		screenSharePlugin = new ScreenSharePlugin(this);
 		getScreenSharePlugin().onEnable();
 
@@ -755,6 +765,7 @@ public final class VapoxPvP extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		super.onDisable();
+		getMedalhasAddon().onDisable();
 		getScreenSharePlugin().onDisable();
 		Bukkit.getScheduler().cancelTasks(this);
 		HandlerList.unregisterAll(this);
