@@ -36,22 +36,23 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 			ScreenShare ss = ScreenSharePlugin.getScreenShareById(id, true);
 
 			if (display.equals("§aRegistros da Sessão")) {
-				try {
-					String content = new String();
-					for (String line : ss.getLogs()) {
-						if (content.isEmpty())
-							content += line;
-						else
-							content += "\n" + line;
-					}
+				String content = new String();
+				for (String line : ss.getLogs()) {
+					if (content.isEmpty())
+						content += line;
+					else
+						content += "\n" + line;
+				}
+				player.closeInventory();
+				player.sendMessage("§aCarregando registro...");
 
+				try {
 					URL url = Pastebin.pastePaste(ScreenSharePlugin.getConfig().getPastebinDeveloperAPIKey(), content,
 							"Registros da Sessão #" + id);
-
-					player.sendMessage("§aURL do Registro: " + url);
-					player.closeInventory();
+					player.sendMessage("§aURL dos Registros da Sessão #" + ss.getID() + ": " + url);
 				} catch (PasteException ex) {
 					ex.printStackTrace();
+					player.sendMessage("§cNão foi possível carregar o registro da Sessão #" + ss.getID());
 				}
 			} else if (display.equals("§cExcluir a Sessão")) {
 				ScreenSharePlugin.getConfig().deleteScreenShare(id);
@@ -100,7 +101,7 @@ public final class ScreenShareInfoSessionGUI implements Listener {
 		logs.setItemMeta(mLogs);
 		inv.setItem(inv.firstEmpty(), logs);
 
-		ItemStack delete = new ItemStack(Material.INK_SACK, 1, (short) 4);
+		ItemStack delete = new ItemStack(Material.INK_SACK, 1, (short) 14);
 		ItemMeta mDelete = delete.getItemMeta();
 		mDelete.setDisplayName("§cExcluir a Sessão");
 		mDelete.setLore(Arrays.asList("§7Clique para apagar a Sessão de forma permanente."));
