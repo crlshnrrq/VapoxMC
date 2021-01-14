@@ -205,15 +205,18 @@ public final class UMvUMWarp extends Warp implements Listener {
 					enemy.hidePlayer(players);
 			});
 
-			PlayerAccount.getGeral().addAbate(enemy).addMorte(player);
-			PlayerAccount.get1v1().addVitoria(enemy).addDerrota(player);
+			PlayerAccount.addAbate(enemy);
+			PlayerAccount.addMorte(player);
+			PlayerAccount.add1v1Vitoria(enemy);
+			PlayerAccount.add1v1Derrota(player);
 			player.sendMessage("§c§l[1V1] §fVocê perdeu a batalha contra §c" + enemy.getName() + "§f.");
 
 			int coins = VapoxUtils.getRandomCoins(), points = VapoxUtils.getRandomPoints();
-			PlayerAccount.getGeral().addMoedas(enemy, coins).addPontos(enemy, points);
+			PlayerAccount.addMoedas(enemy, coins);
+			PlayerAccount.addPontos(enemy, points);
 			enemy.sendMessage("§c§l[1V1] §fVocê venceu a batalha contra §a" + player.getName() + "§f.");
 			if (enemy.hasPermission("ciphen.doublexp")) {
-				PlayerAccount.getGeral().addMoedas(enemy, coins);
+				PlayerAccount.addMoedas(enemy, coins);
 				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
 			} else
 				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");

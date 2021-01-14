@@ -11,7 +11,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
-import br.com.vapoxmc.kitpvp.player.PlayerAccount.Geral;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class ShopKitsGUI implements Listener {
@@ -23,13 +22,12 @@ public final class ShopKitsGUI implements Listener {
 				&& event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta()) {
 			String display = event.getCurrentItem().getItemMeta().getDisplayName();
 			Player player = (Player) event.getWhoClicked();
-			Geral geral = PlayerAccount.getGeral();
 			event.setCancelled(true);
 
 			if (display.equals("§aKangaroo")) {
 				if (!player.hasPermission("kit.kangaroo")) {
-					if (geral.getMoedas(player) >= 3000) {
-						geral.drawMoedas(player, 3000);
+					if (PlayerAccount.getMoedas(player) >= 3000) {
+						PlayerAccount.drawMoedas(player, 3000);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.kangaroo");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aKangaroo§f.");
@@ -48,8 +46,8 @@ public final class ShopKitsGUI implements Listener {
 				}
 			} else if (display.equals("§aAnchor")) {
 				if (!player.hasPermission("kit.anchor")) {
-					if (geral.getMoedas(player) >= 3750) {
-						geral.drawMoedas(player, 3750);
+					if (PlayerAccount.getMoedas(player) >= 3750) {
+						PlayerAccount.drawMoedas(player, 3750);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.anchor");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aAnchor§f.");
@@ -68,8 +66,8 @@ public final class ShopKitsGUI implements Listener {
 				}
 			} else if (display.equals("§aNinja")) {
 				if (!player.hasPermission("kit.anchor")) {
-					if (geral.getMoedas(player) >= 3750) {
-						geral.drawMoedas(player, 3750);
+					if (PlayerAccount.getMoedas(player) >= 3750) {
+						PlayerAccount.drawMoedas(player, 3750);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.anchor");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aAnchor§f.");
@@ -88,8 +86,8 @@ public final class ShopKitsGUI implements Listener {
 				}
 			} else if (display.equals("§aNinja")) {
 				if (!player.hasPermission("kit.ninja")) {
-					if (geral.getMoedas(player) >= 5000) {
-						geral.drawMoedas(player, 5000);
+					if (PlayerAccount.getMoedas(player) >= 5000) {
+						PlayerAccount.drawMoedas(player, 5000);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.ninja");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aNinja§f.");
@@ -108,8 +106,8 @@ public final class ShopKitsGUI implements Listener {
 				}
 			} else if (display.equals("§aAjnin")) {
 				if (!player.hasPermission("kit.ajnin")) {
-					if (geral.getMoedas(player) >= 6000) {
-						geral.drawMoedas(player, 6000);
+					if (PlayerAccount.getMoedas(player) >= 6000) {
+						PlayerAccount.drawMoedas(player, 6000);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.ajnin");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aAjnin§f.");
@@ -128,8 +126,8 @@ public final class ShopKitsGUI implements Listener {
 				}
 			} else if (display.equals("§aCritical")) {
 				if (!player.hasPermission("kit.critical")) {
-					if (geral.getMoedas(player) >= 8000) {
-						geral.drawMoedas(player, 8000);
+					if (PlayerAccount.getMoedas(player) >= 8000) {
+						PlayerAccount.drawMoedas(player, 8000);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.critical");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aCritical§f.");
@@ -148,8 +146,8 @@ public final class ShopKitsGUI implements Listener {
 				}
 			} else if (display.equals("§aAntiStomper")) {
 				if (!player.hasPermission("kit.antistomper")) {
-					if (geral.getMoedas(player) >= 10000) {
-						geral.drawMoedas(player, 10000);
+					if (PlayerAccount.getMoedas(player) >= 10000) {
+						PlayerAccount.drawMoedas(player, 10000);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.antistomper");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aAntiStomper§f.");
@@ -168,8 +166,8 @@ public final class ShopKitsGUI implements Listener {
 				}
 			} else if (display.equals("§aStomper")) {
 				if (!player.hasPermission("kit.stomper")) {
-					if (geral.getMoedas(player) >= 13000) {
-						geral.drawMoedas(player, 13000);
+					if (PlayerAccount.getMoedas(player) >= 13000) {
+						PlayerAccount.drawMoedas(player, 13000);
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"pex user " + player.getName() + " add kit.stomper");
 						player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aStomper§f.");
@@ -191,7 +189,7 @@ public final class ShopKitsGUI implements Listener {
 	}
 
 	public static void openGUI(Player player) {
-		int coins = PlayerAccount.getGeral().getMoedas(player);
+		int coins = PlayerAccount.getMoedas(player);
 		String money = new DecimalFormat("###,###.##").format(coins);
 
 		Inventory inv = Bukkit.createInventory(null, 36, "§e§lMenu de Compras §7(KITs)");

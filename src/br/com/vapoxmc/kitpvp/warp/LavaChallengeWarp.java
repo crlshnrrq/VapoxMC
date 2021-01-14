@@ -97,25 +97,25 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 					&& sign.getLine(3).equals("§e§l[CLIQUE!]") && !this.isAbusing(player)) {
 				if (sign.getLine(2).equals("§a§lFácil")) {
 					VapoxPvP.setWarp(player, this);
-					PlayerAccount.getGeral().addMoedas(player, 300);
+					PlayerAccount.addMoedas(player, 300);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §afácil §fdo LavaChallenge!");
 					player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a300 §fmoedas de §aLavaChallenge");
 				} else if (sign.getLine(2).equals("§e§lMédio")) {
 					VapoxPvP.setWarp(player, this);
-					PlayerAccount.getGeral().addMoedas(player, 700);
+					PlayerAccount.addMoedas(player, 700);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §emédio §fdo LavaChallenge!");
 					player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a700 §fmoedas de §aLavaChallenge");
 				} else if (sign.getLine(2).equals("§c§lDíficil")) {
 					VapoxPvP.setWarp(player, this);
-					PlayerAccount.getGeral().addMoedas(player, 1200);
+					PlayerAccount.addMoedas(player, 1200);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §cdificil §fdo LavaChallenge!");
 					player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a1,200 §fmoedas de §aLavaChallenge");
 				} else if (sign.getLine(2).equals("§8§lINSANO")) {
 					VapoxPvP.setWarp(player, this);
-					PlayerAccount.getGeral().addMoedas(player, 2800);
+					PlayerAccount.addMoedas(player, 2800);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §8§linsano §fdo LavaChallenge!");
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §fRecompensa: §a§l2,800 §fmoedas, mandem gg!");

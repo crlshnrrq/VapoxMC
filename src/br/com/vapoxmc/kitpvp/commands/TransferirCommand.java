@@ -23,14 +23,14 @@ public final class TransferirCommand implements CommandExecutor {
 						try {
 							int amount = Integer.parseInt(args[1]);
 							if (amount >= 1) {
-								if (amount <= PlayerAccount.getGeral().getMoedas(player)) {
+								if (amount <= PlayerAccount.getMoedas(player)) {
 									DecimalFormat df = new DecimalFormat("###,###.##");
 
-									PlayerAccount.getGeral().drawMoedas(player, amount);
+									PlayerAccount.drawMoedas(player, amount);
 									player.sendMessage("§a§l[MOEDAS] §fVocê enviou §a" + df.format(amount)
 											+ " §fmoedas para §a" + target.getName());
 
-									PlayerAccount.getGeral().addMoedas(target, amount);
+									PlayerAccount.addMoedas(target, amount);
 									player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + df.format(amount)
 											+ " §fmoedas de §a" + player.getName());
 								} else

@@ -47,263 +47,221 @@ public final class PlayerAccount {
 		}
 	}
 
-	public static Geral getGeral() {
-		return new Geral();
+	public static int getMoedas(Player player) {
+		return config.getInt("status." + player.getName() + ".geral.moedas", 0);
 	}
 
-	public static class Geral {
-
-		public int getMoedas(Player player) {
-			return config.getInt("status." + player.getName() + ".geral.moedas", 0);
-		}
-
-		public Geral setMoedas(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".geral.moedas", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getGeral();
-		}
-
-		public Geral addMoedas(Player player, int amount) {
-			this.setMoedas(player, this.getMoedas(player) + amount);
-			return getGeral();
-		}
-
-		public Geral drawMoedas(Player player, int amount) {
-			int result = getMoedas(player) - amount;
-			this.setMoedas(player, result < 0 ? 0 : result);
-			return getGeral();
-		}
-
-		public int getPontos(Player player) {
-			return config.getInt("status." + player.getName() + ".geral.pontos", 0);
-		}
-
-		public Geral setPontos(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".geral.pontos", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getGeral();
-		}
-
-		public Geral addPontos(Player player, int amount) {
-			this.setPontos(player, this.getPontos(player) + amount);
-			return getGeral();
-		}
-
-		public int getKillStreak(Player player) {
-			return config.getInt("status." + player.getName() + ".geral.killstreak", 0);
-		}
-
-		public Geral setKillStreak(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".geral.killstreak", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getGeral();
-		}
-
-		public Geral addKillStreak(Player player) {
-			this.setKillStreak(player, this.getKillStreak(player) + 1);
-			return getGeral();
-		}
-
-		public int getAbates(Player player) {
-			return config.getInt("status." + player.getName() + ".geral.abates", 0);
-		}
-
-		public Geral setAbates(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".geral.abates", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getGeral();
-		}
-
-		public Geral addAbates(Player player, int amount) {
-			this.setAbates(player, this.getAbates(player) + amount);
-			return getGeral();
-		}
-
-		public Geral addAbate(Player player) {
-			return this.addAbates(player, 1);
-		}
-
-		public int getMortes(Player player) {
-			return config.getInt("status." + player.getName() + ".geral.mortes", 0);
-		}
-
-		public Geral setMortes(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".geral.mortes", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getGeral();
-		}
-
-		public Geral addMortes(Player player, int amount) {
-			this.setMortes(player, this.getMortes(player) + amount);
-			return getGeral();
-		}
-
-		public Geral addMorte(Player player) {
-			return this.addMortes(player, 1);
+	public static void setMoedas(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".geral.moedas", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 
-	public static UMvUM get1v1() {
-		return new UMvUM();
+	public static void addMoedas(Player player, int amount) {
+		setMoedas(player, getMoedas(player) + amount);
 	}
 
-	public static class UMvUM {
+	public static void drawMoedas(Player player, int amount) {
+		int result = getMoedas(player) - amount;
+		setMoedas(player, result < 0 ? 0 : result);
+	}
 
-		public int getWinStreak(Player player) {
-			return config.getInt("status." + player.getName() + ".1v1.winstreak");
-		}
+	public static int getPontos(Player player) {
+		return config.getInt("status." + player.getName() + ".geral.pontos", 0);
+	}
 
-		public UMvUM setWinStreak(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".1v1.winstreak", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return get1v1();
-		}
-
-		public UMvUM addWinStreak(Player player) {
-			this.setWinStreak(player, this.getWinStreak(player) + 1);
-			return get1v1();
-		}
-
-		public int getVitorias(Player player) {
-			return config.getInt("status." + player.getName() + ".1v1.vitorias");
-		}
-
-		public UMvUM setVitorias(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".1v1.vitorias", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return get1v1();
-		}
-
-		public UMvUM addVitorias(Player player, int amount) {
-			this.setVitorias(player, this.getVitorias(player) + amount);
-			return get1v1();
-		}
-
-		public UMvUM addVitoria(Player player) {
-			return this.addVitorias(player, 1);
-		}
-
-		public int getDerrotas(Player player) {
-			return config.getInt("status." + player.getName() + ".1v1.derrotas", 0);
-		}
-
-		public UMvUM setDerrotas(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".1v1.derrotas", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return get1v1();
-		}
-
-		public UMvUM addDerrotas(Player player, int amount) {
-			this.setDerrotas(player, this.getDerrotas(player) + amount);
-			return get1v1();
-		}
-
-		public UMvUM addDerrota(Player player) {
-			return addDerrotas(player, 1);
+	public static void setPontos(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".geral.pontos", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 	}
 
-	public static Sumo getSumo() {
-		return new Sumo();
+	public static void addPontos(Player player, int amount) {
+		setPontos(player, getPontos(player) + amount);
 	}
 
-	public static class Sumo {
+	public static int getKillStreak(Player player) {
+		return config.getInt("status." + player.getName() + ".geral.killstreak", 0);
+	}
 
-		public int getWinStreak(Player player) {
-			return config.getInt("status." + player.getName() + ".sumo.winstreak", 0);
+	public static void setKillStreak(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".geral.killstreak", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void addKillStreak(Player player) {
+		setKillStreak(player, getKillStreak(player) + 1);
+	}
+
+	public static int getAbates(Player player) {
+		return config.getInt("status." + player.getName() + ".geral.abates", 0);
+	}
+
+	public static void setAbates(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".geral.abates", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void addAbates(Player player, int amount) {
+		setAbates(player, getAbates(player) + amount);
+	}
+
+	public static void addAbate(Player player) {
+		addAbates(player, 1);
+	}
+
+	public static int getMortes(Player player) {
+		return config.getInt("status." + player.getName() + ".geral.mortes", 0);
+	}
+
+	public static void setMortes(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".geral.mortes", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void addMortes(Player player, int amount) {
+		setMortes(player, getMortes(player) + amount);
+	}
+
+	public static void addMorte(Player player) {
+		addMortes(player, 1);
+	}
+
+	public static int get1v1WinStreak(Player player) {
+		return config.getInt("status." + player.getName() + ".1v1.winstreak");
+	}
+
+	public static void set1v1WinStreak(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".1v1.winstreak", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void add1v1WinStreak(Player player) {
+		set1v1WinStreak(player, get1v1WinStreak(player) + 1);
+	}
+
+	public static int get1v1Vitorias(Player player) {
+		return config.getInt("status." + player.getName() + ".1v1.vitorias");
+	}
+
+	public static void set1v1Vitorias(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".1v1.vitorias", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void add1v1Vitorias(Player player, int amount) {
+		set1v1Vitorias(player, get1v1Vitorias(player) + amount);
+	}
+
+	public static void add1v1Vitoria(Player player) {
+		add1v1Vitorias(player, 1);
+	}
+
+	public static int get1v1Derrotas(Player player) {
+		return config.getInt("status." + player.getName() + ".1v1.derrotas", 0);
+	}
+
+	public static void set1v1Derrotas(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".1v1.derrotas", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void add1v1Derrotas(Player player, int amount) {
+		set1v1Derrotas(player, get1v1Derrotas(player) + amount);
+	}
+
+	public static void add1v1Derrota(Player player) {
+		add1v1Derrotas(player, 1);
+	}
+
+	public static int getSumoWinStreak(Player player) {
+		return config.getInt("status." + player.getName() + ".sumo.winstreak", 0);
+	}
+
+	public static void setSumoWinStreak(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".sumo.winstreak", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
 
-		public Sumo setWinStreak(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".sumo.winstreak", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getSumo();
-		}
+	}
 
-		public Sumo addWinStreak(Player player) {
-			this.setWinStreak(player, this.getWinStreak(player) + 1);
-			return getSumo();
-		}
+	public static void addSumoWinStreak(Player player) {
+		setSumoWinStreak(player, getSumoWinStreak(player) + 1);
 
-		public int getVitorias(Player player) {
-			return config.getInt("status." + player.getName() + ".sumo.vitorias", 0);
-		}
+	}
 
-		public Sumo setVitorias(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".sumo.vitorias", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getSumo();
-		}
+	public static int getSumoVitorias(Player player) {
+		return config.getInt("status." + player.getName() + ".sumo.vitorias", 0);
+	}
 
-		public Sumo addVitorias(Player player, int amount) {
-			this.setVitorias(player, this.getVitorias(player) + amount);
-			return getSumo();
+	public static void setSumoVitorias(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".sumo.vitorias", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
+	}
 
-		public Sumo addVitoria(Player player) {
-			return this.addVitorias(player, 1);
-		}
+	public static void addSumoVitorias(Player player, int amount) {
+		setSumoVitorias(player, getSumoVitorias(player) + amount);
+	}
 
-		public int getDerrotas(Player player) {
-			return config.getInt("status." + player.getName() + ".sumo.derrotas", 0);
-		}
+	public static void addSumoVitoria(Player player) {
+		addSumoVitorias(player, 1);
+	}
 
-		public Sumo setDerrotas(Player player, int amount) {
-			try {
-				config.set("status." + player.getName() + ".sumo.derrotas", amount);
-				config.save(file);
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-			return getSumo();
-		}
+	public static int getSumoDerrotas(Player player) {
+		return config.getInt("status." + player.getName() + ".sumo.derrotas", 0);
+	}
 
-		public Sumo addDerrotas(Player player, int amount) {
-			this.setDerrotas(player, this.getDerrotas(player) + amount);
-			return getSumo();
+	public static void setSumoDerrotas(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".sumo.derrotas", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
 		}
+	}
 
-		public Sumo addDerrota(Player player) {
-			return addDerrotas(player, 1);
-		}
+	public static void addSumoDerrotas(Player player, int amount) {
+		setSumoDerrotas(player, getSumoDerrotas(player) + amount);
+	}
+
+	public void addSumoDerrota(Player player) {
+		addSumoDerrotas(player, 1);
 	}
 }

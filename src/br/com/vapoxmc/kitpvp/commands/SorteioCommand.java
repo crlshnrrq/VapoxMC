@@ -48,7 +48,7 @@ public final class SorteioCommand implements CommandExecutor {
 									+ chance + "% de chance)");
 							if (vencedor != null && vencedor.isOnline()) {
 								vencedor.playSound(player.getLocation(), Sound.LEVEL_UP, 1F, 1F);
-								PlayerAccount.getGeral().addMoedas(vencedor, amount);
+								PlayerAccount.addMoedas(vencedor, amount);
 								vencedor.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + df.format(amount)
 										+ " §fmoedas de §aSorteio§f!");
 							} else

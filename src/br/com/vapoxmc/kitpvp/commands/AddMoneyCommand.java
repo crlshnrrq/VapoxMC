@@ -24,7 +24,7 @@ public final class AddMoneyCommand implements CommandExecutor {
 							int amount = Integer.parseInt(args[1]);
 							DecimalFormat df = new DecimalFormat("###,###.##");
 
-							PlayerAccount.getGeral().addMoedas(target, amount);
+							PlayerAccount.addMoedas(target, amount);
 							player.sendMessage("§a§l[MOEDAS] §fVocê deu §a" + df.format(amount) + " §fmoedas para §a"
 									+ target.getName());
 							target.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + df.format(amount) + " §fmoedas de §a"

@@ -52,7 +52,7 @@ public enum PlayerRank {
 	}
 
 	public static PlayerRank getRank(Player player) {
-		int pontos = PlayerAccount.getGeral().getPontos(player);
+		int pontos = PlayerAccount.getPontos(player);
 		for (PlayerRank rank : values()) {
 			if (pontos >= rank.getPontos())
 				return rank;

@@ -93,11 +93,13 @@ public final class PlayerListeners implements Listener {
 				if (VapoxPvP.isInCombat(killer))
 					VapoxPvP.removeCombat(killer);
 				int coins = VapoxUtils.getRandomCoins(), points = VapoxUtils.getRandomPoints();
-				PlayerAccount.getGeral().addMoedas(killer, coins).addPontos(killer, points).addAbate(killer)
-						.addMorte(player);
+				PlayerAccount.addMoedas(killer, coins);
+				PlayerAccount.addPontos(killer, points);
+				PlayerAccount.addAbate(killer);
+				PlayerAccount.addMorte(player);
 				killer.sendMessage("§c§l[MORTE] §fVocê matou o jogador §c" + player.getName() + "§f.");
 				if (killer.hasPermission("ciphen.doublexp")) {
-					PlayerAccount.getGeral().addMoedas(killer, coins);
+					PlayerAccount.addMoedas(killer, coins);
 					killer.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
 				} else
 					killer.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
@@ -125,13 +127,14 @@ public final class PlayerListeners implements Listener {
 				if (VapoxPvP.hasEventoPlayer(player))
 					player.sendMessage("§c§l[EVENTO] §fVocê foi desclassificado do evento.");
 			}
-			if (PlayerAccount.getGeral().getKillStreak(player) > 5)
-				Bukkit.broadcastMessage("§c§l[KILLSTREAK] §fO jogador §c" + player.getName()
-						+ " §fperdeu o seu killstreak de §c§l" + PlayerAccount.getGeral().getKillStreak(player)
-						+ " §fpara §c" + killer.getName() + "§f!");
-			PlayerAccount.getGeral().setKillStreak(player, 0);
+			if (PlayerAccount.getKillStreak(player) > 5)
+				Bukkit.broadcastMessage(
+						"§c§l[KILLSTREAK] §fO jogador §c" + player.getName() + " §fperdeu o seu killstreak de §c§l"
+								+ PlayerAccount.getKillStreak(player) + " §fpara §c" + killer.getName() + "§f!");
+			PlayerAccount.setKillStreak(player, 0);
 
-			int killStreak = PlayerAccount.getGeral().addKillStreak(killer).getKillStreak(killer);
+			PlayerAccount.addKillStreak(killer);
+			int killStreak = PlayerAccount.getKillStreak(killer);
 			if (killStreak % 5 == 0)
 				Bukkit.broadcastMessage("§e§l[KILLSTREAK] §fO jogador §e" + killer.getName()
 						+ " §fatingiu um killstreak de §e§l" + killStreak + " §fabates!");

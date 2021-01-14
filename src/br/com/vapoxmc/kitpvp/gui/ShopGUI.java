@@ -44,7 +44,7 @@ public final class ShopGUI implements Listener {
 	}
 
 	public static void openGUI(Player player) {
-		int coins = PlayerAccount.getGeral().getMoedas(player);
+		int coins = PlayerAccount.getMoedas(player);
 		String money = new DecimalFormat("###,###.##").format(coins);
 
 		Inventory inv = Bukkit.createInventory(null, 36, "§e§lMenu de Compras");

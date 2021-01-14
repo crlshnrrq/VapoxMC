@@ -22,7 +22,7 @@ public final class RankCommand implements CommandExecutor {
 						+ new DecimalFormat().format(rank.getPontos()) + " pontos§f.");
 			}
 			player.sendMessage("§eSeu rank atual é: §l" + PlayerRank.getRank(player).getName().toUpperCase() + "§e.");
-			player.sendMessage("§fVocê possui: §a" + PlayerAccount.getGeral().getPontos(player) + " §fpontos!");
+			player.sendMessage("§fVocê possui: §a" + PlayerAccount.getPontos(player) + " §fpontos!");
 			player.sendMessage("§fConsiga mais §apontos §fmatando oponentes nas §aarenas§f!");
 		} else
 			sender.sendMessage("§cVocê não pode executar este comando!");

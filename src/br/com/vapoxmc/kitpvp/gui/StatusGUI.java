@@ -31,12 +31,13 @@ public final class StatusGUI implements Listener {
 
 		inv.setItem(4, new Stack(Material.SKULL_ITEM, 1, 3).owner(target.getName()).display("§aInformações:").lore(
 				"§fNick: §a" + target.getName(), "§fUUID: §a" + target.getUniqueId(),
-				"§fMoedas: §a" + new DecimalFormat("###,###.##").format(PlayerAccount.getGeral().getMoedas(target)),
+				"§fMoedas: §a" + new DecimalFormat("###,###.##").format(PlayerAccount.getMoedas(target)),
 				"§fPrimeiro acesso: " + new SimpleDateFormat("dd/MM/yyyy HH:mm").format(target.getFirstPlayed())));
 
-		inv.setItem(10, new Stack(Material.DIAMOND_SWORD).display("§aEstatísticas:").lore(
-				"§fAbates: §a" + PlayerAccount.getGeral().getAbates(target),
-				"§fMortes: §a" + PlayerAccount.getGeral().getMortes(target), "§fKit favorito: §cDesenvolvimento"));
+		inv.setItem(10,
+				new Stack(Material.DIAMOND_SWORD).display("§aEstatísticas:").lore(
+						"§fAbates: §a" + PlayerAccount.getAbates(target),
+						"§fMortes: §a" + PlayerAccount.getMortes(target), "§fKit favorito: §cDesenvolvimento"));
 
 		inv.setItem(12,
 				new Stack(Material.EYE_OF_ENDER).display("§aCargo:").lore(
@@ -45,19 +46,19 @@ public final class StatusGUI implements Listener {
 
 		inv.setItem(14,
 				new Stack(Material.COMPASS).display("§aEstatísticas: §7(warps)").lore("§e§l1v1",
-						"§fKills: §a" + PlayerAccount.get1v1().getVitorias(target),
-						"§fDeaths: §a" + PlayerAccount.get1v1().getDerrotas(target), " ", "§e§lSumô",
-						"§fKills: §a" + PlayerAccount.getSumo().getVitorias(target),
-						"§fDeaths: §a" + PlayerAccount.getSumo().getDerrotas(target), " ", "§e§lPotPvP",
-						"§fKills: §cOFF", "§fDeaths: §cOFF", " "));
+						"§fKills: §a" + PlayerAccount.get1v1Vitorias(target),
+						"§fDeaths: §a" + PlayerAccount.get1v1Derrotas(target), " ", "§e§lSumô",
+						"§fKills: §a" + PlayerAccount.getSumoVitorias(target),
+						"§fDeaths: §a" + PlayerAccount.getSumoDerrotas(target), " ", "§e§lPotPvP", "§fKills: §cOFF",
+						"§fDeaths: §cOFF", " "));
 
 		inv.setItem(16,
 				new Stack(Material.EXP_BOTTLE).display("§aExperiência:").lore(
-						"§fPontos: §a" + PlayerAccount.getGeral().getPontos(target),
+						"§fPontos: §a" + PlayerAccount.getPontos(target),
 						"§fRank: §a" + PlayerRank.getRank(target).getColoredSymbolName(),
 						"§fBooster: §a" + (target.hasPermission("ciphen.doublexp") ? "x2.0" : "x1.0")));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.UNRANKED.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.UNRANKED.getPontos())
 			inv.setItem(28,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 							.display("§7(" + PlayerRank.UNRANKED.getColoredSymbol() + "§7) | "
@@ -70,7 +71,7 @@ public final class StatusGUI implements Listener {
 									+ PlayerRank.UNRANKED.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.PRIMARY.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.PRIMARY.getPontos())
 			inv.setItem(29,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 							.display("§7(" + PlayerRank.PRIMARY.getColoredSymbol() + "§7) | "
@@ -83,7 +84,7 @@ public final class StatusGUI implements Listener {
 									+ PlayerRank.PRIMARY.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.ADVANCED.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.ADVANCED.getPontos())
 			inv.setItem(30,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 							.display("§7(" + PlayerRank.ADVANCED.getColoredSymbol() + "§7) | "
@@ -96,7 +97,7 @@ public final class StatusGUI implements Listener {
 									+ PlayerRank.ADVANCED.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.PLATINA.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.PLATINA.getPontos())
 			inv.setItem(31,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 							.display("§7(" + PlayerRank.PLATINA.getColoredSymbol() + "§7) | "
@@ -109,7 +110,7 @@ public final class StatusGUI implements Listener {
 									+ PlayerRank.PLATINA.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.GOLD.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.GOLD.getPontos())
 			inv.setItem(32, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 					.display("§7(" + PlayerRank.GOLD.getColoredSymbol() + "§7) | " + PlayerRank.GOLD.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));
@@ -118,7 +119,7 @@ public final class StatusGUI implements Listener {
 					.display("§7(" + PlayerRank.GOLD.getColoredSymbol() + "§7) | " + PlayerRank.GOLD.getColoredName())
 					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.DIAMANTE.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.DIAMANTE.getPontos())
 			inv.setItem(33,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 							.display("§7(" + PlayerRank.DIAMANTE.getColoredSymbol() + "§7) | "
@@ -131,7 +132,7 @@ public final class StatusGUI implements Listener {
 									+ PlayerRank.DIAMANTE.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.ESMERALDA.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.ESMERALDA.getPontos())
 			inv.setItem(34,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 							.display("§7(" + PlayerRank.ESMERALDA.getColoredSymbol() + "§7) | "
@@ -144,7 +145,7 @@ public final class StatusGUI implements Listener {
 									+ PlayerRank.ESMERALDA.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.RUBY.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.RUBY.getPontos())
 			inv.setItem(37, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 					.display("§7(" + PlayerRank.RUBY.getColoredSymbol() + "§7) | " + PlayerRank.RUBY.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));
@@ -153,7 +154,7 @@ public final class StatusGUI implements Listener {
 					.display("§7(" + PlayerRank.RUBY.getColoredSymbol() + "§7) | " + PlayerRank.RUBY.getColoredName())
 					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.ELITE.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.ELITE.getPontos())
 			inv.setItem(38, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 					.display("§7(" + PlayerRank.ELITE.getColoredSymbol() + "§7) | " + PlayerRank.ELITE.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));
@@ -162,7 +163,7 @@ public final class StatusGUI implements Listener {
 					.display("§7(" + PlayerRank.ELITE.getColoredSymbol() + "§7) | " + PlayerRank.ELITE.getColoredName())
 					.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.SAFIRA.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.SAFIRA.getPontos())
 			inv.setItem(39,
 					new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 							.display("§7(" + PlayerRank.SAFIRA.getColoredSymbol() + "§7) | "
@@ -175,7 +176,7 @@ public final class StatusGUI implements Listener {
 									+ PlayerRank.SAFIRA.getColoredName())
 							.lore("§c" + target.getName() + " ainda não atingiu esse rank."));
 
-		if (PlayerAccount.getGeral().getPontos(target) >= PlayerRank.VAPOX.getPontos())
+		if (PlayerAccount.getPontos(target) >= PlayerRank.VAPOX.getPontos())
 			inv.setItem(40, new Stack(Material.STAINED_GLASS_PANE, 1, 5)
 					.display("§7(" + PlayerRank.VAPOX.getColoredSymbol() + "§7) | " + PlayerRank.VAPOX.getColoredName())
 					.lore("§a" + target.getName() + " já atingiu esse rank!."));

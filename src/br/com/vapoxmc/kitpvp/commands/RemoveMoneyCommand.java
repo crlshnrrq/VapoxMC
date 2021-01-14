@@ -24,8 +24,8 @@ public final class RemoveMoneyCommand implements CommandExecutor {
 							int amount = Integer.parseInt(args[1]);
 							DecimalFormat df = new DecimalFormat("###,###.##");
 
-							if (PlayerAccount.getGeral().getMoedas(target) >= amount) {
-								PlayerAccount.getGeral().drawMoedas(target, amount);
+							if (PlayerAccount.getMoedas(target) >= amount) {
+								PlayerAccount.drawMoedas(target, amount);
 								player.sendMessage("§a§l[MOEDAS] §fVocê removeu §a" + df.format(amount)
 										+ " §fmoedas de §a" + target.getName());
 								target.sendMessage("§a§l[MOEDAS] §f" + player.getName() + " removeu §a"

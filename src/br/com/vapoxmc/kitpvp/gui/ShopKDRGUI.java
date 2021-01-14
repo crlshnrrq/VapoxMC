@@ -11,7 +11,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
-import br.com.vapoxmc.kitpvp.player.PlayerAccount.Geral;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class ShopKDRGUI implements Listener {
@@ -23,15 +22,22 @@ public final class ShopKDRGUI implements Listener {
 				&& event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta()) {
 			String display = event.getCurrentItem().getItemMeta().getDisplayName();
 			Player player = (Player) event.getWhoClicked();
-			Geral geral = PlayerAccount.getGeral();
 			event.setCancelled(true);
 
 			if (display.equals("§c§lReset KDR")) {
-				if (geral.getMoedas(player) >= 5000) {
-					geral.drawMoedas(player, 5000).setAbates(player, 0).setMortes(player, 0).setKillStreak(player, 0);
+				if (PlayerAccount.getMoedas(player) >= 5000) {
+					PlayerAccount.drawMoedas(player, 5000);
+					PlayerAccount.setAbates(player, 0);
+					PlayerAccount.setMortes(player, 0);
+					PlayerAccount.setKillStreak(player, 0);
 
-					PlayerAccount.get1v1().setVitorias(player, 0).setDerrotas(player, 0).setWinStreak(player, 0);
-					PlayerAccount.getSumo().setVitorias(player, 0).setDerrotas(player, 0).setWinStreak(player, 0);
+					PlayerAccount.set1v1Vitorias(player, 0);
+					PlayerAccount.set1v1Derrotas(player, 0);
+					PlayerAccount.set1v1WinStreak(player, 0);
+
+					PlayerAccount.setSumoVitorias(player, 0);
+					PlayerAccount.setSumoDerrotas(player, 0);
+					PlayerAccount.setSumoWinStreak(player, 0);
 
 					player.sendMessage("§a§l[LOJA] §fVocê acaba de adquirir §aresetkdr§f.");
 					Bukkit.broadcastMessage(" ");
@@ -48,7 +54,7 @@ public final class ShopKDRGUI implements Listener {
 	}
 
 	public static void openGUI(Player player) {
-		int coins = PlayerAccount.getGeral().getMoedas(player);
+		int coins = PlayerAccount.getMoedas(player);
 		String money = new DecimalFormat("###,###.##").format(coins);
 
 		Inventory inv = Bukkit.createInventory(null, 36, "§e§lMenu de Compras §7(KDR)");
@@ -59,8 +65,8 @@ public final class ShopKDRGUI implements Listener {
 		inv.setItem(22,
 				new Stack(Material.REDSTONE).display("§c§lReset KDR").lore("§fO que acontecerá ao §acomprar§f:",
 						"§fAbates definidos para: §a§l0", "§fMortes definidos para: §a§l0",
-						"§fEstatísticas de warp definidas para: §a§l0", "§e§lOBS: §fas moedas §cnão §fsão resetadas!",
-						"§fValor: §a5.000 §fmoedas."));
+						"§fEstatísticas de warp definidas para: §a§l0",
+						"§e§lOBS: §fas moedas e pontos §cnão §fsão resetadas!", "§fValor: §a5.000 §fmoedas."));
 
 		player.openInventory(inv);
 	}
