@@ -549,14 +549,17 @@ public final class VapoxPvP extends JavaPlugin {
 		if (!timeMap.containsKey(player.getUniqueId())) {
 			timeMap.put(player.getUniqueId(), 10);
 			enemyMap.put(player.getUniqueId(), enemy.getUniqueId());
+			player.sendMessage("§c§l[COMBATE] §fVocê entrou em combate com §c" + enemy.getUniqueId());
 			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
 				if (player != null && !player.getName().equals(enemy.getName())) {
 					if (timeMap.getOrDefault(player.getUniqueId(), 0) > 0) {
 						timeMap.put(player.getUniqueId(), timeMap.get(player.getUniqueId()) - 1);
 						if (timeMap.get(player.getUniqueId()) <= 0)
 							removeCombat(player);
-					} else
-						timeMap.put(player.getUniqueId(), 1);
+					} else {
+						timeMap.remove(player.getUniqueId());
+						player.sendMessage("§c§l[COMBATE] §fVocê saiu de combate.");
+					}
 				}
 			}, 20L);
 		}
@@ -677,12 +680,11 @@ public final class VapoxPvP extends JavaPlugin {
 				DecimalFormat df = new DecimalFormat("###,###.##");
 				this.updateLine(player, "§fCargo: §a", PlayerGroup.getGroup(player).getColoredName());
 				this.updateLine(player, "§fRank: §a", PlayerRank.getRank(player).getColoredName());
-				this.updateLine(player, "§fKills: §a", "" + df.format(PlayerAccount.getGeral().getAbates(player)));
-				this.updateLine(player, "§fDeaths: §a", "" + df.format(PlayerAccount.getGeral().getMortes(player)));
-				this.updateLine(player, "§fKillStreak: §a",
-						"" + df.format(PlayerAccount.getGeral().getKillStreak(player)));
-				this.updateLine(player, "§fMoedas: §a", "" + df.format(PlayerAccount.getGeral().getMoedas(player)));
-				this.updateLine(player, "§fPontos: §a", "" + df.format(PlayerAccount.getGeral().getPontos(player)));
+				this.updateLine(player, "§fKills: §a", "" + df.format(PlayerAccount.getAbates(player)));
+				this.updateLine(player, "§fDeaths: §a", "" + df.format(PlayerAccount.getMortes(player)));
+				this.updateLine(player, "§fKillStreak: §a", "" + df.format(PlayerAccount.getKillStreak(player)));
+				this.updateLine(player, "§fMoedas: §a", "" + df.format(PlayerAccount.getMoedas(player)));
+				this.updateLine(player, "§fPontos: §a", "" + df.format(PlayerAccount.getPontos(player)));
 			}
 		};
 		defaultSidebar.addLine(" ");
@@ -733,6 +735,7 @@ public final class VapoxPvP extends JavaPlugin {
 		PlayerAccount.createConnection();
 
 		screenSharePlugin = new ScreenSharePlugin(this);
+		getScreenSharePlugin().onEnable();
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(players -> {
 			updateSidebar(players);
@@ -752,6 +755,7 @@ public final class VapoxPvP extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		super.onDisable();
+		getScreenSharePlugin().onDisable();
 		Bukkit.getScheduler().cancelTasks(this);
 		HandlerList.unregisterAll(this);
 		Bukkit.getConsoleSender().sendMessage(

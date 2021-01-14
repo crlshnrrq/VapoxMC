@@ -28,13 +28,13 @@ public final class CombatLogListeners implements Listener {
 		if (VapoxPvP.isInCombat(player)) {
 			Player enemy = VapoxPvP.getCombatEnemy(player);
 			int points = VapoxUtils.getRandomPoints(), coins = VapoxUtils.getRandomCoins();
-			PlayerAccount.getGeral().addPontos(enemy, points);
-			PlayerAccount.getGeral().addMoedas(enemy, coins);
+			PlayerAccount.addPontos(enemy, points);
+			PlayerAccount.addMoedas(enemy, coins);
 			VapoxPvP.removeCombat(enemy);
 			enemy.sendMessage("§c§l[COMBATE] §c" + player.getName() + " §fdeslogou em combate e você recebeu a kill!");
 			enemy.sendMessage("§c§l[MORTE] §fVocê matou o jogador §c" + player.getName() + "§f.");
 			if (enemy.hasPermission("ciphen.doublexp")) {
-				PlayerAccount.getGeral().addMoedas(enemy, coins);
+				PlayerAccount.addMoedas(enemy, coins);
 				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
 			} else
 				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
@@ -46,7 +46,7 @@ public final class CombatLogListeners implements Listener {
 	private void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
 		if (VapoxPvP.isInCombat(player)) {
-			List<String> commands = Arrays.asList("spawn", "resetkit");
+			List<String> commands = Arrays.asList("/spawn", "/resetkit");
 			if (commands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
 				event.setCancelled(true);
 				player.sendMessage("§c§l[COMBATE] §fVocê não pode usar comandos em combate.");
