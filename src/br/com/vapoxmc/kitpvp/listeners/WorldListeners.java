@@ -24,19 +24,21 @@ public final class WorldListeners implements Listener {
 	@EventHandler
 	private void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
-		if (!player.getName().equals("SudanoJ")) {
-			List<String> commands = Arrays.asList("pex", "promote", "demote", "permissionsex:pex",
-					"permissionsex:demote", "permissionsex:promote", "rl", "reload", "bukkit:reload", "bukkit:rl");
-			if (commands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
-				event.setCancelled(true);
-				player.sendMessage("§c§l[BLOQUEIO] §fEsse comando está desativado.");
-			}
-		} else if (!player.isOp()) {
-			List<String> commands = Arrays.asList("pl", "plugin", "ver", "help", "?", "me", "msg", "minecraft:tell",
-					"bukkit:msg", "bukkit:op", "bukkit:help", "plugins", "bukkit:pl", "bukkit:plugins", "version",
-					"bukkit:w", "w", "about", "bukkit:about", "minecraft:me", "bukkit:version", "plugins",
-					"bukkit:plugin", "icanhasbukkit", "bukkit:?", "bukkit:help", "bukkit:?", "bukkit:ver");
-			if (commands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
+		List<String> commands = Arrays.asList("/pex", "/promote", "/demote", "/permissionsex:pex",
+				"/permissionsex:demote", "/permissionsex:promote", "/rl", "/reload", "/bukkit:reload", "/bukkit:rl");
+		if (!player.hasPermission("ciphen.tag.dono")
+				&& commands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
+			event.setCancelled(true);
+			player.sendMessage("§c§l[BLOQUEIO] §fEsse comando está desativado.");
+		}
+
+		if (!player.isOp()) {
+			List<String> otherCommands = Arrays.asList("/pl", "/plugin", "/ver", "/help", "/?", "/me", "/msg",
+					"/minecraft:tell", "bukkit:msg", "bukkit:op", "bukkit:help", "plugins", "bukkit:pl",
+					"bukkit:plugins", "version", "/bukkit:w", "/w", "/about", "/bukkit:about", "/minecraft:me",
+					"/bukkit:version", "/plugins", "/bukkit:plugin", "/icanhasbukkit", "/bukkit:?", "/bukkit:help",
+					"/bukkit:?", "/bukkit:ver");
+			if (otherCommands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
 				event.setCancelled(true);
 				player.sendMessage("§cÉ necessário ser [DIRETOR] ou superior para executar este comando!");
 			}
