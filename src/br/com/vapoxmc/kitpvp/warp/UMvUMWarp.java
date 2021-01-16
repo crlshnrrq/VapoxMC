@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
@@ -244,5 +245,14 @@ public final class UMvUMWarp extends Warp implements Listener {
 			event.setCancelled(true);
 			player.sendMessage("§c§l[1V1] §fVocê não pode executar §c§lnenhum §fcomando em batalha!");
 		}
+	}
+
+	@EventHandler
+	private void onCraftItem(CraftItemEvent event) {
+		if (event.getWhoClicked() instanceof Player
+				&& VapoxPvP.getWarp((Player) event.getWhoClicked()) instanceof UMvUMWarp
+				&& event.getRecipe().getResult().getType() == Material.BLAZE_POWDER)
+			event.setCancelled(true);
+
 	}
 }
