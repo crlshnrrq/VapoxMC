@@ -2,6 +2,7 @@ package br.com.vapoxmc.kitpvp.warp;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -35,7 +36,7 @@ public final class FishermanWarp extends Warp implements Listener {
 	}
 
 	public Location getLocation() {
-		return this.getRandomLocations().stream().findAny().get();
+		return this.getRandomLocations().get(new Random().nextInt(this.getRandomLocations().size()));
 	}
 
 	public List<Location> getRandomLocations() {
@@ -64,8 +65,13 @@ public final class FishermanWarp extends Warp implements Listener {
 					player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fVocê não pode fisgar a si mesmo!");
 				} else {
 					caught.teleport(player.getLocation());
+					if (!VapoxPvP.isInCombat(caught))
+						VapoxPvP.addCombat(caught, player);
+					else
+						VapoxPvP.setCombatTime(caught, 10);
 					caught.sendMessage(
 							"§a§l[" + this.getName().toUpperCase() + "] §fVocê foi pescado por §a" + player.getName());
+
 					player.sendMessage(
 							"§a§l[" + this.getName().toUpperCase() + "] §fVocê pescou o jogador §a" + caught.getName());
 				}
