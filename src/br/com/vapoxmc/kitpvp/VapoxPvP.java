@@ -17,6 +17,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.DisplaySlot;
 
@@ -556,19 +557,23 @@ public final class VapoxPvP extends JavaPlugin {
 		if (!timeMap.containsKey(player.getUniqueId())) {
 			timeMap.put(player.getUniqueId(), 10);
 			enemyMap.put(player.getUniqueId(), enemy.getUniqueId());
-			player.sendMessage("§c§l[COMBATE] §fVocê entrou em combate com §c" + enemy.getUniqueId());
-			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
-				if (player != null && !player.getName().equals(enemy.getName())) {
-					if (timeMap.getOrDefault(player.getUniqueId(), 0) > 0) {
-						timeMap.put(player.getUniqueId(), timeMap.get(player.getUniqueId()) - 1);
-						if (timeMap.get(player.getUniqueId()) <= 0)
-							removeCombat(player);
-					} else {
-						timeMap.remove(player.getUniqueId());
-						player.sendMessage("§c§l[COMBATE] §fVocê saiu de combate.");
+			player.sendMessage("§c§l[COMBATE] §fVocê entrou em combate com §c" + enemy.getName());
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					if (player != null && !player.getName().equals(enemy.getName())) {
+						if (timeMap.containsKey(player.getUniqueId()) && timeMap.get(player.getUniqueId()) > 0) {
+							timeMap.put(player.getUniqueId(), timeMap.get(player.getUniqueId()) - 1);
+							if (timeMap.get(player.getUniqueId()) <= 0)
+								removeCombat(player);
+						} else {
+							this.cancel();
+							timeMap.remove(player.getUniqueId());
+							player.sendMessage("§c§l[COMBATE] §fVocê saiu de combate.");
+						}
 					}
 				}
-			}, 20L);
+			}.runTaskTimer(VapoxPvP.getInstance(), 20L, 20L);
 		}
 	}
 
