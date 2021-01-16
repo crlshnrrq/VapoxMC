@@ -1,5 +1,7 @@
 package com.github.crlshnrrq.screenshareplugin;
 
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,8 +22,14 @@ public final class ScreenShareCommand implements CommandExecutor {
 				if (args.length > 0) {
 					if (args[0].equalsIgnoreCase("teleport") || args[0].equalsIgnoreCase("tp")) {
 						if (player.hasPermission(ScreenSharePermissions.SCREENSHARE_TELEPORT.toPermission())) {
-							player.teleport(ScreenSharePlugin.getScreenShareLocation());
-							ScreenShareMessages.COMMAND_TELEPORT_TO_SCREENSHARE.sendMessage(player);
+							Location loc = ScreenSharePlugin.getDefaultWorldLocation();
+							if (!player.getWorld().getName().equals(loc.getWorld().getName())) {
+								player.teleport(loc);
+								ScreenShareMessages.COMMAND_TELEPORT_TO_SCREENSHARE.sendMessage(player);
+							} else {
+								player.teleport(Bukkit.getWorlds().get(0).getSpawnLocation());
+								ScreenShareMessages.COMMAND_TELEPORT_TO_DEFAULT_WORLD.sendMessage(player);
+							}
 						} else
 							ScreenShareMessages.COMMAND_INSUFICIENT_PERMISSIONS.sendMessage(player);
 					} else if (args[0].equalsIgnoreCase("-sessions")) {
@@ -47,8 +55,7 @@ public final class ScreenShareCommand implements CommandExecutor {
 						ScreenShareMessages.COMMAND_OPEN_PLAYER_INFO.replace("<nickname>", args[0]).sendMessage(player);
 					}
 				} else
-					ScreenShareMessages.COMMAND_USAGE.replace("<command>", label).replace("<command>", label)
-							.sendMessage(player);
+					ScreenShareMessages.COMMAND_USAGE.replace("<command>", label).sendMessage(player);
 			} else
 				ScreenShareMessages.COMMAND_INSUFICIENT_PERMISSIONS.sendMessage(player);
 		} else

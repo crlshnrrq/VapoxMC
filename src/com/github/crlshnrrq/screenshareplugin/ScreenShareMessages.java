@@ -21,6 +21,8 @@ public enum ScreenShareMessages {
 	COMMAND_OPEN_PLAYER_INFO("command.open-player-info", "&aVocê abriu as Informações de <nickname>!"),
 	COMMAND_TELEPORT_TO_SCREENSHARE("command.teleport-to-screenshare",
 			"&aVocê foi teleportado para o local da ScreenShare."),
+	COMMAND_TELEPORT_TO_DEFAULT_WORLD("command.teleport-to-default-world",
+			"&aVocê foi teleportado para o local do Spawn."),
 	SESSION_INITIATE_SESSION("session.initiate-session", "&aVocê puxou <nickname> para uma ScreenShare!"),
 	SESSION_FINALIZE_SESSION("session.finalize-session", "&aVocê finalizou a ScreenShare de <nickname>!"),
 	SESSION_JOIN_SESSION("session.join-session", "&aVocê entrou na Sessão de <nickname>!"),
