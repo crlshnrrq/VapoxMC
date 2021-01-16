@@ -53,18 +53,18 @@ public final class KangarooKit extends Kit implements Listener {
 				if (player.isSneaking()) {
 					if (!fallList.contains(player.getUniqueId())) {
 						player.setVelocity(player.getLocation().getDirection().multiply(1.2));
-						player.setVelocity(new Vector(player.getVelocity().getX(), 0.5, player.getVelocity().getZ()));
+						player.setVelocity(new Vector(player.getVelocity().getX(), 2, player.getVelocity().getZ()));
 						kangarooMap.put(player.getUniqueId(), 1);
 					} else if (kangarooMap.get(player.getUniqueId()) != 2) {
 						player.setVelocity(player.getLocation().getDirection().multiply(1.2));
-						player.setVelocity(new Vector(player.getVelocity().getX(), 0.5, player.getVelocity().getZ()));
+						player.setVelocity(new Vector(player.getVelocity().getX(), 2, player.getVelocity().getZ()));
 						kangarooMap.put(player.getUniqueId(), 2);
 					}
 				} else if (!fallList.contains(player.getUniqueId())) {
-					player.setVelocity(new Vector(player.getVelocity().getX(), 1.0, player.getVelocity().getZ()));
+					player.setVelocity(new Vector(player.getVelocity().getX(), 1.5, player.getVelocity().getZ()));
 					kangarooMap.put(player.getUniqueId(), 1);
 				} else if (kangarooMap.get(player.getUniqueId()) != 2) {
-					player.setVelocity(new Vector(player.getVelocity().getX(), 1.0, player.getVelocity().getZ()));
+					player.setVelocity(new Vector(player.getVelocity().getX(), 1.5, player.getVelocity().getZ()));
 					kangarooMap.put(player.getUniqueId(), 2);
 				}
 			} else
