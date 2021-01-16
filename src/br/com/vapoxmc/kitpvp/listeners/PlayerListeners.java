@@ -88,6 +88,8 @@ public final class PlayerListeners implements Listener {
 		event.getDrops().clear();
 		event.setNewExp(0);
 
+		if (killer == null && VapoxPvP.isInCombat(player))
+			killer = VapoxPvP.getCombatEnemy(player);
 		if (killer != null && killer != player) {
 			if (!(VapoxPvP.getWarp(player) instanceof UMvUMWarp)) {
 				if (VapoxPvP.isInCombat(killer))
