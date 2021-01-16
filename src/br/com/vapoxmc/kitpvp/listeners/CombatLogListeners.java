@@ -18,7 +18,6 @@ import br.com.vapoxmc.kitpvp.warp.EventoWarp;
 import br.com.vapoxmc.kitpvp.warp.FPSWarp;
 import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
 import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
-import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 
 public final class CombatLogListeners implements Listener {
 
@@ -46,7 +45,7 @@ public final class CombatLogListeners implements Listener {
 	private void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
 		Player player = event.getPlayer();
 		if (VapoxPvP.isInCombat(player)) {
-			List<String> commands = Arrays.asList("/spawn", "/resetkit");
+			List<String> commands = Arrays.asList("/spawn", "/resetkit", "/admin", "/kit", "/warp");
 			if (commands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
 				event.setCancelled(true);
 				player.sendMessage("§c§l[COMBATE] §fVocê não pode usar comandos em combate.");
@@ -65,13 +64,11 @@ public final class CombatLogListeners implements Listener {
 					|| (VapoxPvP.getWarp(player) instanceof FishermanWarp
 							&& VapoxPvP.getWarp(damager) instanceof FishermanWarp)
 					|| (VapoxPvP.getWarp(player) instanceof PotPvPWarp
-							&& VapoxPvP.getWarp(damager) instanceof PotPvPWarp)
-					|| (VapoxPvP.getWarp(player) instanceof UMvUMWarp
-							&& VapoxPvP.getWarp(damager) instanceof UMvUMWarp)) {
-				if (!VapoxPvP.isInCombat(player))
-					VapoxPvP.addCombat(player, damager);
+							&& VapoxPvP.getWarp(damager) instanceof PotPvPWarp)) {
+				if (!VapoxPvP.isInCombat(damager))
+					VapoxPvP.addCombat(damager, player);
 				else
-					VapoxPvP.setCombatTime(player, 10);
+					VapoxPvP.setCombatTime(damager, 10);
 			}
 		}
 	}
