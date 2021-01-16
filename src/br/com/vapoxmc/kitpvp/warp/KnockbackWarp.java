@@ -7,6 +7,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -30,6 +31,13 @@ public final class KnockbackWarp extends Warp implements Listener {
 		inv.setItem(0, STICK);
 
 		VapoxPvP.removeProtection(player);
+	}
+
+	@EventHandler
+	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+		if (event.getDamager() instanceof Player
+				&& VapoxPvP.getWarp((Player) event.getDamager()) instanceof KnockbackWarp)
+			event.setDamage(0D);
 	}
 
 	@EventHandler
