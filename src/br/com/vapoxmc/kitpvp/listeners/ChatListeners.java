@@ -37,42 +37,42 @@ public final class ChatListeners implements Listener {
 			player.sendMessage("§c§l[CHAT] §fO chat está §c§ldesativado§f!");
 		}
 
-		event.setCancelled(true);
+		if (!event.isCancelled()) {
+			event.setCancelled(true);
+			TextComponent text = new TextComponent("");
 
-		TextComponent text = new TextComponent("");
+			if (MedalhaAPI.hasMedalha(player)) {
+				Medalha medalha = MedalhaAPI.getMedalha(player);
 
-		if (MedalhaAPI.hasMedalha(player)) {
-			Medalha medalha = MedalhaAPI.getMedalha(player);
-
-			ArrayList<String> lines = new ArrayList<>();
-			String line = "";
-			for (String word : medalha.getDescription().split(" ")) {
-				if (line.split(" ").length == 9 || line.length() >= 40) {
-					lines.add(line);
-					line = "";
+				ArrayList<String> lines = new ArrayList<>();
+				String line = "";
+				for (String word : medalha.getDescription().split(" ")) {
+					if (line.split(" ").length == 9 || line.length() >= 40) {
+						lines.add(line);
+						line = "";
+					}
+					line += (line.isEmpty() ? "" : " ") + word;
 				}
-				line += (line.isEmpty() ? "" : " ") + word;
+				lines.add(line);
+
+				String description = "";
+				for (String linha : lines)
+					description += (description.isEmpty() ? "" : "\n") + "  §f" + linha + "   ";
+
+				text.addExtra(" ");
+				TextComponent medal = new TextComponent(medalha.getColoredSymbol());
+				medal.setColor(medalha.getColor().asBungee());
+				medal.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
+						new ComponentBuilder(medalha.getColor() + "Medalha " + medalha.getName() + " "
+								+ medalha.getSymbol() + "   \n  §8Medalha " + medalha.getCategoria().getName()
+								+ "   \n\n" + description).create()));
+				text.addExtra(medal);
+				text.addExtra(" ");
 			}
-			lines.add(line);
+			text.addExtra(format);
 
-			String description = "";
-			for (String linha : lines)
-				description += (description.isEmpty() ? "" : "\n") + "  §f" + linha + "   ";
-
-			text.addExtra(" ");
-			TextComponent medal = new TextComponent(medalha.getColoredSymbol());
-			medal.setColor(medalha.getColor().asBungee());
-			medal.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,
-					new ComponentBuilder(medalha.getColor() + "Medalha " + medalha.getName() + " " + medalha.getSymbol()
-							+ "   \n  §8Medalha " + medalha.getCategoria().getName() + "   \n\n" + description)
-									.create()));
-			text.addExtra(medal);
-			text.addExtra(" ");
+			Bukkit.getConsoleSender().sendMessage("[CHAT] " + text.getText());
+			event.getRecipients().forEach(players -> players.spigot().sendMessage(text));
 		}
-
-		text.addExtra(format);
-
-		Bukkit.getConsoleSender().sendMessage("[CHAT] " + text.getText());
-		Bukkit.getOnlinePlayers().forEach(players -> players.spigot().sendMessage(text));
 	}
 }
