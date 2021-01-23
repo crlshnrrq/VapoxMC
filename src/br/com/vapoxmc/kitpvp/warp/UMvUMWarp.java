@@ -143,9 +143,9 @@ public final class UMvUMWarp extends Warp implements Listener {
 						enemy.hidePlayer(players);
 					});
 			Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players)).forEach(players -> {
-				if (!player.hasPermission("ciphen.comandos.admin"))
+				if (!player.hasPermission("command.admin"))
 					player.hidePlayer(players);
-				if (!enemy.hasPermission("ciphen.comandos.admin"))
+				if (!enemy.hasPermission("command.admin"))
 					enemy.hidePlayer(players);
 			});
 
@@ -200,9 +200,9 @@ public final class UMvUMWarp extends Warp implements Listener {
 				enemy.showPlayer(players);
 			});
 			Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players)).forEach(players -> {
-				if (!player.hasPermission("ciphen.comandos.admin"))
+				if (!player.hasPermission("command.admin"))
 					player.hidePlayer(players);
-				if (!enemy.hasPermission("ciphen.comandos.admin"))
+				if (!enemy.hasPermission("command.admin"))
 					enemy.hidePlayer(players);
 			});
 
@@ -216,7 +216,7 @@ public final class UMvUMWarp extends Warp implements Listener {
 			PlayerAccount.addMoedas(enemy, coins);
 			PlayerAccount.addPontos(enemy, points);
 			enemy.sendMessage("§c§l[1V1] §fVocê venceu a batalha contra §a" + player.getName() + "§f.");
-			if (enemy.hasPermission("ciphen.doublexp")) {
+			if (enemy.hasPermission("coinsbooster.x2")) {
 				PlayerAccount.addMoedas(enemy, coins);
 				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
 			} else

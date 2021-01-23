@@ -20,13 +20,16 @@ public final class InfoCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.infocommand")) {
+			if (player.hasPermission("command.info")) {
 				if (args.length > 0) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
 						player.sendMessage("§fInformações sobre §a" + target.getName() + "§f.");
 						player.sendMessage("§aNick: §f" + target.getName());
-						player.sendMessage("§aKit: §f" + VapoxPvP.getKit(target).getName());
+						if (VapoxPvP.hasKit(target))
+							player.sendMessage("§aKit: §f" + VapoxPvP.getKit(target).getName());
+						else
+							player.sendMessage("§aWarp: §f" + VapoxPvP.getWarp(target).getName());
 						player.sendMessage("§aPing: §f" + ((CraftPlayer) target).getHandle().ping);
 						player.sendMessage("§aGameMode: §f" + target.getGameMode().name());
 						player.sendMessage("§aFly: §f" + (target.getAllowFlight() ? "§aSim" : "§cNão"));

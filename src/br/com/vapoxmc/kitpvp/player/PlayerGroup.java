@@ -4,17 +4,24 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public enum PlayerGroup {
-	DONO("Dono", "ciphen.tag.dono", ChatColor.DARK_RED), DIRETOR("Diretor", "ciphen.tag.diretor", ChatColor.DARK_RED),
-	COORD("Coord", "ciphen.tag.coord", ChatColor.DARK_AQUA), ADMIN("Admin", "ciphen.tag.admin", ChatColor.RED),
-	GERENTE("Gerente", "ciphen.tag.gerente", ChatColor.RED), MODGC("ModGC", "ciphen.tag.modgc", ChatColor.DARK_PURPLE),
-	MOD("Mod", "ciphen.tag.mod", ChatColor.DARK_PURPLE), TRIAL("Trial", "ciphen.tag.trial", ChatColor.LIGHT_PURPLE),
-	AJUDANTE("Ajudante", "ciphen.tag.ajudante", ChatColor.BLUE),
-	BUILDER("Builder", "ciphen.tag.builder", ChatColor.DARK_GREEN),
-	YOUTUBERPLUS("YT+", "ciphen.tag.youtuberplus", ChatColor.DARK_AQUA),
-	YOUTUBER("YT", "ciphen.tag.youtuber", ChatColor.AQUA), BETA("Beta", "ciphen.tag.beta", ChatColor.YELLOW),
-	HYPER("Hyper", "ciphen.tag.hyper", ChatColor.AQUA), PRO("Pro", "ciphen.tag.pro", ChatColor.GOLD),
-	MVP("MvP", "ciphen.tag.mvp", ChatColor.BLUE), VIP("VIP", "ciphen.tag.vip", ChatColor.GREEN),
-	MEMBRO("Membro", "ciphen.tag.membro", ChatColor.GRAY);
+	DONO("Dono", "tag.dono", ChatColor.DARK_RED),
+	DIRETOR("Diretor", "tag.diretor", ChatColor.DARK_RED),
+	COORD("Coord", "tag.coord", ChatColor.DARK_AQUA),
+	ADMIN("Admin", "tag.admin", ChatColor.RED),
+	GERENTE("Gerente", "tag.gerente", ChatColor.RED),
+	MODGC("ModGC", "tag.modgc", ChatColor.DARK_PURPLE),
+	MOD("Mod", "tag.mod", ChatColor.DARK_PURPLE),
+	TRIAL("Trial", "tag.trial", ChatColor.LIGHT_PURPLE),
+	AJUDANTE("Ajudante", "tag.ajudante", ChatColor.BLUE),
+	BUILDER("Builder", "tag.builder", ChatColor.DARK_GREEN),
+	YOUTUBERPLUS("YT+", "tag.youtuber+", ChatColor.DARK_AQUA),
+	YOUTUBER("YT", "tag.youtuber", ChatColor.AQUA),
+	BETA("Beta", "tag.beta", ChatColor.YELLOW),
+	HYPER("Hyper", "tag.hyper", ChatColor.AQUA),
+	PRO("Pro", "tag.pro", ChatColor.GOLD),
+	MVP("MvP", "tag.mvp", ChatColor.BLUE),
+	VIP("VIP", "tag.vip", ChatColor.GREEN),
+	MEMBRO("Membro", "tag.membro", ChatColor.GRAY);
 
 	private final String name, permission;
 	private final ChatColor color;

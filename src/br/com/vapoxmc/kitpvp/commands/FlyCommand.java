@@ -15,9 +15,9 @@ public final class FlyCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.fly")) {
+			if (player.hasPermission("command.fly")) {
 				if (args.length > 0) {
-					if (player.hasPermission("ciphen.comandos.fly.others")) {
+					if (player.hasPermission("command.fly.others")) {
 						Player target = Bukkit.getPlayer(args[0]);
 						if (target != null) {
 							if (VapoxPvP.getWarp(target) instanceof SpawnWarp) {
@@ -26,7 +26,7 @@ public final class FlyCommand implements CommandExecutor {
 									target.sendMessage("§a§l[FLY] §fSeu modo voar foi §aativado §fpor §a"
 											+ player.getName() + "§f.");
 									Bukkit.getOnlinePlayers().stream()
-											.filter(players -> players.hasPermission("ciphen.comandos.fly.others"))
+											.filter(players -> players.hasPermission("command.fly.others"))
 											.forEach(players -> players.sendMessage("§7§o(STAFF) §f" + player.getName()
 													+ " §7ativou o modo §fvoar §7do jogador §f" + target.getName()));
 								} else {
@@ -34,7 +34,7 @@ public final class FlyCommand implements CommandExecutor {
 									target.sendMessage("§c§l[FLY] §fSeu modo voar foi §cdesativado §fpor §c"
 											+ player.getName() + "§f.");
 									Bukkit.getOnlinePlayers().stream()
-											.filter(players -> players.hasPermission("ciphen.comandos.fly.others"))
+											.filter(players -> players.hasPermission("command.fly.others"))
 											.forEach(players -> players.sendMessage("§7§o(STAFF) §f" + player.getName()
 													+ " §7desativou o modo §fvoar §7do jogador §f" + target.getName()));
 								}

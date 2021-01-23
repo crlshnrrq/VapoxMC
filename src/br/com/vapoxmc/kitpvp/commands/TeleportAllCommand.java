@@ -12,7 +12,7 @@ public final class TeleportAllCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.tpall")) {
+			if (player.hasPermission("command.teleportall")) {
 				Bukkit.getOnlinePlayers().forEach(players -> {
 					players.teleport(player.getLocation());
 					players.sendMessage("§e§l[TPALL] §eTeleportado para: " + player.getName());

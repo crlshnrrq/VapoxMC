@@ -1,5 +1,7 @@
 package br.com.vapoxmc.kitpvp.listeners;
 
+import java.util.Random;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,13 +27,13 @@ public final class KitPvPListeners implements Listener {
 
 	@EventHandler
 	private void onServerListPing(ServerListPingEvent event) {
-		event.setMotd(Strings.getMotd());
+		event.setMotd(Strings.getMOTDs().get(new Random().nextInt(Strings.getMOTDs().size())));
 	}
 
 	@EventHandler
 	private void onSignChange(SignChangeEvent event) {
 		Player player = event.getPlayer();
-		if (player.hasPermission("ciphen.eventos.placa")) {
+		if (player.hasPermission("evento.placa")) {
 			if (event.getLine(0).equalsIgnoreCase("Sopa")) {
 				event.setLine(0, "§8§l[-§fx§8§l-]");
 				event.setLine(1, "§aSopas!");

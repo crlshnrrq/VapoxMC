@@ -2,6 +2,7 @@ package br.com.vapoxmc.kitpvp.commands;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -19,28 +20,28 @@ public final class SorteioCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.sorteio")) {
+			if (player.hasPermission("command.sorteio")) {
 				if (args.length > 0) {
 					try {
 						int amount = Integer.parseInt(args[0]);
 						DecimalFormat df = new DecimalFormat("###,###.##");
 						ArrayList<Player> jogadores = new ArrayList<>();
 						Bukkit.getOnlinePlayers().forEach(players -> {
-							if (!players.hasPermission("ciphen.comandos.staffchat"))
+							if (!players.hasPermission("command.staffchat"))
 								jogadores.add(players);
 							players.sendMessage("§a§l[SORTEIO] §fUm sorteio acabou de começar!");
 							players.sendMessage("§a§l[SORTEIO] §fVocê já está participando!");
 							players.sendMessage(
 									"§a§l[SORTEIO] §fJogadores participando: §a" + Bukkit.getOnlinePlayers().size());
 							players.sendMessage("§a§l[SORTEIO] §fPrêmio: §a" + df.format(amount) + " §fmoedas!");
-							if (players.hasPermission("ciphen.comandos.sorteio"))
+							if (players.hasPermission("command.sorteio"))
 								players.sendMessage("§7§o(STAFF) Sorteio feito por: §f" + player.getName());
 						});
 						if (jogadores.size() < 1)
 							player.sendMessage(
 									"§c§l[SORTEIO] §c§lSORTEIO CANCELADO§f! Jogadores insuficientes para fazer o sorteio!");
 
-						Player vencedor = jogadores.stream().findAny().orElse(null);
+						Player vencedor = jogadores.get(new Random().nextInt(jogadores.size()));
 						int chance = jogadores.size() / 100;
 
 						Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {

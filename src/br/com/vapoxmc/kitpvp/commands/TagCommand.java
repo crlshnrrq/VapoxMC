@@ -17,7 +17,7 @@ public final class TagCommand implements CommandExecutor {
 			if (args.length > 0) {
 				PlayerTag tag = PlayerTag.getByName(args[0]);
 				if (tag != null) {
-					if (player.hasPermission("ciphen.tag." + tag.name().toLowerCase())) {
+					if (player.hasPermission("tag." + tag.name().toLowerCase())) {
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
 								"nte player " + player.getName() + " prefix " + tag.getPrefix().replace("§", "&"));
 						Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
@@ -35,7 +35,7 @@ public final class TagCommand implements CommandExecutor {
 				player.sendMessage("§cComando incorreto, utilize /" + label + " [Tag]");
 				String tags = "";
 				for (PlayerTag tag : PlayerTag.values()) {
-					if (player.hasPermission("ciphen.tag." + tag.name().toLowerCase()))
+					if (player.hasPermission("tag." + tag.name().toLowerCase()))
 						tags += (!tags.isEmpty() ? "§f, " : "") + tag.getColor() + "§l" + tag.name();
 				}
 				player.sendMessage("§e§l[TAGS] " + tags);

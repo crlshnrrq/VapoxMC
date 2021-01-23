@@ -15,7 +15,7 @@ public final class BuildCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.build")) {
+			if (player.hasPermission("command.build")) {
 				if (args.length > 0) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
@@ -25,8 +25,7 @@ public final class BuildCommand implements CommandExecutor {
 							target.sendMessage("§a§l[BUILD] §fSeu modo construir foi §aativado§f.");
 							player.sendMessage(
 									"§a§l[BUILD] §fO modo construir de §a" + target.getName() + " §ffoi §aativado§f.");
-							Bukkit.getOnlinePlayers().stream()
-									.filter(players -> players.hasPermission("ciphen.comandos.build"))
+							Bukkit.getOnlinePlayers().stream().filter(players -> players.hasPermission("command.build"))
 									.forEach(players -> players.sendMessage("§7§o(STAFF) §f" + player.getName()
 											+ " §7ativou o modo §fconstrução §7do jogador §f" + target.getName()));
 						} else {
@@ -35,8 +34,7 @@ public final class BuildCommand implements CommandExecutor {
 							target.sendMessage("§c§l[BUILD] §fSeu modo construir foi §cdesativado§f.");
 							player.sendMessage("§c§l[BUILD] §fO modo construir de §c" + target.getName()
 									+ " §ffoi §cdesativado§f.");
-							Bukkit.getOnlinePlayers().stream()
-									.filter(players -> players.hasPermission("ciphen.comandos.build"))
+							Bukkit.getOnlinePlayers().stream().filter(players -> players.hasPermission("command.build"))
 									.forEach(players -> players.sendMessage("§7§o(STAFF) §f" + player.getName()
 											+ " §7desativou o modo §fconstrução §7do jogador §f" + target.getName()));
 						}

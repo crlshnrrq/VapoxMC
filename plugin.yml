@@ -35,11 +35,9 @@ commands:
   gamemode:
     description: Altere seu modo de jogo.
     aliases: [gm]
-  group:
-    description: Altere o grupo de um jogador.
   head:
     description: Pegue a head de alguem.
-  infocommand:
+  info:
     description: Veja a informacao de um jogador!
   invsee:
     description: Veja o inventario de alguem!
@@ -59,8 +57,6 @@ commands:
   rank:
     description: Veja a informacao dos ranks!
     aliases: [ranks]
-  refresh:
-    description: Reinicia o servidor.
   remmoney:
     description: Retire o dinheiro de alguém!
   report:
@@ -88,8 +84,9 @@ commands:
     aliases: [stats]
   tag:
     description: Altere sua tag.
-  tpall:
+  teleportall:
     description: Teleporte todo mundo ate voce.
+    aliase: [tpall]
   teleport:
     description: Teleporte para alguem.
     aliases: [tp]

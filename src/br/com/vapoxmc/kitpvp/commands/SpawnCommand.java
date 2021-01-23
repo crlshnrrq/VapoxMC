@@ -15,7 +15,7 @@ public final class SpawnCommand implements CommandExecutor {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
 			if (args.length > 0) {
-				if (player.hasPermission("ciphen.comandos.spawn")) {
+				if (player.hasPermission("command.spawn.others")) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
 						if (VapoxPvP.hasAdmin(target)) {

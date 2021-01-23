@@ -16,7 +16,7 @@ public final class RemoveMoneyCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.remmoney")) {
+			if (player.hasPermission("command.removemoney")) {
 				if (args.length > 1) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
@@ -31,7 +31,7 @@ public final class RemoveMoneyCommand implements CommandExecutor {
 								target.sendMessage("§a§l[MOEDAS] §f" + player.getName() + " removeu §a"
 										+ df.format(amount) + " §fmoedas suas.");
 								Bukkit.getOnlinePlayers().stream()
-										.filter(players -> players.hasPermission("ciphen.comandos.addmoney"))
+										.filter(players -> players.hasPermission("command.removemoney"))
 										.forEach(players -> players
 												.sendMessage("§7§o(STAFF) §f" + player.getName() + " §7removeu §f"
 														+ df.format(amount) + " §7moedas de §f" + target.getName()));

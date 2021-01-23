@@ -14,7 +14,7 @@ public final class ChatCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.chat")) {
+			if (player.hasPermission("command.chat")) {
 				if (args.length > 0) {
 					if (args[0].equalsIgnoreCase("Clear")) {
 						for (int i = 0; i < 255; i++)
@@ -27,8 +27,7 @@ public final class ChatCommand implements CommandExecutor {
 							Bukkit.broadcastMessage(
 									"§a§l[CHAT] §fO chat foi §a§lativado §fpor §a" + player.getName() + "§f!");
 							Bukkit.broadcastMessage(" ");
-							Bukkit.getOnlinePlayers().stream()
-									.filter(players -> players.hasPermission("ciphen.comandos.chat"))
+							Bukkit.getOnlinePlayers().stream().filter(players -> players.hasPermission("command.chat"))
 									.forEach(players -> players.sendMessage(
 											"§7(STAFF) o §fchat §7foi alterado por: §f" + player.getName() + "§7."));
 						} else {
@@ -37,8 +36,7 @@ public final class ChatCommand implements CommandExecutor {
 							Bukkit.broadcastMessage(
 									"§c§l[CHAT] §fO chat foi §c§ldesativado §fpor §c" + player.getName() + "§f!");
 							Bukkit.broadcastMessage(" ");
-							Bukkit.getOnlinePlayers().stream()
-									.filter(players -> players.hasPermission("ciphen.comandos.chat"))
+							Bukkit.getOnlinePlayers().stream().filter(players -> players.hasPermission("command.chat"))
 									.forEach(players -> players.sendMessage(
 											"§7(STAFF) o §fchat §7foi alterado por: §f" + player.getName() + "§7."));
 						}

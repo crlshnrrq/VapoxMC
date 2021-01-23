@@ -14,7 +14,7 @@ public final class ClickTestCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.clicktest")) {
+			if (player.hasPermission("command.clicktest")) {
 				if (args.length > 0) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {

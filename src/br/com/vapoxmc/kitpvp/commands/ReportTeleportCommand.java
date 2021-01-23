@@ -14,15 +14,13 @@ public final class ReportTeleportCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.tp")) {
+			if (player.hasPermission("command.report")) {
 				if (args.length > 0) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
 						if (!VapoxPvP.hasAdmin(player))
 							Bukkit.dispatchCommand(player, "admin");
-						player.teleport(target.getLocation());
-						player.sendMessage(
-								"§e§l[TELEPORT] §eVocê foi teleportado para: " + target.getName().toUpperCase());
+						Bukkit.dispatchCommand(player, "tp " + target.getName());
 					} else
 						player.sendMessage("§cJogador \"" + args[0] + "\" não encontrado.");
 				} else

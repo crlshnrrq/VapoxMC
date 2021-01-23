@@ -17,7 +17,7 @@ public final class LastLoginCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.lastlogin")) {
+			if (player.hasPermission("command.lastlogin")) {
 				if (args.length > 0) {
 					OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
 					if (target.hasPlayedBefore()) {

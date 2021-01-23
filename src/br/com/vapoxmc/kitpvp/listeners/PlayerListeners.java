@@ -17,6 +17,7 @@ import com.nickuc.login.api.events.AuthenticateEvent;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
+import br.com.vapoxmc.kitpvp.player.PlayerTag;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 import br.com.vapoxmc.kitpvp.warp.FPSWarp;
 import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
@@ -59,16 +60,23 @@ public final class PlayerListeners implements Listener {
 		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.teleport(warp.getLocation()), 10L);
 		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> warp.giveItems(player), 20L);
 
+		PlayerTag tag = PlayerTag.MEMBRO;
+		for (PlayerTag tags : PlayerTag.values()) {
+			if (player.hasPermission("tag." + tags.name().toLowerCase()))
+				tag = tags;
+		}
 		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nte player " + player.getName() + " clear");
-		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nte player " + player.getName() + " prefix &7");
-		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "nte player " + player.getName() + " priority 19");
-		player.setDisplayName("§7" + player.getName());
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+				"nte player " + player.getName() + " prefix " + tag.getPrefix());
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+				"nte player " + player.getName() + " priority " + tag.getPriority());
+		player.setDisplayName(tag.getPrefix() + player.getName());
 
-		if (!player.hasPermission("ciphen.comandos.admin"))
+		if (!player.hasPermission("command.admin"))
 			Bukkit.getOnlinePlayers().stream().filter(players -> VapoxPvP.hasAdmin(players))
 					.forEach(players -> player.hidePlayer(players));
 		if (!player.hasPermission(""))
-			if (player.hasPermission("ciphen.comandos.gamemode"))
+			if (player.hasPermission("command.gamemode"))
 				player.setGameMode(GameMode.CREATIVE);
 
 		for (int i = 0; i < 200; i++)
@@ -100,7 +108,7 @@ public final class PlayerListeners implements Listener {
 				PlayerAccount.addAbate(killer);
 				PlayerAccount.addMorte(player);
 				killer.sendMessage("§c§l[MORTE] §fVocê matou o jogador §c" + player.getName() + "§f.");
-				if (killer.hasPermission("ciphen.doublexp")) {
+				if (killer.hasPermission("coinsbooster.x2")) {
 					PlayerAccount.addMoedas(killer, coins);
 					killer.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
 				} else

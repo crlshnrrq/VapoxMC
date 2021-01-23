@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 import com.github.crlshnrrq.screenshareplugin.ScreenShare;
 import com.github.crlshnrrq.screenshareplugin.ScreenShareAPI;
-import com.github.crlshnrrq.screenshareplugin.ScreenSharePermissions;
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
 
 public final class ScreenSharePlayerGUI implements Listener {
@@ -89,8 +88,7 @@ public final class ScreenSharePlayerGUI implements Listener {
 			if (ScreenShareAPI.hasScreenShare(target)) {
 				ScreenShare ss = ScreenShareAPI.getScreenShare(target);
 
-				if (ss.getAuthor().equalsIgnoreCase(player.getName())
-						|| player.hasPermission(ScreenSharePermissions.SCREENSHARE_BYPASS.toPermission())) {
+				if (ss.getAuthor().equalsIgnoreCase(player.getName()) || player.hasPermission("screenshare.bypass")) {
 					ItemStack finalizar = new ItemStack(Material.INK_SACK, 1, (short) 1);
 					ItemMeta mFinalizar = finalizar.getItemMeta();
 					mFinalizar.setDisplayName("§cFinalizar a ScreenShare");

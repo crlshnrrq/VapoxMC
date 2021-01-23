@@ -19,7 +19,7 @@ public final class StaffChatCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.staffchat")) {
+			if (player.hasPermission("command.staffchat")) {
 				if (args.length > 0) {
 					if (args[0].equalsIgnoreCase("off")) {
 						if (VapoxPvP.isIgnoreStaffChat(player)) {
@@ -39,7 +39,7 @@ public final class StaffChatCommand implements CommandExecutor {
 						String message = ChatColor.translateAlternateColorCodes('&',
 								StringUtils.join(Arrays.copyOfRange(args, 0, args.length), " "));
 						Bukkit.getOnlinePlayers().stream()
-								.filter(players -> players.hasPermission("ciphen.comandos.staffchat")
+								.filter(players -> players.hasPermission("command.staffchat")
 										&& !VapoxPvP.isIgnoreStaffChat(players))
 								.forEach(players -> players
 										.sendMessage("§c§l[SC] §7[KitPvP] " + group.getBoldColoredName().toUpperCase()

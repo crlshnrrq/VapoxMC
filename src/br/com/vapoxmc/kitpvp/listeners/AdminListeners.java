@@ -34,7 +34,7 @@ public final class AdminListeners implements Listener {
 				if (item.isSimilar(AdminCommand.CLICKTEST.toItemStack()))
 					Bukkit.dispatchCommand(player, "clicktest " + righted.getName());
 				else if (item.isSimilar(AdminCommand.INFO.toItemStack()))
-					Bukkit.dispatchCommand(player, "infocommand " + righted.getName());
+					Bukkit.dispatchCommand(player, "info " + righted.getName());
 				else if (item.isSimilar(AdminCommand.KNOCKBACK.toItemStack())) {
 					Location loc = righted.getLocation();
 					int y = loc.getBlockY();
@@ -65,7 +65,7 @@ public final class AdminListeners implements Listener {
 			player.sendMessage("§e§l[ADMIN] §fVocê §c§lESTA VISIVEL §fpara todos.");
 
 			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
-				Bukkit.getOnlinePlayers().stream().filter(players -> !players.hasPermission("ciphen.comandos.admin"))
+				Bukkit.getOnlinePlayers().stream().filter(players -> !players.hasPermission("command.admin"))
 						.forEach(players -> players.hidePlayer(player));
 				player.sendMessage("§e§l[ADMIN] §fVocê §c§lESTA INVISIVEL §fpara todos.");
 			}, 10L);

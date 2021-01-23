@@ -58,7 +58,7 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 	@EventHandler
 	private void onSignChange(SignChangeEvent event) {
 		Player player = event.getPlayer();
-		if (player.hasPermission("ciphen.eventos.placa")) {
+		if (player.hasPermission("evento.placa")) {
 			if (event.getLine(0).equalsIgnoreCase("P_Easy")) {
 				event.setLine(0, "§6§lCHALLENGE");
 				event.setLine(1, "§aNível:");

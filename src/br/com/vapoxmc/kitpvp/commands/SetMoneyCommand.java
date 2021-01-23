@@ -16,7 +16,7 @@ public final class SetMoneyCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.setmoney")) {
+			if (player.hasPermission("command.setmoney")) {
 				if (args.length > 1) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
@@ -30,7 +30,7 @@ public final class SetMoneyCommand implements CommandExecutor {
 							target.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + df.format(amount) + " §fmoedas de §a"
 									+ player.getName());
 							Bukkit.getOnlinePlayers().stream()
-									.filter(players -> players.hasPermission("ciphen.comandos.setmoney"))
+									.filter(players -> players.hasPermission("command.setmoney"))
 									.forEach(players -> players
 											.sendMessage("§7§o(STAFF) §f" + player.getName() + " §7setou §f"
 													+ df.format(amount) + " §7moedas para §f" + target.getName()));

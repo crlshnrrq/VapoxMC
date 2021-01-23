@@ -12,7 +12,7 @@ public final class GameModeCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.gamemode")) {
+			if (player.hasPermission("command.gamemode")) {
 				if (args.length > 0) {
 					if (args[0].equals("0")) {
 						player.setGameMode(GameMode.SURVIVAL);

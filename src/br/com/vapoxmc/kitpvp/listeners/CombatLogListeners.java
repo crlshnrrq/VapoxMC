@@ -17,6 +17,7 @@ import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 import br.com.vapoxmc.kitpvp.warp.EventoWarp;
 import br.com.vapoxmc.kitpvp.warp.FPSWarp;
 import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
+import br.com.vapoxmc.kitpvp.warp.KnockbackWarp;
 import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
 
 public final class CombatLogListeners implements Listener {
@@ -58,6 +59,8 @@ public final class CombatLogListeners implements Listener {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			Player player = (Player) event.getEntity(), damager = (Player) event.getDamager();
 			if ((VapoxPvP.hasKit(player) && VapoxPvP.hasKit(damager))
+					|| (VapoxPvP.getWarp(player) instanceof KnockbackWarp
+							&& VapoxPvP.getWarp(damager) instanceof KnockbackWarp)
 					|| (VapoxPvP.getWarp(player) instanceof FPSWarp && VapoxPvP.getWarp(damager) instanceof FPSWarp)
 					|| (VapoxPvP.getWarp(player) instanceof EventoWarp
 							&& VapoxPvP.getWarp(damager) instanceof EventoWarp)
@@ -68,7 +71,7 @@ public final class CombatLogListeners implements Listener {
 				if (!VapoxPvP.isInCombat(damager))
 					VapoxPvP.addCombat(damager, player);
 				else
-					VapoxPvP.setCombatTime(damager, 10);
+					VapoxPvP.setCombatTime(damager, 30);
 			}
 		}
 	}

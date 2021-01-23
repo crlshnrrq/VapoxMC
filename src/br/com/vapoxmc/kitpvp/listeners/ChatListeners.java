@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
@@ -19,20 +20,20 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public final class ChatListeners implements Listener {
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	private void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
-		String message = event.getMessage().replace("%", "%%").replace("&k", ""), format = "§7("
-				+ PlayerRank.getRank(player).getColoredSymbol() + "§7) §r" + player.getDisplayName() + " §7» ";
+		String message = event.getMessage(), format = "§7(" + PlayerRank.getRank(player).getColoredSymbol() + "§7) §r"
+				+ player.getDisplayName() + " §7» ";
 
-		if (player.hasPermission("ciphen.chat.colorido"))
-			message = ChatColor.translateAlternateColorCodes('&', message);
-		if (player.hasPermission("ciphen.chat.destaque"))
+		if (player.hasPermission("chat.colorido"))
+			message = ChatColor.translateAlternateColorCodes('&', message).replace("§k", "&k");
+		if (player.hasPermission("chat.destaque"))
 			format += "§f" + message;
 		else
 			format += "§7" + message.toLowerCase();
 
-		if (!VapoxPvP.getChat() && !player.hasPermission("ciphen.chat.bypass")) {
+		if (!VapoxPvP.getChat() && !player.hasPermission("chat.speakoff")) {
 			event.setCancelled(true);
 			player.sendMessage("§c§l[CHAT] §fO chat está §c§ldesativado§f!");
 		}
@@ -71,7 +72,7 @@ public final class ChatListeners implements Listener {
 			}
 			text.addExtra(format);
 
-			Bukkit.getConsoleSender().sendMessage("[CHAT] " + text.getText());
+			Bukkit.getConsoleSender().sendMessage("[CHAT] " + text.toLegacyText());
 			event.getRecipients().forEach(players -> players.spigot().sendMessage(text));
 		}
 	}

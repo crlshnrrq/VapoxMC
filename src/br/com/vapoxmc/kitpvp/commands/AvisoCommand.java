@@ -18,7 +18,7 @@ public final class AvisoCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.aviso")) {
+			if (player.hasPermission("command.aviso")) {
 				if (args.length > 0) {
 					String message = ChatColor
 							.translateAlternateColorCodes('&',
@@ -27,7 +27,7 @@ public final class AvisoCommand implements CommandExecutor {
 					Bukkit.getOnlinePlayers().forEach(players -> {
 						players.sendMessage(" ");
 						players.sendMessage("§c§l[AVISO] §f" + message);
-						if (players.hasPermission("ciphen.comandos.aviso"))
+						if (players.hasPermission("command.aviso"))
 							players.sendMessage("§7(STAFF) O aviso foi enviado por: §f" + player.getName() + "§7.");
 						players.sendMessage(" ");
 					});

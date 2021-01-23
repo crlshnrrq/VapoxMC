@@ -12,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerFishEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -83,6 +84,13 @@ public final class FishermanWarp extends Warp implements Listener {
 				player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fEsse jogador não está em pvp!");
 			}
 		}
+	}
+
+	@EventHandler
+	private void onPlayerMove(PlayerMoveEvent event) {
+		Player player = event.getPlayer();
+		if (VapoxPvP.getWarp(player) instanceof FishermanWarp && event.getTo().getY() <= 65D)
+			player.damage(player.getMaxHealth());
 	}
 
 	@EventHandler

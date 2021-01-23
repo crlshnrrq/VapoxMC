@@ -55,7 +55,7 @@ public final class Stack extends ItemStack implements Cloneable {
 		ItemStack item = new ItemStack(this.getType(), this.getAmount(), this.getDurability());
 		ItemMeta itemMeta = item.getItemMeta(), meta = this.getItemMeta();
 		for (Entry<Enchantment, Integer> entry : this.getEnchantments().entrySet())
-			item.addUnsafeEnchantment(entry.getKey(), entry.getValue());
+			itemMeta.addEnchant(entry.getKey(), entry.getValue(), true);
 		if (meta.hasDisplayName())
 			itemMeta.setDisplayName(meta.getDisplayName());
 		if (meta.hasLore())

@@ -16,7 +16,7 @@ public final class ServerCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.server")) {
+			if (player.hasPermission("command.server")) {
 				int PING = 0, PLAYERS = Bukkit.getOnlinePlayers().size();
 				for (Player players : Bukkit.getOnlinePlayers())
 					PING += ((CraftPlayer) players).getHandle().ping;
@@ -52,7 +52,8 @@ public final class ServerCommand implements CommandExecutor {
 						+ "mb §7(" + String.valueOf(RAM_USED_PERCENTAGE).substring(0, 5) + "%");
 				player.sendMessage("§7#");
 				player.sendMessage("§7# §fMotd: " + Bukkit.getMotd());
-				player.sendMessage("§7# §fMotd §7(ServerListeners)§f: §a" + Strings.getMotd());
+				player.sendMessage(
+						"§7# §fMotd §7(ServerListeners)§f: §a" + Strings.getMOTDs().get(Strings.getMOTDs().size()));
 				player.sendMessage("§7# §fOnline: §a" + PLAYERS + "/" + Bukkit.getMaxPlayers());
 				player.sendMessage("§7###############################################");
 			} else

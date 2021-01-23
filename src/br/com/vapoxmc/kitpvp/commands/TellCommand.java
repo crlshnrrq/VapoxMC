@@ -31,7 +31,7 @@ public final class TellCommand implements CommandExecutor {
 					} else
 						player.sendMessage("§c§l[TELL] §fO seu modo tell já está §cdesativado§f.");
 				} else if (args[0].equalsIgnoreCase("Spy")) {
-					if (player.hasPermission("ciphen.comandos.tellspy")) {
+					if (player.hasPermission("command.tellspy")) {
 						if (!VapoxPvP.isSpyingTell(player)) {
 							VapoxPvP.addSpyingTell(player);
 							player.sendMessage("§e§l[TELL] §fVocê §aativou §fo modo spy.");

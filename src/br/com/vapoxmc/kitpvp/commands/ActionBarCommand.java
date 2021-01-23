@@ -18,13 +18,12 @@ public final class ActionBarCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.ab")) {
+			if (player.hasPermission("command.actionbar")) {
 				if (args.length > 1) {
 					if (args[0].equalsIgnoreCase("all")) {
 						String message = ChatColor.translateAlternateColorCodes('&',
 								StringUtils.join(Arrays.copyOfRange(args, 1, args.length), " "));
-						Bukkit.getOnlinePlayers().stream()
-								.filter(players -> players.hasPermission("ciphen.comandos.ab"))
+						Bukkit.getOnlinePlayers().stream().filter(players -> players.hasPermission("command.actionbar"))
 								.forEach(players -> players
 										.sendMessage("§7(Staff) O aviso foi enviado por §f" + player.getName()));
 						Bukkit.getOnlinePlayers().forEach(players -> VapoxUtils.sendActionBar(players, message));
@@ -38,8 +37,7 @@ public final class ActionBarCommand implements CommandExecutor {
 							player.sendMessage(
 									"§a§l[AB] §fMensagem para §a" + target.getName() + " §fenviada com sucesso!");
 						} else
-							player.sendMessage("§c§l[AB] §cO jogador §f" + args[0]
-									+ " §cnão foi encontrado ou está com o modo §fantilag ligado§c.");
+							player.sendMessage("§c§l[AB] §cO jogador §f" + args[0] + " §cnão foi encontrado.");
 					}
 				} else
 					player.sendMessage("§cComando incorreto, utilize /" + label + " [all/player] [argumentos]");

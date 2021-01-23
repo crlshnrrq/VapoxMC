@@ -34,8 +34,7 @@ public final class ReportCommand implements CommandExecutor {
 							player.sendMessage("§a§l[REPORT] §aSua denúncia sobre " + target.getName()
 									+ " foi enviada com sucesso!");
 							Bukkit.getOnlinePlayers().stream()
-									.filter(players -> players.hasPermission("ciphen.comandos.report"))
-									.forEach(players -> {
+									.filter(players -> players.hasPermission("command.report")).forEach(players -> {
 										players.playSound(players.getLocation(), Sound.ANVIL_LAND, 10F, 10F);
 										players.playSound(players.getLocation(), Sound.FIREWORK_LARGE_BLAST, 10F, 10F);
 										VapoxUtils.sendActionBar(players, "§c§lALERTA DE REPORT! §7(Veja o chat)");

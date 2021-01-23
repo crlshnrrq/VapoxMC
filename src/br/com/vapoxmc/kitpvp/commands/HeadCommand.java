@@ -14,7 +14,7 @@ public final class HeadCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.head")) {
+			if (player.hasPermission("command.head")) {
 				if (args.length > 0) {
 					player.getInventory().addItem(new Stack(Material.SKULL_ITEM, 1, 3).owner(args[0])
 							.display("§fCabeça de: \"§b" + args[0] + "§f\""));

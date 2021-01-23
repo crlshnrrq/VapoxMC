@@ -15,6 +15,7 @@ import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.entity.ItemSpawnEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.potion.PotionEffectType;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
@@ -26,8 +27,7 @@ public final class WorldListeners implements Listener {
 		Player player = event.getPlayer();
 		List<String> commands = Arrays.asList("/pex", "/promote", "/demote", "/permissionsex:pex",
 				"/permissionsex:demote", "/permissionsex:promote", "/rl", "/reload", "/bukkit:reload", "/bukkit:rl");
-		if (!player.hasPermission("ciphen.tag.dono")
-				&& commands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
+		if (!player.hasPermission("tag.dono") && commands.contains(event.getMessage().split(" ")[0].toLowerCase())) {
 			event.setCancelled(true);
 			player.sendMessage("§c§l[BLOQUEIO] §fEsse comando está desativado.");
 		}
@@ -88,5 +88,11 @@ public final class WorldListeners implements Listener {
 	@EventHandler
 	private void onFoodLevelChange(FoodLevelChangeEvent event) {
 		event.setCancelled(true);
+	}
+
+	@EventHandler
+	private void onWeatherChange(WeatherChangeEvent event) {
+		if (event.toWeatherState())
+			event.setCancelled(true);
 	}
 }

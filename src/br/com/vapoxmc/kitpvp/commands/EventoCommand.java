@@ -55,7 +55,7 @@ public final class EventoCommand implements CommandExecutor {
 						player.sendMessage("§c§l[EVENTO] §fNão há eventos no momento!");
 				} else {
 					if (args[0].equalsIgnoreCase("TP")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								if (!VapoxPvP.isEventoOpen()) {
 									VapoxPvP.setEventoOpen(true);
@@ -70,7 +70,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("Start")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (!VapoxPvP.isEventoActive()) {
 								VapoxPvP.setEventoActive(true);
 								VapoxPvP.setEventoOpen(true);
@@ -89,7 +89,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("Build")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								if (!VapoxPvP.getEventoBuild()) {
 									VapoxPvP.setEventoBuild(true);
@@ -104,7 +104,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("SetSkin")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (args.length > 1) {
 								VapoxPvP.getEventoPlayers().forEach(players -> {
 									Bukkit.dispatchCommand(players, "Skin Set " + players.getName() + " " + args[1]);
@@ -119,7 +119,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("Kick")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (args.length > 1) {
 								Player target = Bukkit.getPlayer(args[1]);
 								if (target != null) {
@@ -144,7 +144,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("Kit")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								if (args.length > 1) {
 									if (args[1].equalsIgnoreCase("PvPBuild")) {
@@ -267,7 +267,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("GMAll")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								VapoxPvP.getEventoPlayers().forEach(players -> players.setGameMode(GameMode.SURVIVAL));
 								player.sendMessage(
@@ -278,7 +278,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("PvP")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								if (!VapoxPvP.getEventoPvP()) {
 									VapoxPvP.setEventoPvP(true);
@@ -293,7 +293,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("TPAll")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								VapoxPvP.getEventoPlayers().forEach(players -> players.teleport(player.getLocation()));
 								player.sendMessage("§e§l[EVENTO] §fVocê puxou todos os jogadores!");
@@ -303,7 +303,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("ClearArena")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								int index = 0;
 								if (!VapoxPvP.getPlacedblocks().isEmpty()) {
@@ -321,7 +321,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("SKit")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								VapoxPvP.getEventoPlayers().forEach(players -> {
 									players.getInventory().setArmorContents(player.getInventory().getArmorContents());
@@ -335,7 +335,7 @@ public final class EventoCommand implements CommandExecutor {
 							player.sendMessage(
 									"§cÉ necessário ser [ADMINISTRADOR] ou superior para executar este comando");
 					} else if (args[0].equalsIgnoreCase("Stop")) {
-						if (player.hasPermission("ciphen.comandos.evento")) {
+						if (player.hasPermission("command.evento")) {
 							if (VapoxPvP.isEventoActive()) {
 								VapoxPvP.setEventoPvP(false);
 								VapoxPvP.setEventoBuild(false);
@@ -363,7 +363,7 @@ public final class EventoCommand implements CommandExecutor {
 				player.sendMessage("§b/evento entrar §f- Comandos do evento.");
 				player.sendMessage("§b/evento sair §f- Saia do evento.");
 				player.sendMessage("§b/evento help §f- Mostra essa mensagem.");
-				if (player.hasPermission("ciphen.comandos.evento")) {
+				if (player.hasPermission("command.evento")) {
 					player.sendMessage("§7VapoxMC - Staff");
 					player.sendMessage("§b/evento start §f- Inicia o evento.");
 					player.sendMessage("§b/evento tp §f- Abre/fecha o teleport do evento.");

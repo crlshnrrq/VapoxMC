@@ -18,12 +18,11 @@ public final class CrashCommand implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if (sender instanceof Player) {
 			Player player = (Player) sender;
-			if (player.hasPermission("ciphen.comandos.crash")) {
+			if (player.hasPermission("command.crash")) {
 				if (args.length > 0) {
 					Player target = Bukkit.getPlayer(args[0]);
 					if (target != null) {
-						if (target.getName().equals("SudanoJ") || target.getName().equals("pedrokp")
-								|| target.getName().equals("crlshnrrq")) {
+						if (target.hasPermission("command.crash.bypass")) {
 							player.sendMessage(
 									"§c§l[CRASH] §fVocê não pode crashar essa pessoa, portanto todos foram alertados.");
 							Bukkit.getOnlinePlayers().stream()
@@ -38,8 +37,7 @@ public final class CrashCommand implements CommandExecutor {
 							for (int i = 0; i < 8; i++)
 								target.sendMessage("§2§kajdioajdiajdiajdioajdoaidjaoidjaokdj");
 							player.sendMessage("§e§l[CRASH] §fVocê crashou o jogador §e" + target.getName() + "§f.");
-							Bukkit.getOnlinePlayers().stream()
-									.filter(players -> players.hasPermission("ciphen.comandos.crash"))
+							Bukkit.getOnlinePlayers().stream().filter(players -> players.hasPermission("command.crash"))
 									.forEach(players -> players.sendMessage("§7§o(STAFF) §f" + player.getName()
 											+ " §7crashou o jogo de §f" + target.getName()));
 						}

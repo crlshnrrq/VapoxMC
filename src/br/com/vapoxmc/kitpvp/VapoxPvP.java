@@ -37,7 +37,6 @@ import br.com.vapoxmc.kitpvp.commands.DiscordCommand;
 import br.com.vapoxmc.kitpvp.commands.EventoCommand;
 import br.com.vapoxmc.kitpvp.commands.FlyCommand;
 import br.com.vapoxmc.kitpvp.commands.GameModeCommand;
-import br.com.vapoxmc.kitpvp.commands.GroupCommand;
 import br.com.vapoxmc.kitpvp.commands.HeadCommand;
 import br.com.vapoxmc.kitpvp.commands.InfoCommand;
 import br.com.vapoxmc.kitpvp.commands.InvseeCommand;
@@ -47,7 +46,6 @@ import br.com.vapoxmc.kitpvp.commands.MoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.OnlineCommand;
 import br.com.vapoxmc.kitpvp.commands.PingCommand;
 import br.com.vapoxmc.kitpvp.commands.RankCommand;
-import br.com.vapoxmc.kitpvp.commands.RefreshCommand;
 import br.com.vapoxmc.kitpvp.commands.RemoveMoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportTeleportCommand;
@@ -555,9 +553,8 @@ public final class VapoxPvP extends JavaPlugin {
 
 	public static void addCombat(Player player, Player enemy) {
 		if (!timeMap.containsKey(player.getUniqueId())) {
-			timeMap.put(player.getUniqueId(), 10);
+			timeMap.put(player.getUniqueId(), 30);
 			enemyMap.put(player.getUniqueId(), enemy.getUniqueId());
-			player.sendMessage("§c§l[COMBATE] §fVocê entrou em combate com §c" + enemy.getName());
 			new BukkitRunnable() {
 				@Override
 				public void run() {
@@ -569,7 +566,6 @@ public final class VapoxPvP extends JavaPlugin {
 						} else {
 							this.cancel();
 							timeMap.remove(player.getUniqueId());
-							player.sendMessage("§c§l[COMBATE] §fVocê saiu de combate.");
 						}
 					}
 				}
@@ -654,9 +650,8 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("evento").setExecutor(new EventoCommand());
 		this.getCommand("fly").setExecutor(new FlyCommand());
 		this.getCommand("gamemode").setExecutor(new GameModeCommand());
-		this.getCommand("group").setExecutor(new GroupCommand());
 		this.getCommand("head").setExecutor(new HeadCommand());
-		this.getCommand("infocommand").setExecutor(new InfoCommand());
+		this.getCommand("info").setExecutor(new InfoCommand());
 		this.getCommand("invsee").setExecutor(new InvseeCommand());
 		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("lastlogin").setExecutor(new LastLoginCommand());
@@ -664,7 +659,6 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("online").setExecutor(new OnlineCommand());
 		this.getCommand("ping").setExecutor(new PingCommand());
 		this.getCommand("rank").setExecutor(new RankCommand());
-		this.getCommand("refresh").setExecutor(new RefreshCommand());
 		this.getCommand("remmoney").setExecutor(new RemoveMoneyCommand());
 		this.getCommand("report").setExecutor(new ReportCommand());
 		this.getCommand("rtp").setExecutor(new ReportTeleportCommand());
@@ -678,7 +672,7 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("sc").setExecutor(new StaffChatCommand());
 		this.getCommand("status").setExecutor(new StatusCommand());
 		this.getCommand("tag").setExecutor(new TagCommand());
-		this.getCommand("tpall").setExecutor(new TeleportAllCommand());
+		this.getCommand("teleportall").setExecutor(new TeleportAllCommand());
 		this.getCommand("teleport").setExecutor(new TeleportCommand());
 		this.getCommand("teleporthere").setExecutor(new TeleportHereCommand());
 		this.getCommand("tell").setExecutor(new TellCommand());

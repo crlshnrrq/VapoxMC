@@ -41,7 +41,7 @@ public final class StatusGUI implements Listener {
 
 		inv.setItem(12,
 				new Stack(Material.EYE_OF_ENDER).display("§aCargo:").lore(
-						"§fVIP: §a" + (target.hasPermission("ciphen.doublexp") ? "Sim" : "Não"),
+						"§fVIP: §a" + (target.hasPermission("tag.vip") ? "Sim" : "Não"),
 						"§fCargo: §a" + PlayerGroup.getGroup(target).getColoredName()));
 
 		inv.setItem(14,
@@ -56,7 +56,7 @@ public final class StatusGUI implements Listener {
 				new Stack(Material.EXP_BOTTLE).display("§aExperiência:").lore(
 						"§fPontos: §a" + PlayerAccount.getPontos(target),
 						"§fRank: §a" + PlayerRank.getRank(target).getColoredSymbolName(),
-						"§fBooster: §a" + (target.hasPermission("ciphen.doublexp") ? "x2.0" : "x1.0")));
+						"§fBooster: §a" + (target.hasPermission("coinsbooster.x2") ? "x2.0" : "x1.0")));
 
 		if (PlayerAccount.getPontos(target) >= PlayerRank.UNRANKED.getPontos())
 			inv.setItem(28,
