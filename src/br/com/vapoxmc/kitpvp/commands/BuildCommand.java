@@ -8,6 +8,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
 public final class BuildCommand implements CommandExecutor {
 
@@ -30,7 +32,9 @@ public final class BuildCommand implements CommandExecutor {
 											+ " §7ativou o modo §fconstrução §7do jogador §f" + target.getName()));
 						} else {
 							VapoxPvP.removeBuild(target);
-							VapoxPvP.setWarp(target, VapoxPvP.getDefaultWarp());
+							((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(target,
+									((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+											.getDefaultWarp());
 							target.sendMessage("§c§l[BUILD] §fSeu modo construir foi §cdesativado§f.");
 							player.sendMessage("§c§l[BUILD] §fO modo construir de §c" + target.getName()
 									+ " §ffoi §cdesativado§f.");

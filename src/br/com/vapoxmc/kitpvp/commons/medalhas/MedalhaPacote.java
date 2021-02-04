@@ -5,7 +5,7 @@ import java.util.List;
 
 public enum MedalhaPacote {
 	NENHUM(Arrays.asList(Medalha.NENHUMA, Medalha.SEASON_1_TOP_ABATES, Medalha.SEASON_1_TOP_PONTOS, Medalha.ALPHA,
-			Medalha.BETA)),
+			Medalha.BETA, Medalha.NITRO_BOOSTER, Medalha.BUG_BOUNTY, Medalha.EX_STAFFER, Medalha.CASAS_DO_SUDANO)),
 	FELICIDADE(Arrays.asList(Medalha.CARINHA_FELIZ, Medalha.CARINHA_TRISTE, Medalha.TSU, Medalha.SHI,
 			Medalha.CARINHA_SORRIDENTE)),
 	EXTRAS(Arrays.asList(Medalha.ATENCAO, Medalha.EXCLAMACAO_DE_CORACAO, Medalha.CLICKBAIT, Medalha.COPYRIGHT,

@@ -10,10 +10,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
-import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
-import br.com.vapoxmc.kitpvp.warp.Warp;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
 public final class WarpsGUI implements Listener {
 
@@ -22,7 +23,7 @@ public final class WarpsGUI implements Listener {
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if (event.hasItem() && event.getItem().isSimilar(ICON.toItemStack()) && !VapoxPvP.hasKit(player))
+		if (event.hasItem() && event.getItem().isSimilar(ICON.toItemStack()))
 			openGUI(player);
 	}
 
@@ -35,8 +36,10 @@ public final class WarpsGUI implements Listener {
 			event.setCancelled(true);
 
 			if (display.startsWith("§a")) {
-				Warp warp = VapoxPvP.getWarpByName(ChatColor.stripColor(display));
-				if (warp != null && VapoxPvP.setWarp(player, warp)) {
+				Warp warp = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+						.getWarpByName(ChatColor.stripColor(display));
+				if (warp != null
+						&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player, warp)) {
 					player.sendMessage(
 							"§a§l[WARP] §fVocê foi teleportado para a warp §a" + warp.getName().toLowerCase() + "§f!");
 					if (warp instanceof UMvUMWarp)
@@ -50,39 +53,42 @@ public final class WarpsGUI implements Listener {
 	public static void openGUI(Player player) {
 		Inventory inv = Bukkit.createInventory(null, 27, "§e§lMenu de Warps");
 
-		Warp knockback = VapoxPvP.getWarpByName("Knockback");
+		Warp knockback = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarpByName("Knockback");
 		inv.setItem(9,
 				knockback.getIcon().clone().display("§aKnockback").lore(
 						"§fAcesso a warp: §a§l" + knockback.getName().toUpperCase() + "§7.",
-						"§fJogadores: §a" + VapoxPvP.getPlayersInWarp(knockback)));
+						"§fJogadores: §a" + ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+								.getPlayersInWarp(knockback)));
 
-		Warp fps = VapoxPvP.getWarpByName("FPS");
-		inv.setItem(10,
-				fps.getIcon().clone().display("§a" + fps.getName()).lore(
-						"§fAcesso a warp: §a§l" + fps.getName().toUpperCase() + "§7.",
-						"§fJogadores: §a" + VapoxPvP.getPlayersInWarp(fps)));
+		Warp fps = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarpByName("FPS");
+		inv.setItem(10, fps.getIcon().clone().display("§a" + fps.getName())
+				.lore("§fAcesso a warp: §a§l" + fps.getName().toUpperCase() + "§7.", "§fJogadores: §a"
+						+ ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getPlayersInWarp(fps)));
 
-		Warp fisherman = VapoxPvP.getWarpByName("Fisherman");
+		Warp fisherman = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarpByName("Fisherman");
 		inv.setItem(12,
 				fisherman.getIcon().clone().display("§a" + fisherman.getName()).lore(
 						"§fAcesso a warp: §a§l" + fisherman.getName().toUpperCase() + "§7.",
-						"§fJogadores: §a" + VapoxPvP.getPlayersInWarp(fisherman)));
+						"§fJogadores: §a" + ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+								.getPlayersInWarp(fisherman)));
 
-		Warp potpvp = VapoxPvP.getWarpByName("PotPvP");
-		inv.setItem(14,
-				potpvp.getIcon().clone().display("§a" + potpvp.getName()).lore(
-						"§fAcesso a warp: §a§l" + potpvp.getName() + "§7.",
-						"§fJogadores: §a" + VapoxPvP.getPlayersInWarp(potpvp)));
+		Warp potpvp = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarpByName("PotPvP");
+		inv.setItem(14, potpvp.getIcon().clone().display("§a" + potpvp.getName())
+				.lore("§fAcesso a warp: §a§l" + potpvp.getName() + "§7.", "§fJogadores: §a"
+						+ ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getPlayersInWarp(potpvp)));
 
-		Warp lavaChallenge = VapoxPvP.getWarpByName("Lava Challenge");
+		Warp lavaChallenge = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+				.getWarpByName("Lava Challenge");
 		inv.setItem(16,
 				lavaChallenge.getIcon().clone().display("§a" + lavaChallenge.getName()).lore(
 						"§fAcesso a warp: §a§l" + lavaChallenge.getName().toUpperCase(),
-						"§fJogadores: §a" + VapoxPvP.getPlayersInWarp(lavaChallenge)));
+						"§fJogadores: §a" + ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+								.getPlayersInWarp(lavaChallenge)));
 
-		Warp umvum = VapoxPvP.getWarpByName("1v1");
+		Warp umvum = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarpByName("1v1");
 		inv.setItem(17, umvum.getIcon().clone().display("§a" + umvum.getName())
-				.lore("§fAcesso a warp: §a§l" + umvum.getName(), "§fJogadores: §a" + VapoxPvP.getPlayersInWarp(umvum)));
+				.lore("§fAcesso a warp: §a§l" + umvum.getName(), "§fJogadores: §a"
+						+ ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getPlayersInWarp(umvum)));
 
 		player.openInventory(inv);
 	}

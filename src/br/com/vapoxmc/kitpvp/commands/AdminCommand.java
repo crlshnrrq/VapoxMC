@@ -12,6 +12,9 @@ import org.bukkit.inventory.PlayerInventory;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
 public final class AdminCommand implements CommandExecutor {
 
@@ -27,11 +30,11 @@ public final class AdminCommand implements CommandExecutor {
 			if (player.hasPermission("command.admin")) {
 				if (!VapoxPvP.hasAdmin(player)) {
 					VapoxPvP.addAdmin(player);
-					VapoxPvP.removeKit(player);
-					VapoxPvP.removeWarp(player);
+					((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits")).removeKit(player);
+					((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).removeWarp(player);
 					VapoxPvP.removeProtection(player);
 					for (Player players : Bukkit.getOnlinePlayers())
-						if (!players.hasPermission("command.admin"))
+						if (!players.hasPermission("staff.viewadmins"))
 							players.hidePlayer(player);
 					player.setGameMode(GameMode.CREATIVE);
 					player.setFlying(true);

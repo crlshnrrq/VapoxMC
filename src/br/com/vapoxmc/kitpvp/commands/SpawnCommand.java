@@ -7,6 +7,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
 public final class SpawnCommand implements CommandExecutor {
 
@@ -23,7 +25,8 @@ public final class SpawnCommand implements CommandExecutor {
 							player.sendMessage(
 									"§e§l[ADMIN] §f" + target.getName() + "§e§lAINDA §festava no modo §a§ladmin§f!");
 						}
-						if (VapoxPvP.setWarp(target, VapoxPvP.getDefaultWarp())) {
+						if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(target,
+								((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getDefaultWarp())) {
 							target.sendMessage("§aTeleportado para o spawn por: " + player.getName());
 							player.sendMessage("§eVocê teleportou " + target.getName() + " para o spawn!");
 						}
@@ -36,7 +39,8 @@ public final class SpawnCommand implements CommandExecutor {
 					VapoxPvP.removeAdmin(player);
 					player.sendMessage("§e§l[ADMIN] §fVocê §e§lAINDA §festá no modo §a§ladmin§f!");
 				}
-				if (VapoxPvP.setWarp(player, VapoxPvP.getDefaultWarp()))
+				if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player,
+						((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getDefaultWarp()))
 					player.sendMessage("§aTeleportado para o spawn!");
 			}
 		} else

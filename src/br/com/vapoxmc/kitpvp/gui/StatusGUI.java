@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
@@ -18,16 +19,25 @@ import br.com.vapoxmc.kitpvp.utils.Stack;
 
 public final class StatusGUI implements Listener {
 
+	public static final Stack ICON = new Stack(Material.SKULL_ITEM, 1, 3).display("§2» §aVeja seu perfil.");
+
+	@EventHandler
+	private void onPlayerInteract(PlayerInteractEvent event) {
+		Player player = event.getPlayer();
+		if (event.hasItem() && event.getItem().isSimilar(ICON.clone().owner(player.getName()).toItemStack()))
+			openGUI(player, player);
+	}
+
 	@EventHandler
 	private void onInventoryClick(InventoryClickEvent event) {
 		if (event.getWhoClicked() instanceof Player
-				&& event.getInventory().getName().equals("§eSeu perfil dentro do servidor.")
+				&& event.getInventory().getName().equals("§aSeu perfil dentro do servidor.")
 				&& event.getCurrentItem() != null && event.getCurrentItem().hasItemMeta())
 			event.setCancelled(true);
 	}
 
 	public static void openGUI(Player player, Player target) {
-		Inventory inv = Bukkit.createInventory(null, 54, "§eSeu perfil dentro do servidor.");
+		Inventory inv = Bukkit.createInventory(null, 54, "§aSeu perfil dentro do servidor.");
 
 		inv.setItem(4, new Stack(Material.SKULL_ITEM, 1, 3).owner(target.getName()).display("§aInformações:").lore(
 				"§fNick: §a" + target.getName(), "§fUUID: §a" + target.getUniqueId(),

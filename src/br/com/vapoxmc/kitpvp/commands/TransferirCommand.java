@@ -31,7 +31,7 @@ public final class TransferirCommand implements CommandExecutor {
 											+ " §fmoedas para §a" + target.getName());
 
 									PlayerAccount.addMoedas(target, amount);
-									player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + df.format(amount)
+									target.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + df.format(amount)
 											+ " §fmoedas de §a" + player.getName());
 								} else
 									player.sendMessage("§c§l[MOEDAS] §fVocê não possuí moedas o suficiente!");

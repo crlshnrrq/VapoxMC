@@ -7,7 +7,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-import br.com.vapoxmc.kitpvp.VapoxPvP;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
@@ -26,10 +28,14 @@ public final class InfoCommand implements CommandExecutor {
 					if (target != null) {
 						player.sendMessage("§fInformações sobre §a" + target.getName() + "§f.");
 						player.sendMessage("§aNick: §f" + target.getName());
-						if (VapoxPvP.hasKit(target))
-							player.sendMessage("§aKit: §f" + VapoxPvP.getKit(target).getName());
+						if (((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kit")).hasKit(target))
+							player.sendMessage(
+									"§aKit: §f" + ((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kit"))
+											.getKit(target).getName());
 						else
-							player.sendMessage("§aWarp: §f" + VapoxPvP.getWarp(target).getName());
+							player.sendMessage(
+									"§aWarp: §f" + ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+											.getWarp(target).getName());
 						player.sendMessage("§aPing: §f" + ((CraftPlayer) target).getHandle().ping);
 						player.sendMessage("§aGameMode: §f" + target.getGameMode().name());
 						player.sendMessage("§aFly: §f" + (target.getAllowFlight() ? "§aSim" : "§cNão"));

@@ -12,6 +12,9 @@ import org.bukkit.inventory.PlayerInventory;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
 public final class PotPvPWarp extends Warp implements Listener {
 
@@ -20,7 +23,7 @@ public final class PotPvPWarp extends Warp implements Listener {
 			.lore("§7Clique com o §6esquerdo §7para atacar um oponente.");
 
 	public PotPvPWarp() {
-		super("PotPvP", new Stack(Material.POTION, 1, 16421),
+		super("PotPvP", "vapoxpvp.warp.potpvp.description", new Stack(Material.POTION, 1, 16421),
 				new Location(Bukkit.getWorlds().get(0), 10000, 107, 10000));
 	}
 
@@ -47,7 +50,7 @@ public final class PotPvPWarp extends Warp implements Listener {
 	@EventHandler
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getWarp(player) instanceof PotPvPWarp
+		if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarp(player) instanceof PotPvPWarp
 				&& event.getItemDrop().getItemStack().isSimilar(SWORD.toItemStack()))
 			event.setCancelled(true);
 	}

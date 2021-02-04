@@ -19,6 +19,9 @@ import org.bukkit.potion.PotionEffectType;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
 public final class FishermanWarp extends Warp implements Listener {
 
@@ -27,7 +30,7 @@ public final class FishermanWarp extends Warp implements Listener {
 			.lore("§fItem de: §a§lFISHERMAN§f.");
 
 	public FishermanWarp() {
-		super("Fisherman", new Stack(Material.FISHING_ROD), null);
+		super("Fisherman", "vapoxpvp.warp.fisherman.description", new Stack(Material.FISHING_ROD), null);
 		this.randomLocations = Arrays.asList(new Location(Bukkit.getWorlds().get(0), 8002, 100, 7976, 0, 0),
 				new Location(Bukkit.getWorlds().get(0), 8026, 100, 8032, 150, 0),
 				new Location(Bukkit.getWorlds().get(0), 7987, 100, 8035, 200, 0),
@@ -58,9 +61,11 @@ public final class FishermanWarp extends Warp implements Listener {
 	@EventHandler
 	private void onPlayerFish(PlayerFishEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getWarp(player) instanceof FishermanWarp && event.getCaught() instanceof Player) {
+		if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarp(player) instanceof FishermanWarp
+				&& event.getCaught() instanceof Player) {
 			Player caught = (Player) event.getCaught();
-			if (VapoxPvP.getWarp(caught) instanceof FishermanWarp) {
+			if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+					.getWarp(caught) instanceof FishermanWarp) {
 				if (player.getName().equals(caught.getName())) {
 					event.setCancelled(true);
 					player.sendMessage("§c§l[" + this.getName().toUpperCase() + "] §fVocê não pode fisgar a si mesmo!");
@@ -89,14 +94,15 @@ public final class FishermanWarp extends Warp implements Listener {
 	@EventHandler
 	private void onPlayerMove(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getWarp(player) instanceof FishermanWarp && event.getTo().getY() <= 65D)
+		if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarp(player) instanceof FishermanWarp
+				&& event.getTo().getY() <= 65D)
 			player.damage(player.getMaxHealth());
 	}
 
 	@EventHandler
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
 		Player player = event.getPlayer();
-		if (VapoxPvP.getWarp(player) instanceof FishermanWarp
+		if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarp(player) instanceof FishermanWarp
 				&& event.getItemDrop().getItemStack().isSimilar(ROD.toItemStack()))
 			event.setCancelled(true);
 	}

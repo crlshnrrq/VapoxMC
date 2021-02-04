@@ -15,6 +15,8 @@ import org.bukkit.inventory.PlayerInventory;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
 public final class EventoCommand implements CommandExecutor {
 
@@ -28,7 +30,9 @@ public final class EventoCommand implements CommandExecutor {
 						if (VapoxPvP.isEventoOpen()) {
 							if (!VapoxPvP.hasEventoPlayer(player)) {
 								VapoxPvP.addEventoPlayer(player);
-								VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("Evento"));
+								((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player,
+										((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+												.getWarpByName("Evento"));
 								player.sendMessage("§e§l[EVENTO] §fVocê entrou no §eevento§f.");
 							} else
 								player.sendMessage("§e§l[EVENTO] §fVocê já está no evento, digite §c/evento sair§f!");
@@ -39,7 +43,8 @@ public final class EventoCommand implements CommandExecutor {
 				} else if (args[0].equalsIgnoreCase("Sair")) {
 					if (VapoxPvP.hasEventoPlayer(player)) {
 						VapoxPvP.removeEventoPlayer(player);
-						VapoxPvP.setWarp(player, VapoxPvP.getDefaultWarp());
+						((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player,
+								((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getDefaultWarp());
 						player.sendMessage("§e§l[EVENTO] §fVocê saiu do §eevento§f.");
 					} else
 						player.sendMessage("§e§l[EVENTO] §fVocê §cnão §festá em nenhum §eevento§f!");
@@ -77,7 +82,9 @@ public final class EventoCommand implements CommandExecutor {
 								VapoxPvP.setEventoPvP(false);
 								VapoxPvP.setEventoBuild(false);
 								VapoxPvP.addEventoPlayer(player);
-								VapoxPvP.setWarp(player, VapoxPvP.getWarpByName("Evento"));
+								((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player,
+										((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+												.getWarpByName("Evento"));
 								player.sendMessage("§e§l[EVENTO] §fVocê §aligou §fo evento!");
 								player.sendMessage("§e§l[EVENTO] §fPvP: §cOFF");
 								player.sendMessage("§e§l[EVENTO] §fBuild: §cOFF");
@@ -131,7 +138,10 @@ public final class EventoCommand implements CommandExecutor {
 												.forEach(players -> players.sendMessage("§e§l[EVENTO] §c"
 														+ target.getName() + " §ffoi desclassificado do evento!"));
 										VapoxPvP.removeEventoPlayer(target);
-										VapoxPvP.setWarp(target, VapoxPvP.getDefaultWarp());
+										((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(
+												target,
+												((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+														.getDefaultWarp());
 										target.sendMessage(
 												"§c§l[EVENTO] §fVocê foi removido do evento por §c" + player.getName());
 									} else
@@ -165,10 +175,10 @@ public final class EventoCommand implements CommandExecutor {
 											inv.setItem(7, new Stack(Material.LAVA_BUCKET));
 											inv.setItem(8, new Stack(Material.WATER_BUCKET));
 											inv.setItem(13,
-													new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft"));
-											inv.setItem(14,
-													new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft"));
-											inv.setItem(15, new Stack(Material.BOWL, 64).display("§7» §fRecraft"));
+													new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft §7«"));
+											inv.setItem(14, new Stack(Material.BROWN_MUSHROOM, 64)
+													.display("§7» §fRecraft §7«"));
+											inv.setItem(15, new Stack(Material.BOWL, 64).display("§7» §fRecraft §7«"));
 											inv.setItem(17, new Stack(Material.IRON_PICKAXE));
 											inv.setItem(26, new Stack(Material.IRON_AXE));
 
@@ -193,10 +203,10 @@ public final class EventoCommand implements CommandExecutor {
 											inv.setItem(0, new Stack(Material.DIAMOND_SWORD)
 													.ench(Enchantment.DAMAGE_ALL, 1).display("§4» §cEspada"));
 											inv.setItem(13,
-													new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft"));
-											inv.setItem(14,
-													new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft"));
-											inv.setItem(15, new Stack(Material.BOWL, 64).display("§7» §fRecraft"));
+													new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft §7«"));
+											inv.setItem(14, new Stack(Material.BROWN_MUSHROOM, 64)
+													.display("§7» §fRecraft §7«"));
+											inv.setItem(15, new Stack(Material.BOWL, 64).display("§7» §fRecraft §7«"));
 
 											for (int i = 0; i < 36; i++)
 												inv.addItem(new Stack(Material.MUSHROOM_SOUP));
@@ -348,7 +358,9 @@ public final class EventoCommand implements CommandExecutor {
 								player.sendMessage("§e§l[EVENTO] §fVocê forçou o §cdesligamento §fdo evento!");
 								new ArrayList<>(VapoxPvP.getEventoPlayers()).forEach(players -> {
 									VapoxPvP.removeEventoPlayer(players);
-									VapoxPvP.setWarp(players, VapoxPvP.getDefaultWarp());
+									((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(players,
+											((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+													.getDefaultWarp());
 									players.sendMessage("§e§l[EVENTO] §fO evento foi §cfinalizado§f.");
 								});
 							} else

@@ -65,7 +65,7 @@ public final class AdminListeners implements Listener {
 			player.sendMessage("§e§l[ADMIN] §fVocê §c§lESTA VISIVEL §fpara todos.");
 
 			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
-				Bukkit.getOnlinePlayers().stream().filter(players -> !players.hasPermission("command.admin"))
+				Bukkit.getOnlinePlayers().stream().filter(players -> !players.hasPermission("staff.viewadmins"))
 						.forEach(players -> players.hidePlayer(player));
 				player.sendMessage("§e§l[ADMIN] §fVocê §c§lESTA INVISIVEL §fpara todos.");
 			}, 10L);

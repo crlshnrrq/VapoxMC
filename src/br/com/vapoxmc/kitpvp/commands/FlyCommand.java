@@ -6,8 +6,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import br.com.vapoxmc.kitpvp.VapoxPvP;
-import br.com.vapoxmc.kitpvp.warp.SpawnWarp;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
+import br.com.vapoxmc.vapoxpvp.warpssystem.warps.SpawnWarp;
 
 public final class FlyCommand implements CommandExecutor {
 
@@ -20,7 +21,8 @@ public final class FlyCommand implements CommandExecutor {
 					if (player.hasPermission("command.fly.others")) {
 						Player target = Bukkit.getPlayer(args[0]);
 						if (target != null) {
-							if (VapoxPvP.getWarp(target) instanceof SpawnWarp) {
+							if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+									.getWarp(target) instanceof SpawnWarp) {
 								if (!target.getAllowFlight()) {
 									target.setAllowFlight(true);
 									target.sendMessage("§a§l[FLY] §fSeu modo voar foi §aativado §fpor §a"
@@ -46,7 +48,8 @@ public final class FlyCommand implements CommandExecutor {
 					} else
 						player.sendMessage("§cÉ necessário ser [GERENTE] ou superior para executar este comando!");
 				} else {
-					if (VapoxPvP.getWarp(player) instanceof SpawnWarp) {
+					if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+							.getWarp(player) instanceof SpawnWarp) {
 						if (!player.getAllowFlight()) {
 							player.setAllowFlight(true);
 							player.sendMessage("§a§l[FLY] §fSeu modo voar foi §aativado§f.");

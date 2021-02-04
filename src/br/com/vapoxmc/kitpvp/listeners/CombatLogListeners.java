@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -15,12 +16,33 @@ import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 import br.com.vapoxmc.kitpvp.warp.EventoWarp;
-import br.com.vapoxmc.kitpvp.warp.FPSWarp;
 import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
-import br.com.vapoxmc.kitpvp.warp.KnockbackWarp;
 import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
+import br.com.vapoxmc.vapoxpvp.kitssystem.events.PlayerRemoveKitEvent;
+import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
+import br.com.vapoxmc.vapoxpvp.warpssystem.events.PlayerRemoveWarpEvent;
+import br.com.vapoxmc.vapoxpvp.warpssystem.events.PlayerTeleportWarpEvent;
+import br.com.vapoxmc.vapoxpvp.warpssystem.warps.FPSWarp;
+import br.com.vapoxmc.vapoxpvp.warpssystem.warps.KnockbackWarp;
 
 public final class CombatLogListeners implements Listener {
+
+	@EventHandler
+	private void onPlayerRemoveKit(PlayerRemoveKitEvent event) {
+		VapoxPvP.removeCombat(event.getPlayer());
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL)
+	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
+		VapoxPvP.removeCombat(event.getPlayer());
+	}
+
+	@EventHandler
+	private void onPlayerRemoveWarp(PlayerRemoveWarpEvent event) {
+		VapoxPvP.removeCombat(event.getPlayer());
+	}
 
 	@EventHandler
 	private void onPlayerQuit(PlayerQuitEvent event) {
@@ -58,16 +80,39 @@ public final class CombatLogListeners implements Listener {
 	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
 		if (event.getEntity() instanceof Player && event.getDamager() instanceof Player) {
 			Player player = (Player) event.getEntity(), damager = (Player) event.getDamager();
-			if ((VapoxPvP.hasKit(player) && VapoxPvP.hasKit(damager))
-					|| (VapoxPvP.getWarp(player) instanceof KnockbackWarp
-							&& VapoxPvP.getWarp(damager) instanceof KnockbackWarp)
-					|| (VapoxPvP.getWarp(player) instanceof FPSWarp && VapoxPvP.getWarp(damager) instanceof FPSWarp)
-					|| (VapoxPvP.getWarp(player) instanceof EventoWarp
-							&& VapoxPvP.getWarp(damager) instanceof EventoWarp)
-					|| (VapoxPvP.getWarp(player) instanceof FishermanWarp
-							&& VapoxPvP.getWarp(damager) instanceof FishermanWarp)
-					|| (VapoxPvP.getWarp(player) instanceof PotPvPWarp
-							&& VapoxPvP.getWarp(damager) instanceof PotPvPWarp)) {
+			if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+					.getWarp(player) instanceof KnockbackWarp
+					&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+							.getWarp(damager) instanceof KnockbackWarp) {
+				if (!VapoxPvP.isInCombat(player))
+					VapoxPvP.addCombat(player, damager);
+				else
+					VapoxPvP.setCombatTime(damager, 30);
+
+				if (!VapoxPvP.isInCombat(damager))
+					VapoxPvP.addCombat(damager, player);
+				else
+					VapoxPvP.setCombatTime(damager, 30);
+			}
+
+			if ((((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits")).hasKit(player)
+					&& ((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits")).hasKit(damager))
+					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+							.getWarp(player) instanceof FPSWarp
+							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+									.getWarp(damager) instanceof FPSWarp)
+					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+							.getWarp(player) instanceof EventoWarp
+							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+									.getWarp(damager) instanceof EventoWarp)
+					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+							.getWarp(player) instanceof FishermanWarp
+							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+									.getWarp(damager) instanceof FishermanWarp)
+					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+							.getWarp(player) instanceof PotPvPWarp
+							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+									.getWarp(damager) instanceof PotPvPWarp)) {
 				if (!VapoxPvP.isInCombat(damager))
 					VapoxPvP.addCombat(damager, player);
 				else

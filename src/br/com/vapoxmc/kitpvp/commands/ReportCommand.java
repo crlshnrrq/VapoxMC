@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -42,11 +44,15 @@ public final class ReportCommand implements CommandExecutor {
 										players.sendMessage("   §c§lALERTA DE REPORT!");
 										players.sendMessage("§fReportado: §c" + target.getName() + " §7("
 												+ ((CraftPlayer) target).getHandle().ping + "ms | "
-												+ VapoxPvP.getKit(target).getName() + ")");
+												+ ((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits"))
+														.getKit(target).getName()
+												+ ")");
 										players.sendMessage("§fMotivo: §a" + reason);
 										players.sendMessage("§fAutor: §a" + player.getName() + " §7("
 												+ ((CraftPlayer) player).getHandle().ping + "ms | "
-												+ VapoxPvP.getKit(player).getName() + ")");
+												+ ((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits"))
+														.getKit(player).getName()
+												+ ")");
 										TextComponent teleport = new TextComponent(
 												"§7[Clique aqui para ir até §f" + target.getName() + "§7]");
 										teleport.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,

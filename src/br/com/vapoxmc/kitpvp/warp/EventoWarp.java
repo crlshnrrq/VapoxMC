@@ -18,11 +18,13 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
+import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
 
 public final class EventoWarp extends Warp implements Listener {
 
 	public EventoWarp() {
-		super("Evento", new Stack(Material.CAKE), new Location(Bukkit.getWorlds().get(0), 4000, 102, 4000));
+		super("Evento", "vapoxpvp.warp.evento.description", new Stack(Material.CAKE),
+				new Location(Bukkit.getWorlds().get(0), 4000, 102, 4000));
 	}
 
 	@Override

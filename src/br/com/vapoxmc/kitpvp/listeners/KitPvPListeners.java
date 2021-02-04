@@ -22,6 +22,8 @@ import org.bukkit.inventory.ItemStack;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
+import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
 
 public final class KitPvPListeners implements Listener {
 
@@ -66,7 +68,8 @@ public final class KitPvPListeners implements Listener {
 						: player.getMaxHealth());
 				event.getItem().setType(Material.BOWL);
 				player.updateInventory();
-			} else if (event.getMaterial() == Material.COMPASS && VapoxPvP.hasKit(player)) {
+			} else if (event.getMaterial() == Material.COMPASS
+					&& ((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits")).hasKit(player)) {
 				for (int i = 0; i < 100; i++)
 					for (Entity entities : player.getNearbyEntities(i, i, i)) {
 						if (entities instanceof Player) {
@@ -97,9 +100,9 @@ public final class KitPvPListeners implements Listener {
 				} else if (sign.getLine(1).equals("§aRecraft!")) {
 					Inventory inv = Bukkit.createInventory(null, 9, "");
 
-					inv.setItem(3, new Stack(Material.BOWL, 64).display("§7» §fRecraft"));
-					inv.setItem(4, new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft"));
-					inv.setItem(5, new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft"));
+					inv.setItem(3, new Stack(Material.BOWL, 64).display("§7» §fRecraft §7«"));
+					inv.setItem(4, new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft §7«"));
+					inv.setItem(5, new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft §7«"));
 
 					player.openInventory(inv);
 				} else if (sign.getLine(1).equals("§aPoção!")) {

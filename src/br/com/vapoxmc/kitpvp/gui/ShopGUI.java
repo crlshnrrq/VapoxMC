@@ -11,7 +11,6 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
-import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 
@@ -22,7 +21,7 @@ public final class ShopGUI implements Listener {
 	@EventHandler
 	private void onPlayerInteract(PlayerInteractEvent event) {
 		Player player = event.getPlayer();
-		if (event.hasItem() && event.getItem().isSimilar(ICON.toItemStack()) && !VapoxPvP.hasKit(player))
+		if (event.hasItem() && event.getItem().isSimilar(ICON.toItemStack()))
 			openGUI(player);
 	}
 

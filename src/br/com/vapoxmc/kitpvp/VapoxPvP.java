@@ -1,16 +1,12 @@
 package br.com.vapoxmc.kitpvp;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -18,8 +14,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import org.bukkit.scoreboard.DisplaySlot;
 
 import com.github.crlshnrrq.screenshareplugin.ScreenSharePlugin;
 
@@ -40,7 +34,6 @@ import br.com.vapoxmc.kitpvp.commands.GameModeCommand;
 import br.com.vapoxmc.kitpvp.commands.HeadCommand;
 import br.com.vapoxmc.kitpvp.commands.InfoCommand;
 import br.com.vapoxmc.kitpvp.commands.InvseeCommand;
-import br.com.vapoxmc.kitpvp.commands.KitCommand;
 import br.com.vapoxmc.kitpvp.commands.LastLoginCommand;
 import br.com.vapoxmc.kitpvp.commands.MoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.OnlineCommand;
@@ -50,7 +43,6 @@ import br.com.vapoxmc.kitpvp.commands.RemoveMoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportCommand;
 import br.com.vapoxmc.kitpvp.commands.ReportTeleportCommand;
 import br.com.vapoxmc.kitpvp.commands.ResetKitCommand;
-import br.com.vapoxmc.kitpvp.commands.ScoreCommand;
 import br.com.vapoxmc.kitpvp.commands.ServerCommand;
 import br.com.vapoxmc.kitpvp.commands.SetMoneyCommand;
 import br.com.vapoxmc.kitpvp.commands.ShopCommand;
@@ -67,32 +59,12 @@ import br.com.vapoxmc.kitpvp.commands.TransferirCommand;
 import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.commands.YouTuberCommand;
 import br.com.vapoxmc.kitpvp.commons.medalhas.MedalhasAddon;
-import br.com.vapoxmc.kitpvp.gui.SeusKitsGUI;
 import br.com.vapoxmc.kitpvp.gui.ShopGUI;
 import br.com.vapoxmc.kitpvp.gui.ShopKDRGUI;
 import br.com.vapoxmc.kitpvp.gui.ShopKitsGUI;
 import br.com.vapoxmc.kitpvp.gui.StatusGUI;
 import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
 import br.com.vapoxmc.kitpvp.gui.YouTuberGUI;
-import br.com.vapoxmc.kitpvp.kit.AjninKit;
-import br.com.vapoxmc.kitpvp.kit.AnchorKit;
-import br.com.vapoxmc.kitpvp.kit.AntiStomperKit;
-import br.com.vapoxmc.kitpvp.kit.ArcherKit;
-import br.com.vapoxmc.kitpvp.kit.CriticalKit;
-import br.com.vapoxmc.kitpvp.kit.FishermanKit;
-import br.com.vapoxmc.kitpvp.kit.KangarooKit;
-import br.com.vapoxmc.kitpvp.kit.Kit;
-import br.com.vapoxmc.kitpvp.kit.MagmaKit;
-import br.com.vapoxmc.kitpvp.kit.MonkKit;
-import br.com.vapoxmc.kitpvp.kit.NinjaKit;
-import br.com.vapoxmc.kitpvp.kit.PvPKit;
-import br.com.vapoxmc.kitpvp.kit.ScoutKit;
-import br.com.vapoxmc.kitpvp.kit.SnailKit;
-import br.com.vapoxmc.kitpvp.kit.StomperKit;
-import br.com.vapoxmc.kitpvp.kit.ThorKit;
-import br.com.vapoxmc.kitpvp.kit.UrgalKit;
-import br.com.vapoxmc.kitpvp.kit.VikingKit;
-import br.com.vapoxmc.kitpvp.kit.ViperKit;
 import br.com.vapoxmc.kitpvp.listeners.AdminListeners;
 import br.com.vapoxmc.kitpvp.listeners.BuildListeners;
 import br.com.vapoxmc.kitpvp.listeners.ChatListeners;
@@ -102,23 +74,17 @@ import br.com.vapoxmc.kitpvp.listeners.KitPvPListeners;
 import br.com.vapoxmc.kitpvp.listeners.PlayerListeners;
 import br.com.vapoxmc.kitpvp.listeners.WorldListeners;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
-import br.com.vapoxmc.kitpvp.player.PlayerGroup;
-import br.com.vapoxmc.kitpvp.player.PlayerRank;
-import br.com.vapoxmc.kitpvp.player.Sidebar;
-import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.utils.Strings;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
-import br.com.vapoxmc.kitpvp.warp.EventoWarp;
-import br.com.vapoxmc.kitpvp.warp.FPSWarp;
-import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
-import br.com.vapoxmc.kitpvp.warp.KnockbackWarp;
-import br.com.vapoxmc.kitpvp.warp.LavaChallengeWarp;
-import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
-import br.com.vapoxmc.kitpvp.warp.SpawnWarp;
-import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
-import br.com.vapoxmc.kitpvp.warp.Warp;
+import br.com.vapoxmc.vapoxpvp.KitPvP;
 
 public final class VapoxPvP extends JavaPlugin {
+
+	private static KitPvP kitpvp;
+
+	public static KitPvP getKitPvP() {
+		return kitpvp;
+	}
 
 	private static ScreenSharePlugin screenSharePlugin;
 
@@ -142,19 +108,6 @@ public final class VapoxPvP extends JavaPlugin {
 	private static boolean eventoActive = false, eventoPvP = false, eventoBuild = false, eventoOpen = false;
 	private static final List<UUID> players = new ArrayList<>();
 	private static final List<Block> placedBlocks = new ArrayList<>();
-
-	private static final Map<UUID, Sidebar> sidebarMap = new HashMap<>();
-	private static Sidebar defaultSidebar;
-
-	private static final List<Kit> kits = new ArrayList<>();
-	private static final Map<UUID, String> kitMap = new HashMap<>();
-	private static final Map<UUID, Long> longMap = new HashMap<>();
-	private static final Map<UUID, BukkitTask> taskMap = new HashMap<>();
-	private static Kit noneKit, defaultKit;
-
-	private static final List<Warp> warps = new ArrayList<>();
-	private static final Map<UUID, String> warpMap = new HashMap<>();
-	private static Warp noneWarp, defaultWarp;
 
 	private static final Map<UUID, UUID> enemyMap = new HashMap<>();
 	private static final Map<UUID, Integer> timeMap = new HashMap<>();
@@ -369,170 +322,6 @@ public final class VapoxPvP extends JavaPlugin {
 		return placedBlocks;
 	}
 
-	public static Sidebar getDefaultSidebar() {
-		return defaultSidebar;
-	}
-
-	public static boolean hasSidebar(Player player) {
-		return sidebarMap.containsKey(player.getUniqueId());
-	}
-
-	public static Sidebar getSidebar(Player player) {
-		return sidebarMap.get(player.getUniqueId());
-	}
-
-	public static void setSidebar(Player player, Sidebar sidebar) {
-		sidebar.sendSidebar(player);
-		sidebarMap.put(player.getUniqueId(), sidebar);
-		updateSidebar(player);
-	}
-
-	public static void updateSidebar(Player player) {
-		if (hasSidebar(player))
-			getSidebar(player).update(player);
-	}
-
-	public static Sidebar removeSidebar(Player player) {
-		player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
-		return sidebarMap.remove(player.getUniqueId());
-	}
-
-	public static List<Kit> getKits() {
-		return kits;
-	}
-
-	public static Kit getKitByName(String name) {
-		return getKits().stream().filter(kit -> kit.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
-	}
-
-	public static Kit getNoneKit() {
-		return noneKit;
-	}
-
-	public static Kit getDefaultKit() {
-		return defaultKit;
-	}
-
-	public static boolean hasKit(Player player) {
-		return kitMap.containsKey(player.getUniqueId());
-	}
-
-	public static Kit getKit(Player player) {
-		if (hasKit(player))
-			return getKitByName(kitMap.get(player.getUniqueId()));
-		return getNoneKit();
-	}
-
-	public static boolean setKit(Player player, Kit kit) {
-		try {
-			player.teleport(Arrays.asList(new Location(Bukkit.getWorlds().get(0), -44, 67, 0),
-					new Location(Bukkit.getWorlds().get(0), -63, 64, 34),
-					new Location(Bukkit.getWorlds().get(0), 11, 67, -33),
-					new Location(Bukkit.getWorlds().get(0), 51, 67, -12)).stream().findAny().get());
-
-			kit.applyKit(player);
-			VapoxPvP.removeProtection(player);
-			VapoxPvP.removeCombat(player);
-			removeWarp(player);
-			kitMap.put(player.getUniqueId(), kit.getName());
-			return true;
-		} catch (Exception ex) {
-		}
-		return false;
-	}
-
-	public static Kit removeKit(Player player) {
-		Kit kit = getKitByName(kitMap.remove(player.getUniqueId()));
-		if (kit instanceof AjninKit)
-			((AjninKit) kit).tegratMap.remove(player.getUniqueId());
-		if (kit instanceof NinjaKit)
-			((NinjaKit) kit).targetMap.remove(player.getUniqueId());
-		removeKitCooldown(player);
-		VapoxPvP.removeCombat(player);
-		return kit;
-	}
-
-	public static boolean hasKitCooldown(Player player) {
-		return longMap.containsKey(player.getUniqueId());
-	}
-
-	public static String getFormattedKitCooldown(Player player) {
-		String str = new String();
-		int seconds = getKitCooldown(player);
-		if (seconds > 0)
-			str += seconds + " segundo" + (seconds == 1 ? "" : "s");
-		return str;
-	}
-
-	public static int getKitCooldown(Player player) {
-		if (hasKitCooldown(player))
-			return (int) ((longMap.getOrDefault(player.getUniqueId(), System.currentTimeMillis() + 1000L)
-					- System.currentTimeMillis()) / 1000L);
-		return 1;
-	}
-
-	public static void addKitCooldown(Player player, int seconds) {
-		longMap.put(player.getUniqueId(), (seconds * 1000L) + System.currentTimeMillis());
-		taskMap.put(player.getUniqueId(), Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
-			if (hasKitCooldown(player))
-				removeKitCooldown(player);
-		}, seconds * 20L));
-	}
-
-	public static void removeKitCooldown(Player player) {
-		longMap.remove(player.getUniqueId());
-		if (taskMap.containsKey(player.getUniqueId()))
-			taskMap.remove(player.getUniqueId()).cancel();
-	}
-
-	public static List<Warp> getWarps() {
-		return warps;
-	}
-
-	public static Warp getWarpByName(String name) {
-		return getWarps().stream().filter(warp -> warp.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
-	}
-
-	public static Warp getNoneWarp() {
-		return noneWarp;
-	}
-
-	public static Warp getDefaultWarp() {
-		return defaultWarp;
-	}
-
-	public static int getPlayersInWarp(Warp warp) {
-		return (int) warpMap.values().stream().filter(string -> string.equals(warp.getName())).count();
-	}
-
-	public static Warp getWarp(Player player) {
-		if (warpMap.containsKey(player.getUniqueId()))
-			return getWarpByName(warpMap.get(player.getUniqueId()));
-		return getNoneWarp();
-	}
-
-	public static boolean setWarp(Player player, Warp warp) {
-		try {
-			player.teleport(warp.getLocation());
-			warp.giveItems(player);
-			VapoxPvP.removeCombat(player);
-			removeKit(player);
-			((UMvUMWarp) getWarpByName("1v1")).removeEnemy(player);
-			warpMap.put(player.getUniqueId(), warp.getName());
-			return true;
-		} catch (Exception ex) {
-		}
-		return false;
-	}
-
-	public static Warp removeWarp(Player player) {
-		Warp warp = getWarpByName(warpMap.remove(player.getUniqueId()));
-		VapoxPvP.removeCombat(player);
-		if (warp instanceof UMvUMWarp)
-			((UMvUMWarp) warp).removeEnemy(player);
-		return warp;
-	}
-
 	public static boolean isInCombat(Player player) {
 		return enemyMap.containsKey(player.getUniqueId());
 	}
@@ -585,6 +374,8 @@ public final class VapoxPvP extends JavaPlugin {
 	@Override
 	public void onLoad() {
 		super.onLoad();
+		kitpvp = new KitPvP();
+		kitpvp.onLoad();
 	}
 
 	@Override
@@ -602,39 +393,12 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new PlayerListeners(), this);
 		pm.registerEvents(new WorldListeners(), this);
 
-		pm.registerEvents(new SeusKitsGUI(), this);
-		pm.registerEvents(new ShopGUI(), this);
 		pm.registerEvents(new ShopKDRGUI(), this);
 		pm.registerEvents(new ShopKitsGUI(), this);
+		pm.registerEvents(new ShopGUI(), this);
 		pm.registerEvents(new StatusGUI(), this);
 		pm.registerEvents(new WarpsGUI(), this);
 		pm.registerEvents(new YouTuberGUI(), this);
-
-		pm.registerEvents(new AjninKit(), this);
-		pm.registerEvents(new AnchorKit(), this);
-		pm.registerEvents(new ArcherKit(), this);
-		pm.registerEvents(new CriticalKit(), this);
-		pm.registerEvents(new FishermanKit(), this);
-		pm.registerEvents(new KangarooKit(), this);
-		pm.registerEvents(new MagmaKit(), this);
-		pm.registerEvents(new MonkKit(), this);
-		pm.registerEvents(new NinjaKit(), this);
-		pm.registerEvents(new ScoutKit(), this);
-		pm.registerEvents(new SnailKit(), this);
-		pm.registerEvents(new StomperKit(), this);
-		pm.registerEvents(new ThorKit(), this);
-		pm.registerEvents(new UrgalKit(), this);
-		pm.registerEvents(new VikingKit(), this);
-		pm.registerEvents(new ViperKit(), this);
-
-		pm.registerEvents(new FishermanWarp(), this);
-		pm.registerEvents(new FPSWarp(), this);
-		pm.registerEvents(new KnockbackWarp(), this);
-		pm.registerEvents(new LavaChallengeWarp(), this);
-		pm.registerEvents(new PotPvPWarp(), this);
-		pm.registerEvents(new SpawnWarp(), this);
-		pm.registerEvents(new UMvUMWarp(), this);
-		pm.registerEvents(new EventoWarp(), this);
 
 		this.getCommand("actionbar").setExecutor(new ActionBarCommand());
 		this.getCommand("addmoney").setExecutor(new AddMoneyCommand());
@@ -653,7 +417,6 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("head").setExecutor(new HeadCommand());
 		this.getCommand("info").setExecutor(new InfoCommand());
 		this.getCommand("invsee").setExecutor(new InvseeCommand());
-		this.getCommand("kit").setExecutor(new KitCommand());
 		this.getCommand("lastlogin").setExecutor(new LastLoginCommand());
 		this.getCommand("money").setExecutor(new MoneyCommand());
 		this.getCommand("online").setExecutor(new OnlineCommand());
@@ -663,7 +426,6 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("report").setExecutor(new ReportCommand());
 		this.getCommand("rtp").setExecutor(new ReportTeleportCommand());
 		this.getCommand("resetkit").setExecutor(new ResetKitCommand());
-		this.getCommand("score").setExecutor(new ScoreCommand());
 		this.getCommand("server").setExecutor(new ServerCommand());
 		this.getCommand("setmoney").setExecutor(new SetMoneyCommand());
 		this.getCommand("shop").setExecutor(new ShopCommand());
@@ -680,64 +442,6 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("warp").setExecutor(new WarpCommand());
 		this.getCommand("youtuber").setExecutor(new YouTuberCommand());
 
-		defaultSidebar = new Sidebar("Principal", Strings.getName()) {
-			@Override
-			public void update(Player player) {
-				DecimalFormat df = new DecimalFormat("###,###.##");
-				this.updateLine(player, "§fCargo: §a", PlayerGroup.getGroup(player).getColoredName());
-				this.updateLine(player, "§fRank: §a", PlayerRank.getRank(player).getColoredName());
-				this.updateLine(player, "§fKills: §a", "" + df.format(PlayerAccount.getAbates(player)));
-				this.updateLine(player, "§fDeaths: §a", "" + df.format(PlayerAccount.getMortes(player)));
-				this.updateLine(player, "§fKillStreak: §a", "" + df.format(PlayerAccount.getKillStreak(player)));
-				this.updateLine(player, "§fMoedas: §a", "" + df.format(PlayerAccount.getMoedas(player)));
-				this.updateLine(player, "§fPontos: §a", "" + df.format(PlayerAccount.getPontos(player)));
-			}
-		};
-		defaultSidebar.addLine(" ");
-		defaultSidebar.addLine("§fCargo: §a");
-		defaultSidebar.addLine("§fRank: §a");
-		defaultSidebar.addLine(" ");
-		defaultSidebar.addLine("§fKills: §a");
-		defaultSidebar.addLine("§fDeaths: §a");
-		defaultSidebar.addLine("§fKillStreak: §a");
-		defaultSidebar.addLine(" ");
-		defaultSidebar.addLine("§fMoedas: §a");
-		defaultSidebar.addLine("§fPontos: §a");
-		defaultSidebar.addLine(" ");
-		defaultSidebar.addLine("§7vapoxmc.com.br");
-
-		noneKit = new Kit("Nenhum", "Sem descrição.", new Stack(Material.STAINED_GLASS_PANE));
-		getKits().clear();
-		getKits().add(defaultKit = new PvPKit());
-		getKits().add(new AjninKit());
-		getKits().add(new AnchorKit());
-		getKits().add(new AntiStomperKit());
-		getKits().add(new ArcherKit());
-		getKits().add(new CriticalKit());
-		getKits().add(new FishermanKit());
-		getKits().add(new KangarooKit());
-		getKits().add(new MagmaKit());
-		getKits().add(new MonkKit());
-		getKits().add(new NinjaKit());
-		getKits().add(new ScoutKit());
-		getKits().add(new SnailKit());
-		getKits().add(new StomperKit());
-		getKits().add(new ThorKit());
-		getKits().add(new UrgalKit());
-		getKits().add(new VikingKit());
-		getKits().add(new ViperKit());
-
-		noneWarp = new Warp("Nenhuma", new Stack(Material.STAINED_GLASS_PANE), null);
-		getWarps().clear();
-		getWarps().add(defaultWarp = new SpawnWarp());
-		getWarps().add(new FishermanWarp());
-		getWarps().add(new FPSWarp());
-		getWarps().add(new KnockbackWarp());
-		getWarps().add(new LavaChallengeWarp());
-		getWarps().add(new PotPvPWarp());
-		getWarps().add(new UMvUMWarp());
-		getWarps().add(new EventoWarp());
-
 		PlayerAccount.createConnection();
 
 		medalhasAddon = new MedalhasAddon(this);
@@ -747,15 +451,17 @@ public final class VapoxPvP extends JavaPlugin {
 		getScreenSharePlugin().onEnable();
 
 		Bukkit.getScheduler().runTaskTimer(this, () -> Bukkit.getOnlinePlayers().forEach(players -> {
-			updateSidebar(players);
 			if (VapoxPvP.hasAdmin(players))
 				VapoxUtils.sendActionBar(players, "§fVocê está no modo §cADMIN§f.");
 			VapoxUtils.sendTab(players, Strings.getName() + "\n§fServidor: §aKitPvP\n",
 					"\n§fDiscord: §a" + Strings.getDiscord() + "\n§fJogadores: §a" + Bukkit.getOnlinePlayers().size());
 			if (!players.hasPermission("ciphen.comandos.admin"))
-				getAdmins().stream().filter(admins -> players.canSee(admins))
+				getAdmins().stream()
+						.filter(admins -> !players.hasPermission("staff.viewadmins") && players.canSee(admins))
 						.forEach(admins -> players.hidePlayer(admins));
 		}), 0L, 40L);
+
+		kitpvp.onEnable();
 
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §aPlugin habilitado (§7" + this.getDescription().getVersion() + "§a).");
@@ -768,6 +474,7 @@ public final class VapoxPvP extends JavaPlugin {
 		getScreenSharePlugin().onDisable();
 		Bukkit.getScheduler().cancelTasks(this);
 		HandlerList.unregisterAll(this);
+		kitpvp.onDisable();
 		Bukkit.getConsoleSender().sendMessage(
 				Strings.getPrefix() + " §cPlugin desabilitado (§7" + this.getDescription().getVersion() + "§c).");
 	}
