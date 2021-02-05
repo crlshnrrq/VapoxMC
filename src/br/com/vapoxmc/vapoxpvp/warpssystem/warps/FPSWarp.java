@@ -41,9 +41,9 @@ public final class FPSWarp extends Warp implements Listener {
 		inv.setLeggings(new Stack(Material.IRON_LEGGINGS));
 		inv.setBoots(new Stack(Material.IRON_BOOTS));
 
-		inv.setItem(13, new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft §7«"));
-		inv.setItem(14, new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft §7«"));
-		inv.setItem(15, new Stack(Material.BOWL, 64).display("§7» §fRecraft §7«"));
+		inv.setItem(13, new Stack(Material.BOWL, 64).display("§7» §fRecraft §7«"));
+		inv.setItem(14, new Stack(Material.RED_MUSHROOM, 64).display("§7» §fRecraft §7«"));
+		inv.setItem(15, new Stack(Material.BROWN_MUSHROOM, 64).display("§7» §fRecraft §7«"));
 
 		inv.setItem(0, SWORD);
 
@@ -55,8 +55,12 @@ public final class FPSWarp extends Warp implements Listener {
 	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
 		if (event.isCancelled())
 			return;
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
 		Player player = event.getPlayer();
-		VapoxPvP.addProtection(player);
+		if (system.getWarp(player) instanceof FPSWarp)
+			VapoxPvP.addProtection(player);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)

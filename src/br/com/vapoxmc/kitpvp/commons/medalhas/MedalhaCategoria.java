@@ -4,6 +4,7 @@ public enum MedalhaCategoria {
 	UNICA("Única"),
 	ESPECIAL("Especial"),
 	RARA("Rara"),
+	EPICA("Épica"),
 	COMUM("Comum");
 
 	private final String name;

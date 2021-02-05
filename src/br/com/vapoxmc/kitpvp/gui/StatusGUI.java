@@ -59,8 +59,11 @@ public final class StatusGUI implements Listener {
 						"§fKills: §a" + PlayerAccount.get1v1Vitorias(target),
 						"§fDeaths: §a" + PlayerAccount.get1v1Derrotas(target), " ", "§e§lSumô",
 						"§fKills: §a" + PlayerAccount.getSumoVitorias(target),
-						"§fDeaths: §a" + PlayerAccount.getSumoDerrotas(target), " ", "§e§lPotPvP", "§fKills: §cOFF",
-						"§fDeaths: §cOFF", " "));
+						"§fDeaths: §a" + PlayerAccount.getSumoDerrotas(target), " ", "§e§lLava Challenge",
+						"§fNível Fácil: §a" + PlayerAccount.getLavaChallengeFacil(target),
+						"§fNível Médio: §a" + PlayerAccount.getLavaChallengeMedio(target),
+						"§fNível Difícil: §a" + PlayerAccount.getLavaChallengeDificil(target),
+						"§fNível Insano: §a" + PlayerAccount.getLavaChallengeInsano(target), " "));
 
 		inv.setItem(16,
 				new Stack(Material.EXP_BOTTLE).display("§aExperiência:").lore(

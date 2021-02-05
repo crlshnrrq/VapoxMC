@@ -20,6 +20,7 @@ import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.kitssystem.guis.SeusKitsGUI;
 import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
 import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
+import br.com.vapoxmc.vapoxpvp.warpssystem.events.PlayerTeleportWarpEvent;
 
 public final class SpawnWarp extends Warp implements Listener {
 
@@ -37,8 +38,18 @@ public final class SpawnWarp extends Warp implements Listener {
 		inv.setItem(3, SeusKitsGUI.ICON);
 		inv.setItem(5, ShopGUI.ICON);
 		inv.setItem(7, StatusGUI.ICON.clone().owner(player.getName()));
+	}
 
-		VapoxPvP.addProtection(player);
+	@EventHandler(priority = EventPriority.NORMAL)
+	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
+		if (event.isCancelled())
+			return;
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+		Player player = event.getPlayer();
+		if (system.getWarp(player) instanceof FPSWarp)
+			VapoxPvP.addProtection(player);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)

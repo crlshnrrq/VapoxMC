@@ -13,7 +13,6 @@ import org.bukkit.plugin.Plugin;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.kitpvp.warp.EventoWarp;
 import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
-import br.com.vapoxmc.kitpvp.warp.LavaChallengeWarp;
 import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
 import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.vapoxpvp.system.BukkitSystem;
@@ -21,6 +20,7 @@ import br.com.vapoxmc.vapoxpvp.warpssystem.events.PlayerRemoveWarpEvent;
 import br.com.vapoxmc.vapoxpvp.warpssystem.events.PlayerTeleportWarpEvent;
 import br.com.vapoxmc.vapoxpvp.warpssystem.warps.FPSWarp;
 import br.com.vapoxmc.vapoxpvp.warpssystem.warps.KnockbackWarp;
+import br.com.vapoxmc.vapoxpvp.warpssystem.warps.LavaChallengeWarp;
 import br.com.vapoxmc.vapoxpvp.warpssystem.warps.SpawnWarp;
 
 public final class WarpsSystem extends BukkitSystem {
