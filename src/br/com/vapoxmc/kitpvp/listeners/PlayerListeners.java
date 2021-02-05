@@ -150,10 +150,14 @@ public final class PlayerListeners implements Listener {
 	@EventHandler
 	private void onPlayerRespawn(PlayerRespawnEvent event) {
 		Player player = event.getPlayer();
-		Warp warp = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getDefaultWarp();
+		WarpsSystem system = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"));
+		Warp warp = system.getDefaultWarp();
+		if (system.hasWarp(player))
+			warp = system.getWarp(player);
+		Location loc = warp.getLocation();
 
 		((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player, warp);
-		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.teleport(warp.getLocation()), 10L);
+		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.teleport(loc), 10L);
 	}
 
 	@EventHandler
