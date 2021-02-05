@@ -28,9 +28,9 @@ public final class InfoCommand implements CommandExecutor {
 					if (target != null) {
 						player.sendMessage("§fInformações sobre §a" + target.getName() + "§f.");
 						player.sendMessage("§aNick: §f" + target.getName());
-						if (((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kit")).hasKit(target))
+						if (((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits")).hasKit(target))
 							player.sendMessage(
-									"§aKit: §f" + ((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kit"))
+									"§aKit: §f" + ((KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits"))
 											.getKit(target).getName());
 						else
 							player.sendMessage(
