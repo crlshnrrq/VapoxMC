@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.PlayerInventory;
@@ -103,38 +103,77 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 					&& sign.getLine(3).equals("§e§l[CLIQUE!]") && !this.isAbusing(player)) {
 				if (sign.getLine(2).equals("§a§lFácil")) {
 					((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player, this);
-					PlayerAccount.addMoedas(player, 300);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §afácil §fdo LavaChallenge!");
-					player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a300 §fmoedas de §aLavaChallenge");
+
+					int coins = 10, points = 1;
+					PlayerAccount.addLavaChallengeFacil(player);
+					PlayerAccount.addMoedas(player, coins);
+					PlayerAccount.addPontos(player, points);
+					if (player.hasPermission("coinsbooster.x2")) {
+						PlayerAccount.addMoedas(player, coins);
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+					} else
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
+					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
 				} else if (sign.getLine(2).equals("§e§lMédio")) {
 					((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player, this);
-					PlayerAccount.addMoedas(player, 700);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §emédio §fdo LavaChallenge!");
-					player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a700 §fmoedas de §aLavaChallenge");
+
+					int coins = 50, points = 5;
+					PlayerAccount.addLavaChallengeMedio(player);
+					PlayerAccount.addMoedas(player, coins);
+					PlayerAccount.addPontos(player, points);
+					if (player.hasPermission("coinsbooster.x2")) {
+						PlayerAccount.addMoedas(player, coins);
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+					} else
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
+					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
 				} else if (sign.getLine(2).equals("§c§lDíficil")) {
 					((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player, this);
-					PlayerAccount.addMoedas(player, 1200);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §cdificil §fdo LavaChallenge!");
-					player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a1,200 §fmoedas de §aLavaChallenge");
+
+					int coins = 100, points = 10;
+					PlayerAccount.addLavaChallengeDificil(player);
+					PlayerAccount.addMoedas(player, coins);
+					PlayerAccount.addPontos(player, points);
+					if (player.hasPermission("coinsbooster.x2")) {
+						PlayerAccount.addMoedas(player, coins);
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+					} else
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
+					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
 				} else if (sign.getLine(2).equals("§8§lINSANO")) {
 					((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player, this);
-					PlayerAccount.addMoedas(player, 2800);
 					Bukkit.broadcastMessage("§a§l[CHALLENGE] §f" + player.getName()
 							+ " §fcompletou o nível §8§linsano §fdo LavaChallenge!");
-					Bukkit.broadcastMessage("§a§l[CHALLENGE] §fRecompensa: §a§l2,800 §fmoedas, mandem gg!");
-					player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a2,800 §fmoedas de §aLavaChallenge");
+					int coins = 150, points = 20;
+					Bukkit.broadcastMessage("§a§l[CHALLENGE] §fRecompensa: §a§l" + coins + " §fmoedas e §a§l" + points
+							+ " §fpontos, mandem gg!");
+
+					PlayerAccount.addLavaChallengeInsano(player);
+					PlayerAccount.addMoedas(player, coins);
+					PlayerAccount.addPontos(player, points);
+					if (player.hasPermission("coinsbooster.x2")) {
+						PlayerAccount.addMoedas(player, coins);
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+					} else
+						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
+					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
 				}
 			}
 		}
 	}
 
 	@EventHandler
-	private void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		if (event.getEntity() instanceof Player && ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-				.getWarp((Player) event.getEntity()) instanceof LavaChallengeWarp)
+	private void onEntityDamage(EntityDamageEvent event) {
+		if (event.getEntity() instanceof Player
+				&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
+						.getWarp((Player) event.getEntity()) instanceof LavaChallengeWarp
+				&& !event.getCause().name().contains("FIRE") && !event.getCause().name().contains("LAVA"))
 			event.setCancelled(true);
 	}
 }

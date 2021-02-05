@@ -146,7 +146,7 @@ public final class PlayerAccount {
 	}
 
 	public static int get1v1WinStreak(Player player) {
-		return config.getInt("status." + player.getName() + ".1v1.winstreak");
+		return config.getInt("status." + player.getName() + ".1v1.winstreak", 0);
 	}
 
 	public static void set1v1WinStreak(Player player, int amount) {
@@ -156,6 +156,7 @@ public final class PlayerAccount {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
+
 	}
 
 	public static void add1v1WinStreak(Player player) {
@@ -163,7 +164,7 @@ public final class PlayerAccount {
 	}
 
 	public static int get1v1Vitorias(Player player) {
-		return config.getInt("status." + player.getName() + ".1v1.vitorias");
+		return config.getInt("status." + player.getName() + ".1v1.vitorias", 0);
 	}
 
 	public static void set1v1Vitorias(Player player, int amount) {
@@ -204,6 +205,74 @@ public final class PlayerAccount {
 		add1v1Derrotas(player, 1);
 	}
 
+	public static int getLavaChallengeFacil(Player player) {
+		return config.getInt("status." + player.getName() + ".lavachallenge.facil");
+	}
+
+	public static void setLavaChallengeFacil(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".lavachallenge.facil", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void addLavaChallengeFacil(Player player) {
+		setLavaChallengeFacil(player, getLavaChallengeFacil(player) + 1);
+	}
+
+	public static int getLavaChallengeMedio(Player player) {
+		return config.getInt("status." + player.getName() + ".lavachallenge.medio");
+	}
+
+	public static void setLavaChallengeMedio(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".lavachallenge.medio", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void addLavaChallengeMedio(Player player) {
+		setLavaChallengeMedio(player, getLavaChallengeMedio(player) + 1);
+	}
+
+	public static int getLavaChallengeDificil(Player player) {
+		return config.getInt("status." + player.getName() + ".lavachallenge.dificil");
+	}
+
+	public static void setLavaChallengeDificil(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".lavachallenge.dificil", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void addLavaChallengeDificil(Player player) {
+		setLavaChallengeDificil(player, getLavaChallengeDificil(player) + 1);
+	}
+
+	public static int getLavaChallengeInsano(Player player) {
+		return config.getInt("status." + player.getName() + ".lavachallenge.insano");
+	}
+
+	public static void setLavaChallengeInsano(Player player, int amount) {
+		try {
+			config.set("status." + player.getName() + ".lavachallenge.insano", amount);
+			config.save(file);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void addLavaChallengeInsano(Player player) {
+		setLavaChallengeInsano(player, getLavaChallengeInsano(player) + 1);
+	}
+
 	public static int getSumoWinStreak(Player player) {
 		return config.getInt("status." + player.getName() + ".sumo.winstreak", 0);
 	}
@@ -215,7 +284,6 @@ public final class PlayerAccount {
 		} catch (IOException ex) {
 			ex.printStackTrace();
 		}
-
 	}
 
 	public static void addSumoWinStreak(Player player) {
@@ -261,7 +329,7 @@ public final class PlayerAccount {
 		setSumoDerrotas(player, getSumoDerrotas(player) + amount);
 	}
 
-	public void addSumoDerrota(Player player) {
+	public static void addSumoDerrota(Player player) {
 		addSumoDerrotas(player, 1);
 	}
 }

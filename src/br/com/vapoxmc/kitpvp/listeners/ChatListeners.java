@@ -24,7 +24,16 @@ public final class ChatListeners implements Listener {
 	private void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		String message = event.getMessage(), format = "§7(" + PlayerRank.getRank(player).getColoredSymbol() + "§7) §r"
-				+ player.getDisplayName() + " §7» ";
+				+ player.getDisplayName() + " §8» ";
+
+		String msg = "", color = "§7";
+		for (String word : message.split(" ")) {
+			if (word.startsWith("§") || word.startsWith("&")) {
+				color = word.substring(0, 2);
+				word = word.substring(2);
+			}
+			msg += (msg.isEmpty() ? "" : " ") + color + word;
+		}
 
 		if (player.hasPermission("chat.colorido"))
 			message = ChatColor.translateAlternateColorCodes('&', message).replace("§k", "&k");
@@ -72,7 +81,7 @@ public final class ChatListeners implements Listener {
 			}
 			text.addExtra(format);
 
-			Bukkit.getConsoleSender().sendMessage("[CHAT] " + text.toLegacyText());
+			Bukkit.getConsoleSender().sendMessage("[CHAT] " + player.getDisplayName() + " §8» §f" + msg);
 			event.getRecipients().forEach(players -> players.spigot().sendMessage(text));
 		}
 	}
