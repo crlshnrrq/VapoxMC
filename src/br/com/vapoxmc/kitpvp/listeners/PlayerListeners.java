@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.PlayerInventory;
 
 import com.nickuc.login.api.events.AuthenticateEvent;
@@ -18,7 +17,6 @@ import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.player.PlayerTag;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
-import br.com.vapoxmc.kitpvp.warp.EventoWarp;
 import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.generalsystem.events.PlayerKillEvent;
@@ -146,19 +144,6 @@ public final class PlayerListeners implements Listener {
 			player.sendMessage("§c§l[MORTE] §fVocê morreu por §ccausas desconhecidas§f, portanto §cnão foi contado§f.");
 		VapoxPvP.removeCombat(player);
 		VapoxPvP.removeEventoPlayer(player);
-	}
-
-	@EventHandler
-	private void onPlayerRespawn(PlayerRespawnEvent event) {
-		Player player = event.getPlayer();
-		WarpsSystem system = ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"));
-		Warp warp = system.getWarp(player);
-		if (!system.hasWarp(player) || warp instanceof EventoWarp)
-			warp = system.getDefaultWarp();
-		Location loc = warp.getLocation();
-
-		((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player, warp);
-		Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> player.teleport(loc), 10L);
 	}
 
 	@EventHandler

@@ -16,7 +16,6 @@ import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 import br.com.vapoxmc.kitpvp.warp.EventoWarp;
-import br.com.vapoxmc.kitpvp.warp.FishermanWarp;
 import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
 import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
@@ -105,10 +104,6 @@ public final class CombatLogListeners implements Listener {
 							.getWarp(player) instanceof EventoWarp
 							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
 									.getWarp(damager) instanceof EventoWarp)
-					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-							.getWarp(player) instanceof FishermanWarp
-							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-									.getWarp(damager) instanceof FishermanWarp)
 					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
 							.getWarp(player) instanceof PotPvPWarp
 							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
