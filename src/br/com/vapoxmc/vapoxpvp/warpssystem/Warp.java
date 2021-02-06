@@ -32,6 +32,11 @@ public class Warp {
 		return this.icon;
 	}
 
+	public Stack getConstructedIcon() {
+		return this.getIcon().clone().hideAttributes().display("§fWarp " + this.getName())
+				.lore("§7" + this.getDescription(), 5, 30);
+	}
+
 	public Location getLocation() {
 		return this.location;
 	}
