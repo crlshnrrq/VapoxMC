@@ -67,7 +67,7 @@ public final class InfoKitGUI implements Listener {
 		inv.setItem(13, kit.getConstructedIcon());
 
 		if (kit.isEnable() || player.hasPermission("command.kit.manage"))
-			inv.addItem(new Stack(Material.RECORD_10).display("§aSelecionar Kit"));
+			inv.addItem(new Stack(Material.RECORD_11).display("§aSelecionar Kit"));
 
 		for (int i = 0; i < 5; i++) {
 			int slot = inv.firstEmpty();
