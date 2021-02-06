@@ -45,6 +45,7 @@ public class Warp {
 		player.setGameMode(GameMode.SURVIVAL);
 		player.setAllowFlight(false);
 
+		player.setFireTicks(0);
 		player.resetMaxHealth();
 		player.setHealth(20D);
 		player.setFoodLevel(20);
