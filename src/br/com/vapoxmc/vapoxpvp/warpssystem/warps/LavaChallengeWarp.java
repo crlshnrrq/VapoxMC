@@ -46,23 +46,22 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 	}
 
 	private boolean isAbusing(Player player) {
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return false;
 		return player.isFlying() || player.getAllowFlight() || player.getGameMode() == GameMode.CREATIVE
-				|| !player.getActivePotionEffects().isEmpty()
-				|| !(((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-						.getWarp(player) instanceof LavaChallengeWarp)
-				|| VapoxPvP.hasAdmin(player);
+				|| player.getGameMode() == GameMode.SPECTATOR || !player.getActivePotionEffects().isEmpty()
+				|| !(system.getWarp(player) instanceof LavaChallengeWarp) || VapoxPvP.hasAdmin(player);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
 		if (event.isCancelled())
 			return;
-		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
-		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
-			return;
-		Player player = event.getPlayer();
-		if (event.getWarp() instanceof LavaChallengeWarp)
+		if (event.getWarp() instanceof LavaChallengeWarp) {
+			Player player = event.getPlayer();
 			VapoxPvP.removeProtection(player);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
@@ -167,10 +166,10 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 					PlayerAccount.addPontos(player, points);
 					if (player.hasPermission("coinsbooster.x2")) {
 						PlayerAccount.addMoedas(player, coins);
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+						player.sendMessage(" §a• §fVocê recebeu §a" + (coins * 2) + " moedas §7(x2)§f.");
 					} else
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
-					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
+						player.sendMessage(" §a• §fVocê recebeu §a" + coins + " moedas§f.");
+					player.sendMessage(" §a• §fVocê recebeu §a" + points + " pontos§f.");
 				} else if (sign.getLine(2).equals("§e§lMédio")) {
 					system.setWarp(player, this);
 					Bukkit.broadcastMessage(" §b• §7" + player.getName()
@@ -182,10 +181,10 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 					PlayerAccount.addPontos(player, points);
 					if (player.hasPermission("coinsbooster.x2")) {
 						PlayerAccount.addMoedas(player, coins);
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+						player.sendMessage(" §a• §fVocê recebeu §a" + (coins * 2) + " moedas §7(x2)§f.");
 					} else
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
-					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
+						player.sendMessage(" §a• §fVocê recebeu §a" + coins + " moedas§f.");
+					player.sendMessage(" §a• §fVocê recebeu §a" + points + " pontos§f.");
 				} else if (sign.getLine(2).equals("§c§lDíficil")) {
 					system.setWarp(player, this);
 					Bukkit.broadcastMessage(" §b• §7" + player.getName()
@@ -197,10 +196,10 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 					PlayerAccount.addPontos(player, points);
 					if (player.hasPermission("coinsbooster.x2")) {
 						PlayerAccount.addMoedas(player, coins);
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+						player.sendMessage(" §a• §fVocê recebeu §a" + (coins * 2) + " moedas §7(x2)§f.");
 					} else
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
-					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
+						player.sendMessage(" §a• §fVocê recebeu §a" + coins + " moedas§f.");
+					player.sendMessage(" §a• §fVocê recebeu §a" + points + " pontos§f.");
 				} else if (sign.getLine(2).equals("§8§lINSANO")) {
 					system.setWarp(player, this);
 					Bukkit.broadcastMessage(" §b• §7" + player.getName()
@@ -212,10 +211,10 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 					PlayerAccount.addPontos(player, points);
 					if (player.hasPermission("coinsbooster.x2")) {
 						PlayerAccount.addMoedas(player, coins);
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+						player.sendMessage(" §a• §fVocê recebeu §a" + (coins * 2) + " moedas §7(x2)§f.");
 					} else
-						player.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
-					player.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
+						player.sendMessage(" §a• §fVocê recebeu §a" + coins + " moedas§f.");
+					player.sendMessage(" §a• §fVocê recebeu §a" + points + " pontos§f.");
 				}
 			}
 		}

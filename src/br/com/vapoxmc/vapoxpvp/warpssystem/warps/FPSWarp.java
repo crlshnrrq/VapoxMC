@@ -55,12 +55,10 @@ public final class FPSWarp extends Warp implements Listener {
 	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
 		if (event.isCancelled())
 			return;
-		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
-		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
-			return;
-		Player player = event.getPlayer();
-		if (system.getWarp(player) instanceof FPSWarp)
+		if (event.getWarp() instanceof FPSWarp) {
+			Player player = event.getPlayer();
 			VapoxPvP.addProtection(player);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)

@@ -11,10 +11,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 
 import br.com.vapoxmc.kitpvp.utils.Stack;
-import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
 import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
+import br.com.vapoxmc.vapoxpvp.warpssystem.warps.UMvUMWarp;
 
 public final class WarpsGUI implements Listener {
 

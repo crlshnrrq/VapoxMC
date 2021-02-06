@@ -1,4 +1,4 @@
-package br.com.vapoxmc.kitpvp.warp;
+package br.com.vapoxmc.vapoxpvp.warpssystem.warps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -40,8 +41,8 @@ public final class UMvUMWarp extends Warp implements Listener {
 			.lore("§fClique com o §6direito §fpara desafiar alguém!");
 
 	public UMvUMWarp() {
-		super("1v1", "vapoxpvp.warp.1v1.description", new Stack(Material.BLAZE_ROD),
-				new Location(Bukkit.getWorlds().get(0), 49894, 93, 49980, 0, 0));
+		super("1v1", "Lute contra outros jogadores em um duelo justo, a competitividade é alta, por isso tome cuidado.",
+				new Stack(Material.BLAZE_ROD), new Location(Bukkit.getWorlds().get(0), 49894, 93, 49980, 0, 0));
 	}
 
 	@Override
@@ -166,7 +167,7 @@ public final class UMvUMWarp extends Warp implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerRemoveWarp(PlayerRemoveWarpEvent event) {
 		if (event.getWarp() instanceof UMvUMWarp) {
 			Player player = event.getPlayer();
@@ -176,7 +177,7 @@ public final class UMvUMWarp extends Warp implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
 		if (event.getWarp() instanceof UMvUMWarp) {
 			Player player = event.getPlayer();
@@ -186,8 +187,14 @@ public final class UMvUMWarp extends Warp implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+		if (event.isCancelled())
+			return;
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+
 		Player player = event.getPlayer();
 		if (event.getRightClicked() instanceof Player && player.getItemInHand() != null
 				&& player.getItemInHand().isSimilar(INVITE_ITEM.toItemStack())) {
@@ -200,28 +207,27 @@ public final class UMvUMWarp extends Warp implements Listener {
 					this.removeInvite(righted, player);
 					this.startDuel(righted, player);
 					righted.sendMessage(
-							"§a§l[1V1] §fBatalha iniciada! §a" + righted.getName() + " §f§lVS §a" + player.getName());
+							" §a• §fBatalha iniciada: §a" + righted.getName() + " §fvs §a" + player.getName());
 					player.sendMessage(
-							"§a§l[1V1] §fBatalha iniciada! §a" + player.getName() + " §f§lVS §a" + righted.getName());
+							" §a• §fBatalha iniciada: §a" + player.getName() + " §fvs §a" + righted.getName());
 				} else if (this.hasInvite(righted, player))
-					player.sendMessage("§c§l[1V1] §cVocê já enviou um convite a " + righted.getName());
+					player.sendMessage(" §c• §fVocê já enviou um convite a §c" + righted.getName() + "§f.");
 				else {
 					this.addInvite(righted, player);
-					Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> {
-						if (this.hasInvite(righted, player))
-							this.removeInvite(righted, player);
-					}, 100L);
-					righted.sendMessage("§e§l[1V1] §e" + player.getName()
-							+ " §fte desafiou para uma batalha, você tem §e§l5 §fsegundos para aceitar!");
-					player.sendMessage("§e§l[1V1] §fVocê desafiou §e" + righted.getName()
-							+ " §fpara uma batalha, ele tem §e§l5 §fsegundos para aceitar!");
+					righted.sendMessage(
+							" §e• §7Você foi desafiado por §e§n" + player.getName() + "§r §fpara uma §ebatalha§f.");
+					player.sendMessage(" §e• §fVocê desafiou §e§n" + righted.getName() + "§r §fpara uma batalha.");
 				}
 			}
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerDeath(PlayerDeathEvent event) {
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+
 		Player player = event.getEntity();
 		if (this.hasEnemy(player)) {
 			Player enemy = this.getEnemy(player);
@@ -243,18 +249,18 @@ public final class UMvUMWarp extends Warp implements Listener {
 			PlayerAccount.add1v1Derrota(player);
 			PlayerAccount.add1v1WinStreak(enemy);
 			PlayerAccount.set1v1WinStreak(player, 0);
-			player.sendMessage("§c§l[1V1] §fVocê perdeu a batalha contra §c" + enemy.getName() + "§f.");
+			player.sendMessage(" §c• §fVocê §cperdeu §fa batalha contra §c§n" + enemy.getName() + "§f.");
 
 			int coins = VapoxUtils.getRandomCoins(), points = VapoxUtils.getRandomPoints();
 			PlayerAccount.addMoedas(enemy, coins);
 			PlayerAccount.addPontos(enemy, points);
-			enemy.sendMessage("§c§l[1V1] §fVocê venceu a batalha contra §a" + player.getName() + "§f.");
+			enemy.sendMessage(" §c• §fVocê §avenceu §fa batalha contra §a" + player.getName() + "§f.");
 			if (enemy.hasPermission("coinsbooster.x2")) {
 				PlayerAccount.addMoedas(enemy, coins);
-				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+				enemy.sendMessage(" §a• §fVocê recebeu §a" + (coins * 2) + " moedas §7(x2)§f.");
 			} else
-				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
-			enemy.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
+				enemy.sendMessage(" §a• §fVocê recebeu §a" + coins + " moedas§f.");
+			enemy.sendMessage(" §a• §fVocê recebeu §a" + points + " pontos§f.");
 
 			this.removeEnemy(player);
 			this.removeEnemy(enemy);
@@ -264,13 +270,17 @@ public final class UMvUMWarp extends Warp implements Listener {
 
 			int winStreak = PlayerAccount.get1v1WinStreak(enemy);
 			if (winStreak % 5 == 0)
-				Bukkit.broadcastMessage("§6§l[WINSTREAK] §fO jogador §6" + enemy.getName()
-						+ " §fatingiu um winstreak de §6§l" + winStreak + " §fvitórias!");
+				Bukkit.broadcastMessage(" §6• §fO jogador §6§n" + enemy.getName() + "§r §fatingiu um winstreak de §6"
+						+ winStreak + " vitórias§f!");
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerQuit(PlayerQuitEvent event) {
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+
 		Player player = event.getPlayer();
 		if (this.hasEnemy(player)) {
 			Player enemy = this.getEnemy(player);
@@ -290,37 +300,44 @@ public final class UMvUMWarp extends Warp implements Listener {
 			PlayerAccount.addMorte(player);
 			PlayerAccount.add1v1Vitoria(enemy);
 			PlayerAccount.add1v1Derrota(player);
-			player.sendMessage("§c§l[1V1] §fVocê perdeu a batalha contra §c" + enemy.getName() + "§f.");
+			player.sendMessage(" §c• §fVocê §cperdeu §fa batalha contra §c§n" + enemy.getName() + "§f.");
 
 			int coins = VapoxUtils.getRandomCoins(), points = VapoxUtils.getRandomPoints();
 			PlayerAccount.addMoedas(enemy, coins);
 			PlayerAccount.addPontos(enemy, points);
-			enemy.sendMessage("§c§l[1V1] §fVocê venceu a batalha contra §a" + player.getName() + "§f.");
+			enemy.sendMessage(" §e• §fVocê §evenceu §fa batalha contra §e§n" + player.getName() + "§f.");
 			if (enemy.hasPermission("coinsbooster.x2")) {
 				PlayerAccount.addMoedas(enemy, coins);
-				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + (coins * 2) + " §fmoedas! §a§l(x2)");
+				enemy.sendMessage(" §a• §fVocê recebeu §a" + (coins * 2) + " moedas §7(x2)§f.");
 			} else
-				enemy.sendMessage("§a§l[MOEDAS] §fVocê recebeu §a" + coins + " §fmoedas!");
-			enemy.sendMessage("§a§l[PONTOS] §fVocê recebeu §a" + points + " §fpontos!");
+				enemy.sendMessage(" §a• §fVocê recebeu §a" + coins + " moedas§f.");
+			enemy.sendMessage(" §a• §fVocê recebeu §a" + points + " pontos§f.");
 
 			this.removeEnemy(player);
 			this.removeEnemy(enemy);
 
-			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(),
-					() -> ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(enemy, this), 10L);
+			Bukkit.getScheduler().runTaskLater(VapoxPvP.getInstance(), () -> system.setWarp(enemy, this), 10L);
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerDropItem(PlayerDropItemEvent event) {
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+
 		Player player = event.getPlayer();
-		if (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getWarp(player) instanceof UMvUMWarp
+		if (system.getWarp(player) instanceof UMvUMWarp
 				&& event.getItemDrop().getItemStack().isSimilar(INVITE_ITEM.toItemStack()))
 			event.setCancelled(true);
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+
 		Player player = event.getPlayer();
 		if (this.hasEnemy(player)) {
 			event.setCancelled(true);
@@ -328,11 +345,14 @@ public final class UMvUMWarp extends Warp implements Listener {
 		}
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.NORMAL)
 	private void onCraftItem(CraftItemEvent event) {
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+
 		if (event.getWhoClicked() instanceof Player
-				&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-						.getWarp((Player) event.getWhoClicked()) instanceof UMvUMWarp
+				&& system.getWarp((Player) event.getWhoClicked()) instanceof UMvUMWarp
 				&& event.getRecipe().getResult().getType() == Material.BLAZE_POWDER)
 			event.setCancelled(true);
 

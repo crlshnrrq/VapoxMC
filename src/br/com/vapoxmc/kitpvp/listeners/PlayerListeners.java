@@ -17,12 +17,12 @@ import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.player.PlayerTag;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
-import br.com.vapoxmc.kitpvp.warp.UMvUMWarp;
 import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.generalsystem.events.PlayerKillEvent;
 import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
 import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
 import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
+import br.com.vapoxmc.vapoxpvp.warpssystem.warps.UMvUMWarp;
 
 public final class PlayerListeners implements Listener {
 

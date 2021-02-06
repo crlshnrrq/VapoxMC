@@ -45,11 +45,8 @@ public final class KnockbackWarp extends Warp implements Listener {
 	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
 		if (event.isCancelled())
 			return;
-		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
-		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
-			return;
-		Player player = event.getPlayer();
-		if (system.getWarp(player) instanceof KnockbackWarp) {
+		if (event.getWarp() instanceof KnockbackWarp) {
+			Player player = event.getPlayer();
 			VapoxPvP.addProtection(player);
 			player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 1), true);
 		}

@@ -44,12 +44,10 @@ public final class SpawnWarp extends Warp implements Listener {
 	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
 		if (event.isCancelled())
 			return;
-		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
-		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
-			return;
-		Player player = event.getPlayer();
-		if (system.getWarp(player) instanceof SpawnWarp)
+		if (event.getWarp() instanceof SpawnWarp) {
+			Player player = event.getPlayer();
 			VapoxPvP.addProtection(player);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
