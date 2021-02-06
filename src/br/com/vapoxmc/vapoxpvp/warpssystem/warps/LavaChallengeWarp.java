@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -95,19 +96,19 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 		}
 	}
 
-//	@EventHandler(priority = EventPriority.NORMAL)
-//	private void onEntityDamage(EntityDamageEvent event) {
-//		if (event.isCancelled())
-//			return;
-//		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
-//		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
-//			return;
-//		if (event.getEntity() instanceof Player
-//				&& system.getWarp((Player) event.getEntity()) instanceof LavaChallengeWarp
-//				&& (event.getCause().name().contains("FIRE") || event.getCause().name().contains("LAVA")))
-//			return;
-//		event.setCancelled(true);
-//	}
+	@EventHandler(priority = EventPriority.NORMAL)
+	private void onEntityDamage(EntityDamageEvent event) {
+		if (event.isCancelled())
+			return;
+		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+			return;
+		if (event.getEntity() instanceof Player
+				&& system.getWarp((Player) event.getEntity()) instanceof LavaChallengeWarp
+				&& (event.getCause().name().contains("FIRE") || event.getCause().name().contains("LAVA")))
+			return;
+		event.setCancelled(true);
+	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onSignChange(SignChangeEvent event) {
