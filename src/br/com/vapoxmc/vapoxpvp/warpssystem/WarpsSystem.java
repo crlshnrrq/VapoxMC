@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.plugin.Plugin;
 
 import br.com.vapoxmc.kitpvp.utils.Stack;
@@ -134,7 +135,7 @@ public final class WarpsSystem extends BukkitSystem {
 		Bukkit.getPluginManager().callEvent(event);
 
 		if (!event.isCancelled()) {
-			player.teleport(warp.getLocation());
+			player.teleport(warp.getLocation(), TeleportCause.PLUGIN);
 			warp.giveItems(player);
 			this.warpMap.put(player.getUniqueId(), warp);
 			return true;

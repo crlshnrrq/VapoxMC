@@ -10,10 +10,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.SignChangeEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.PlayerInventory;
 
 import br.com.vapoxmc.kitpvp.VapoxPvP;
@@ -60,7 +60,7 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
 			return;
 		Player player = event.getPlayer();
-		if (system.getWarp(player) instanceof LavaChallengeWarp)
+		if (event.getWarp() instanceof LavaChallengeWarp)
 			VapoxPvP.removeProtection(player);
 	}
 
@@ -73,7 +73,7 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
 			return;
 
-		if (system.getWarp(player) instanceof LavaChallengeWarp && event.getNewGameMode() == GameMode.CREATIVE) {
+		if (system.getWarp(player) instanceof LavaChallengeWarp && event.getNewGameMode() != GameMode.SURVIVAL) {
 			event.setCancelled(true);
 			player.sendMessage(
 					" §c• §fVocê não pode §calterar o gamemode §festando na Warp §c§n" + this.getName() + "§f.");
@@ -89,28 +89,25 @@ public final class LavaChallengeWarp extends Warp implements Listener {
 		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
 			return;
 
-		if (system.getWarp(player) instanceof LavaChallengeWarp) {
+		if (system.getWarp(player) instanceof LavaChallengeWarp && event.getCause() == TeleportCause.COMMAND) {
 			event.setCancelled(true);
-			player.sendMessage(
-					" §c• §fVocê não pode §calterar o gamemode §festando na Warp §c§n" + this.getName() + "§f.");
+			player.sendMessage(" §c• §fVocê não pode §cteleportar §festando na Warp §c§n" + this.getName() + "§f.");
 		}
 	}
 
-	@EventHandler(priority = EventPriority.NORMAL)
-	private void onEntityDamage(EntityDamageEvent event) {
-		if (event.isCancelled())
-			return;
-		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
-		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
-			return;
-
-		if (event.getEntity() instanceof Player && !event.getCause().name().contains("FIRE")
-				&& !event.getCause().name().contains("LAVA")) {
-			Player player = (Player) event.getEntity();
-			if (system.getWarp(player) instanceof LavaChallengeWarp)
-				event.setCancelled(true);
-		}
-	}
+//	@EventHandler(priority = EventPriority.NORMAL)
+//	private void onEntityDamage(EntityDamageEvent event) {
+//		if (event.isCancelled())
+//			return;
+//		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
+//		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
+//			return;
+//		if (event.getEntity() instanceof Player
+//				&& system.getWarp((Player) event.getEntity()) instanceof LavaChallengeWarp
+//				&& (event.getCause().name().contains("FIRE") || event.getCause().name().contains("LAVA")))
+//			return;
+//		event.setCancelled(true);
+//	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
 	private void onSignChange(SignChangeEvent event) {

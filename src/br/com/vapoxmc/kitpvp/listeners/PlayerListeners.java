@@ -29,7 +29,7 @@ import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 public final class PlayerListeners implements Listener {
 
 	@EventHandler
-	private void on(AuthenticateEvent event) {
+	private void onAuthenticate(AuthenticateEvent event) {
 		Player player = event.getPlayer();
 		((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).setWarp(player,
 				((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps")).getDefaultWarp());

@@ -24,21 +24,23 @@ public final class ChatListeners implements Listener {
 	private void onAsyncPlayerChat(AsyncPlayerChatEvent event) {
 		Player player = event.getPlayer();
 		String format = "§7(" + PlayerRank.getRank(player).getColoredSymbol() + "§7) §r" + player.getDisplayName()
-				+ " §8» ", message = "", color = "§7";
-		for (String word : event.getMessage().split(" ")) {
-			if (word.startsWith("§") || word.startsWith("&")) {
-				color = word.substring(0, 2);
-				word = word.substring(2);
-			}
-			message += (message.isEmpty() ? "" : " ") + color + word;
-		}
+				+ " §8» ", color = "§7", message = event.getMessage();
 
 		if (player.hasPermission("chat.colorido"))
 			message = ChatColor.translateAlternateColorCodes('&', message).replace("§k", "&k");
 		if (player.hasPermission("chat.destaque"))
-			format += "§f" + message;
+			color = "§f";
 		else
-			format += "§7" + message.toLowerCase();
+			message = message.toLowerCase();
+
+		String mensagem = "";
+		for (String word : message.split(" ")) {
+			if (word.startsWith("§") || word.startsWith("&")) {
+				color = word.substring(0, 2);
+				word = word.substring(2);
+			}
+			mensagem += (mensagem.isEmpty() ? "" : " ") + color + word;
+		}
 
 		if (!VapoxPvP.getChat() && !player.hasPermission("chat.speakoff")) {
 			event.setCancelled(true);
@@ -77,7 +79,7 @@ public final class ChatListeners implements Listener {
 				text.addExtra(medal);
 				text.addExtra(" ");
 			}
-			text.addExtra(format);
+			text.addExtra(format + mensagem);
 
 			Bukkit.getConsoleSender().sendMessage("[CHAT] " + text.toLegacyText());
 			event.getRecipients().forEach(players -> players.spigot().sendMessage(text));

@@ -48,7 +48,7 @@ public final class SpawnWarp extends Warp implements Listener {
 		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
 			return;
 		Player player = event.getPlayer();
-		if (system.getWarp(player) instanceof FPSWarp)
+		if (system.getWarp(player) instanceof SpawnWarp)
 			VapoxPvP.addProtection(player);
 	}
 
