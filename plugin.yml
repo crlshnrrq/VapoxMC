@@ -82,7 +82,7 @@ commands:
     description: Altere sua tag.
   teleportall:
     description: Teleporte todo mundo ate voce.
-    aliase: [tpall]
+    aliases: [tpall]
   teleport:
     description: Teleporte para alguem.
     aliases: [tp]
@@ -95,8 +95,6 @@ commands:
     description: Envie moedas para um jogador!
   screenshare:
     aliases: [ss]
-  warp:
-    description: Veja as warps do servidor
   youtuber:
     description: Veja os requitios para youtuber!
     aliases: [yt]

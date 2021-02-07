@@ -1,5 +1,7 @@
 package br.com.vapoxmc.vapoxpvp.warpssystem.warps;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,7 +30,8 @@ public final class FPSWarp extends Warp implements Listener {
 
 	public FPSWarp() {
 		super("FPS", "Jogue em um local mais limpo e simples que estabiliza o FPS dos jogadores.",
-				new Stack(Material.DIAMOND_SWORD), new Location(Bukkit.getWorlds().get(0), 6000, 115, 6000));
+				new Stack(Material.DIAMOND_SWORD), new Location(Bukkit.getWorlds().get(0), 6000, 115, 6000),
+				new ArrayList<>(), true);
 	}
 
 	@Override
@@ -132,7 +135,7 @@ public final class FPSWarp extends Warp implements Listener {
 				inv.setBoots(new Stack(Material.IRON_BOOTS));
 
 			killer.updateInventory();
-			killer.sendMessage("§a§l[FPS] §fSua armadura foi §a§lregenerada§f.");
+			killer.sendMessage("§a• §fSua armadura foi §aregenerada§f.");
 		}
 	}
 

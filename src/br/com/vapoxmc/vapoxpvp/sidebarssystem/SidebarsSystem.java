@@ -20,7 +20,7 @@ import br.com.vapoxmc.vapoxpvp.sidebarssystem.sidebars.FishermanSidebar;
 import br.com.vapoxmc.vapoxpvp.sidebarssystem.sidebars.KnockbackSidebar;
 import br.com.vapoxmc.vapoxpvp.sidebarssystem.sidebars.LavaChallengeSidebar;
 import br.com.vapoxmc.vapoxpvp.sidebarssystem.sidebars.MainSidebar;
-import br.com.vapoxmc.vapoxpvp.sidebarssystem.sidebars.PotPvPSidebar;
+import br.com.vapoxmc.vapoxpvp.sidebarssystem.sidebars.SumoSidebar;
 import br.com.vapoxmc.vapoxpvp.sidebarssystem.sidebars.UMvUMSidebar;
 import br.com.vapoxmc.vapoxpvp.system.BukkitSystem;
 
@@ -80,7 +80,7 @@ public final class SidebarsSystem extends BukkitSystem {
 		this.addSidebars(new FPSSidebar());
 		this.addSidebars(new KnockbackSidebar());
 		this.addSidebars(new LavaChallengeSidebar());
-		this.addSidebars(new PotPvPSidebar());
+		this.addSidebars(new SumoSidebar());
 		this.addSidebars(new UMvUMSidebar());
 
 		this.addListener(new SidebarListeners());

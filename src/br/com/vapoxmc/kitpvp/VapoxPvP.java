@@ -56,14 +56,12 @@ import br.com.vapoxmc.kitpvp.commands.TeleportCommand;
 import br.com.vapoxmc.kitpvp.commands.TeleportHereCommand;
 import br.com.vapoxmc.kitpvp.commands.TellCommand;
 import br.com.vapoxmc.kitpvp.commands.TransferirCommand;
-import br.com.vapoxmc.kitpvp.commands.WarpCommand;
 import br.com.vapoxmc.kitpvp.commands.YouTuberCommand;
 import br.com.vapoxmc.kitpvp.commons.medalhas.MedalhasAddon;
 import br.com.vapoxmc.kitpvp.gui.ShopGUI;
 import br.com.vapoxmc.kitpvp.gui.ShopKDRGUI;
 import br.com.vapoxmc.kitpvp.gui.ShopKitsGUI;
 import br.com.vapoxmc.kitpvp.gui.StatusGUI;
-import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
 import br.com.vapoxmc.kitpvp.gui.YouTuberGUI;
 import br.com.vapoxmc.kitpvp.listeners.AdminListeners;
 import br.com.vapoxmc.kitpvp.listeners.BuildListeners;
@@ -397,7 +395,6 @@ public final class VapoxPvP extends JavaPlugin {
 		pm.registerEvents(new ShopKitsGUI(), this);
 		pm.registerEvents(new ShopGUI(), this);
 		pm.registerEvents(new StatusGUI(), this);
-		pm.registerEvents(new WarpsGUI(), this);
 		pm.registerEvents(new YouTuberGUI(), this);
 
 		this.getCommand("actionbar").setExecutor(new ActionBarCommand());
@@ -439,7 +436,6 @@ public final class VapoxPvP extends JavaPlugin {
 		this.getCommand("teleporthere").setExecutor(new TeleportHereCommand());
 		this.getCommand("tell").setExecutor(new TellCommand());
 		this.getCommand("transferir").setExecutor(new TransferirCommand());
-		this.getCommand("warp").setExecutor(new WarpCommand());
 		this.getCommand("youtuber").setExecutor(new YouTuberCommand());
 
 		PlayerAccount.createConnection();

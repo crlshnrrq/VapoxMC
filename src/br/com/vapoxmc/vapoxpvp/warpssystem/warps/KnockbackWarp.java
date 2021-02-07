@@ -1,5 +1,7 @@
 package br.com.vapoxmc.vapoxpvp.warpssystem.warps;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -30,7 +32,7 @@ public final class KnockbackWarp extends Warp implements Listener {
 
 	public KnockbackWarp() {
 		super("Knockback", "Divirta-se arremesando seus inimigos para longe.", new Stack(Material.STICK),
-				new Location(Bukkit.getWorlds().get(0), -30001, 25, -30001));
+				new Location(Bukkit.getWorlds().get(0), -30001, 25, -30001), new ArrayList<>(), true);
 	}
 
 	@Override

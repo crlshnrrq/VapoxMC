@@ -1,5 +1,6 @@
 package br.com.vapoxmc.vapoxpvp.warpssystem.warps;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -40,7 +41,7 @@ public final class FishermanWarp extends Warp implements Listener {
 	public FishermanWarp() {
 		super("Fisherman",
 				"Venha se divertir jogando seus amigos no void, a habilidade é essencial para matar e sorte para não morrer.",
-				new Stack(Material.FISHING_ROD), null);
+				new Stack(Material.FISHING_ROD), null, new ArrayList<>(), true);
 		this.cooldownMap = new HashMap<>();
 		this.randomLocations = Arrays.asList(new Location(Bukkit.getWorlds().get(0), 8002, 100, 7976, 0, 0),
 				new Location(Bukkit.getWorlds().get(0), 8026, 100, 8032, 150, 0),
@@ -101,9 +102,6 @@ public final class FishermanWarp extends Warp implements Listener {
 	private void onPlayerTeleportWarp(PlayerTeleportWarpEvent event) {
 		if (event.isCancelled())
 			return;
-		WarpsSystem system = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
-		if (system == null || !(system instanceof WarpsSystem) || !system.isEnable())
-			return;
 		Player player = event.getPlayer();
 		if (event.getWarp() instanceof FishermanWarp)
 			VapoxPvP.removeProtection(player);
@@ -135,7 +133,7 @@ public final class FishermanWarp extends Warp implements Listener {
 				&& this.hasCooldown(player)) {
 			event.setCancelled(true);
 			player.sendMessage(
-					" §c• §fAguarde §c" + this.getRemaingCooldown(player) + " §fpara usar a §c§nVara§r §fnovamente.");
+					"§c• §fAguarde §c" + this.getRemaingCooldown(player) + " §fpara usar a §c§nVara§r §fnovamente.");
 		}
 	}
 
@@ -153,7 +151,7 @@ public final class FishermanWarp extends Warp implements Listener {
 			if (system.getWarp(caught) instanceof FishermanWarp) {
 				if (player.getName().equals(caught.getName())) {
 					event.setCancelled(true);
-					player.sendMessage(" §c• §fVoCê não pode puxar a §cvocê §fmesmo.");
+					player.sendMessage("§c• §fVoCê não pode puxar a §cvocê §fmesmo.");
 				} else {
 					caught.teleport(player.getLocation(), TeleportCause.PLUGIN);
 					if (!VapoxPvP.isInCombat(caught))
@@ -161,15 +159,15 @@ public final class FishermanWarp extends Warp implements Listener {
 					else
 						VapoxPvP.setCombatTime(caught, 10);
 					this.addCooldown(caught, 1);
-					caught.sendMessage(" §e• §fVocê foi pescado por §e" + player.getName() + "§f!");
-					player.sendMessage(" §e• §fVocê pescou §e" + caught.getName() + "§f!");
+					caught.sendMessage("§e• §fVocê foi pescado por §e" + player.getName() + "§f!");
+					player.sendMessage("§e• §fVocê pescou §e" + caught.getName() + "§f!");
 				}
 
 				player.getItemInHand().setDurability((short) 0);
 				player.updateInventory();
 			} else {
 				event.setCancelled(true);
-				player.sendMessage(" §c• §fEste Jogador não está na §c§nWarp Fisherman§f!");
+				player.sendMessage("§c• §fEste Jogador não está na §c§nWarp Fisherman§f!");
 			}
 		}
 	}

@@ -1,5 +1,7 @@
 package br.com.vapoxmc.vapoxpvp.warpssystem.warps;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -14,19 +16,19 @@ import org.bukkit.inventory.PlayerInventory;
 import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.gui.ShopGUI;
 import br.com.vapoxmc.kitpvp.gui.StatusGUI;
-import br.com.vapoxmc.kitpvp.gui.WarpsGUI;
 import br.com.vapoxmc.kitpvp.utils.Stack;
 import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.kitssystem.guis.SeusKitsGUI;
 import br.com.vapoxmc.vapoxpvp.warpssystem.Warp;
 import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 import br.com.vapoxmc.vapoxpvp.warpssystem.events.PlayerTeleportWarpEvent;
+import br.com.vapoxmc.vapoxpvp.warpssystem.guis.WarpsGUI;
 
 public final class SpawnWarp extends Warp implements Listener {
 
 	public SpawnWarp() {
 		super("Spawn", "Local de nascimento padrão do Servidor.", new Stack(Material.BEACON),
-				Bukkit.getWorlds().get(0).getSpawnLocation());
+				Bukkit.getWorlds().get(0).getSpawnLocation(), new ArrayList<>(), true);
 	}
 
 	@Override

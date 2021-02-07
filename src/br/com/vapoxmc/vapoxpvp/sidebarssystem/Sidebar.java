@@ -53,9 +53,13 @@ public class Sidebar {
 
 	public void sendSidebar(Player player) {
 		Scoreboard scoreboard = player.getScoreboard();
-		Objective objective = scoreboard.getObjective(this.getName());
+		Objective objective = scoreboard.getObjective("Sidebar");
+		if (objective != null) {
+			objective.unregister();
+			objective = scoreboard.getObjective("Sidebar");
+		}
 		if (objective == null)
-			objective = scoreboard.registerNewObjective(this.getName(), "dummy");
+			objective = scoreboard.registerNewObjective("Sidebar", "dummy");
 		objective.setDisplaySlot(DisplaySlot.SIDEBAR);
 		objective.setDisplayName(this.getDisplayName());
 
@@ -68,6 +72,10 @@ public class Sidebar {
 			}
 
 			Team team = scoreboard.getTeam("line-" + index);
+			if (team != null) {
+				team.unregister();
+				team = scoreboard.getTeam("line-" + index);
+			}
 			if (team == null)
 				team = scoreboard.registerNewTeam("line-" + index);
 			team.setPrefix(prefix);

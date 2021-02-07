@@ -21,8 +21,8 @@ public final class MainSidebar extends Sidebar {
 		this.addLine("§fCargo: §a");
 		this.addLine("§fRank: §a");
 		this.addLine(" ");
-		this.addLine("§fKills: §a");
-		this.addLine("§fDeaths: §a");
+		this.addLine("§fAbates: §a");
+		this.addLine("§fMortes: §a");
 		this.addLine("§fKillStreak: §a");
 		this.addLine(" ");
 		this.addLine("§fKit: §a");
@@ -40,8 +40,8 @@ public final class MainSidebar extends Sidebar {
 
 		this.updateLine(player, "§fCargo: §a", PlayerGroup.getGroup(player).getColoredName());
 		this.updateLine(player, "§fRank: §a", PlayerRank.getRank(player).getColoredName());
-		this.updateLine(player, "§fKills: §a", nf.format(PlayerAccount.getAbates(player)));
-		this.updateLine(player, "§fDeaths: §a", nf.format(PlayerAccount.getMortes(player)));
+		this.updateLine(player, "§fAbates: §a", nf.format(PlayerAccount.getAbates(player)));
+		this.updateLine(player, "§fMortes: §a", nf.format(PlayerAccount.getMortes(player)));
 		this.updateLine(player, "§fKillStreak: §a", nf.format(PlayerAccount.getKillStreak(player)));
 
 		KitsSystem kits = (KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits");

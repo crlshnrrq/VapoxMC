@@ -16,7 +16,6 @@ import br.com.vapoxmc.kitpvp.VapoxPvP;
 import br.com.vapoxmc.kitpvp.player.PlayerAccount;
 import br.com.vapoxmc.kitpvp.utils.VapoxUtils;
 import br.com.vapoxmc.kitpvp.warp.EventoWarp;
-import br.com.vapoxmc.kitpvp.warp.PotPvPWarp;
 import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.kitssystem.KitsSystem;
 import br.com.vapoxmc.vapoxpvp.kitssystem.events.PlayerRemoveKitEvent;
@@ -103,11 +102,7 @@ public final class CombatLogListeners implements Listener {
 					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
 							.getWarp(player) instanceof EventoWarp
 							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-									.getWarp(damager) instanceof EventoWarp)
-					|| (((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-							.getWarp(player) instanceof PotPvPWarp
-							&& ((WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps"))
-									.getWarp(damager) instanceof PotPvPWarp)) {
+									.getWarp(damager) instanceof EventoWarp)) {
 				if (!VapoxPvP.isInCombat(damager))
 					VapoxPvP.addCombat(damager, player);
 				else

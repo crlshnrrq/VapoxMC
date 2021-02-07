@@ -13,17 +13,17 @@ import br.com.vapoxmc.vapoxpvp.KitPvP;
 import br.com.vapoxmc.vapoxpvp.sidebarssystem.Sidebar;
 import br.com.vapoxmc.vapoxpvp.warpssystem.WarpsSystem;
 
-public final class PotPvPSidebar extends Sidebar {
+public final class SumoSidebar extends Sidebar {
 
-	public PotPvPSidebar() {
-		super("PotPvP", Strings.getName());
+	public SumoSidebar() {
+		super("Sumô", Strings.getName());
 		this.addLine(" ");
 		this.addLine("§fCargo: §a");
 		this.addLine("§fRank: §a");
 		this.addLine(" ");
-		this.addLine("§fAbates: §a");
-		this.addLine("§fMortes: §a");
-		this.addLine("§fKillStreak: §a");
+		this.addLine("§fVitórias: §a");
+		this.addLine("§fDerrotas: §a");
+		this.addLine("§fWinStreak: §a");
 		this.addLine(" ");
 		this.addLine("§fWarp: §a");
 		this.addLine(" ");
@@ -40,9 +40,9 @@ public final class PotPvPSidebar extends Sidebar {
 
 		this.updateLine(player, "§fCargo: §a", PlayerGroup.getGroup(player).getColoredName());
 		this.updateLine(player, "§fRank: §a", PlayerRank.getRank(player).getColoredName());
-		this.updateLine(player, "§fAbates: §a", nf.format(PlayerAccount.getAbates(player)));
-		this.updateLine(player, "§fMortes: §a", nf.format(PlayerAccount.getMortes(player)));
-		this.updateLine(player, "§fKillStreak: §a", nf.format(PlayerAccount.getKillStreak(player)));
+		this.updateLine(player, "§fVitórias: §a", nf.format(PlayerAccount.getSumoVitorias(player)));
+		this.updateLine(player, "§fDerrotas: §a", nf.format(PlayerAccount.getSumoDerrotas(player)));
+		this.updateLine(player, "§fWinStreak: §a", nf.format(PlayerAccount.getSumoWinStreak(player)));
 
 		WarpsSystem warps = (WarpsSystem) KitPvP.getGeneralSystem().getSystemByName("Warps");
 		if (warps != null && warps instanceof WarpsSystem && warps.isEnable())

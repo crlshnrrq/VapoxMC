@@ -68,8 +68,11 @@ public final class TodosOsKitsGUI implements Listener {
 		Inventory inv = Bukkit.createInventory(null, 54, "Todos os Kits");
 		Stack glass = new Stack(Material.THIN_GLASS).display(" ");
 
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 54; i++) {
+			if ((i > 9 && i < 17) || (i > 18 && i < 26) || (i > 27 && i < 35) || (i > 36 && i < 44))
+				continue;
 			inv.setItem(i, glass);
+		}
 
 		inv.setItem(4,
 				new Stack(Material.STAINED_GLASS_PANE, 1, 1).display("§fVisualizando: §6Todos os Kits").lore(" ",

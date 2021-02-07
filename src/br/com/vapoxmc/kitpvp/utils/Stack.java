@@ -40,6 +40,13 @@ public final class Stack extends ItemStack implements Cloneable {
 		return this;
 	}
 
+	public Stack hidePotionEffects() {
+		ItemMeta meta = this.getItemMeta();
+		meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+		this.setItemMeta(meta);
+		return this;
+	}
+
 	public Stack ench(Enchantment ench, int lvl) {
 		ItemMeta meta = this.getItemMeta();
 		meta.addEnchant(ench, lvl, true);

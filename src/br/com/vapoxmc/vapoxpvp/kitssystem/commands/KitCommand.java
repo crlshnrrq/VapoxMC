@@ -1,5 +1,8 @@
 package br.com.vapoxmc.vapoxpvp.kitssystem.commands;
 
+import java.util.Arrays;
+
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,6 +20,8 @@ public final class KitCommand extends Command {
 
 	@Override
 	public boolean execute(CommandSender sender, String label, String[] args) {
+		String insert = StringUtils.join(Arrays.copyOfRange(args, 0, args.length), " ").toLowerCase();
+
 		KitsSystem system = (KitsSystem) KitPvP.getGeneralSystem().getSystemByName("Kits");
 		if (system == null || !(system instanceof KitsSystem)) {
 			sender.sendMessage("§c• §fO Sistema responsável por este §cComando §fnão foi encontrado.");
@@ -34,12 +39,23 @@ public final class KitCommand extends Command {
 			sender.sendMessage(" §4• §c/" + label + " <Kit Name> ");
 			return true;
 		}
-		Kit kit = system.getKitByName(args[0]);
+
+		int length = args.length;
+		Kit kit = null;
+		while (kit == null) {
+			if (length > 0) {
+				kit = system.getKitByName(StringUtils.join(Arrays.copyOfRange(args, 0, length), " "));
+				length--;
+			} else
+				break;
+		}
 		if (kit == null) {
 			sender.sendMessage("§c• §fO Kit §c§n" + args[0] + "§r §fnão foi encontrado.");
 			return true;
 		}
-		if (args.length == 1) {
+		insert = insert.replace(kit.getName().toLowerCase(), "").trim();
+
+		if (insert.isEmpty()) {
 			if (!(sender instanceof Player)) {
 				sender.sendMessage("§e• §fApenas §eJogadores §fpodem executar este §eComando§f.");
 				return true;
@@ -51,73 +67,80 @@ public final class KitCommand extends Command {
 				return true;
 			}
 			if (system.hasKit(player)) {
-				player.sendMessage("§c• §fVocê já está usando o §c§nKit " + system.getKit(player).getName() + "§f.");
+				player.sendMessage("§c• §fVocê já está usando o Kit §c§n" + system.getKit(player).getName() + "§f.");
 				return true;
 			}
 			if (!kit.isEnable() && !player.hasPermission("command.kit.manage")) {
-				player.sendMessage("§c• §fO Kit §c§n" + kit.getName() + " §festá §cdesabilitado§f.");
+				player.sendMessage("§c• §fO Kit §c§n" + kit.getName() + "§r §festá §cdesabilitado§f.");
 				return true;
 			}
 
 			system.setKit(player, kit);
 			return true;
 		}
-		if (args.length == 2) {
-			if (args[1].equalsIgnoreCase("Info")) {
-				sender.sendMessage("§e• §fInformações do Kit §e§n" + kit.getName() + "§f:");
-				if (sender.hasPermission("command.kit.manage"))
-					sender.sendMessage(" §6• §fPermissão: §7" + kit.getPermission());
-				sender.sendMessage(" §6• §fDescrição: §7" + kit.getDescription());
+		if (insert.startsWith("info")) {
+			insert = insert.replace("info", "").trim();
 
-				String icon = kit.getIcon().getType().name() + ", " + kit.getIcon().getAmount() + ", "
-						+ kit.getIcon().getDurability();
-				sender.sendMessage(" §6• §fÍcone: §7" + icon);
+			sender.sendMessage("§e• §fInformações do Kit §e§n" + kit.getName() + "§f:");
+			if (sender.hasPermission("command.kit.manage"))
+				sender.sendMessage(" §6• §fPermissão: §7" + kit.getPermission());
+			sender.sendMessage(" §6• §fDescrição: §7" + kit.getDescription());
 
-				String items = "";
-				for (Stack item : kit.getItems())
-					items += (items.isEmpty() ? "" : ", ") + (item.hasItemMeta() && item.getItemMeta().hasDisplayName()
-							? item.getItemMeta().getDisplayName()
-							: item.getType().name());
-				sender.sendMessage(" §6• §fItens: §7" + items);
-				if (sender.hasPermission("command.kit.manage"))
-					sender.sendMessage(" §6• §fHabilitado: " + (kit.isEnable() ? "§aSim" : "§cNão"));
-				sender.sendMessage(" ");
-				return true;
-			}
-			if (args[1].equalsIgnoreCase("Enable")) {
-				if (!sender.hasPermission("command.kit.manage")) {
-					sender.sendMessage(
-							"§c• §fVocê não possui Permissão para §chabilitar §fo Kit §c§n" + kit.getName() + "§f.");
-					return true;
-				}
-				if (kit.isEnable()) {
-					sender.sendMessage("§e• §fO Kit §e§n" + kit.getName() + " §fjá está §ehabilitado§f.");
-					return true;
-				}
+			Stack icon = kit.getIcon();
+			sender.sendMessage(
+					" §6• §fÍcone: §7" + icon.getType() + ", " + icon.getAmount() + ", " + icon.getDurability());
 
-				kit.setEnable(true);
-				sender.sendMessage("§a• §fO Kit §a§n" + kit.getName() + " §ffoi §ahabilitado§f.");
-				return true;
-			}
-			if (args[1].equalsIgnoreCase("Disable")) {
-				if (!sender.hasPermission("command.kit.manage")) {
-					sender.sendMessage(
-							"§c• §fVocê não possui Permissão para §chabilitar §fo Kit §c§n" + kit.getName() + "§f.");
-					return true;
-				}
-				if (!kit.isEnable()) {
-					sender.sendMessage("§e• §fO Kit §e§n" + kit.getName() + " §fjá está §edesabilitado§f.");
-					return true;
-				}
-
-				kit.setEnable(false);
-				sender.sendMessage("§a• §fO Kit §a§n" + kit.getName() + " §ffoi §adesabilitado§f.");
-				return true;
-			}
-
-			sender.sendMessage("§c• §fO Argumento §c§n" + args[1].toUpperCase() + "§r §fnão foi encontrado.");
+			String items = "";
+			for (Stack item : kit.getItems())
+				items += (items.isEmpty() ? "" : ", ") + (item.hasItemMeta() && item.getItemMeta().hasDisplayName()
+						? item.getItemMeta().getDisplayName()
+						: item.getType().name());
+			sender.sendMessage(" §6• §fItens: §7" + items);
+			if (sender.hasPermission("command.kit.manage"))
+				sender.sendMessage(" §6• §fHabilitado: " + (kit.isEnable() ? "§aSim" : "§cNão"));
+			sender.sendMessage(" ");
 			return true;
 		}
+		if (insert.startsWith("enable")) {
+			insert = insert.replace("enable", "").trim();
+
+			if (!sender.hasPermission("command.kit.manage")) {
+				sender.sendMessage(
+						"§c• §fVocê não possui Permissão para §chabilitar §fo Kit §c§n" + kit.getName() + "§f.");
+				return true;
+			}
+			if (kit.isEnable()) {
+				sender.sendMessage("§e• §fO Kit §e§n" + kit.getName() + "§r §fjá está §ehabilitado§f.");
+				return true;
+			}
+
+			kit.setEnable(true);
+			sender.sendMessage("§a• §fO Kit §a§n" + kit.getName() + "§r §ffoi §ahabilitado§f.");
+			return true;
+		}
+		if (insert.startsWith("disable")) {
+			insert = insert.replace("disable", "").trim();
+
+			if (!sender.hasPermission("command.kit.manage")) {
+				sender.sendMessage(
+						"§c• §fVocê não possui Permissão para §cdesabilitar §fo Kit §c§n" + kit.getName() + "§f.");
+				return true;
+			}
+			if (system.getDefaultKit().getName().equals(kit.getName())) {
+				sender.sendMessage("§c• §fO Kit §c§nPadrão§r §fnão pode ser §cdesativado§f.");
+				return true;
+			}
+			if (!kit.isEnable()) {
+				sender.sendMessage("§e• §fO Kit §e§n" + kit.getName() + "§r §fjá está §edesabilitado§f.");
+				return true;
+			}
+
+			kit.setEnable(false);
+			sender.sendMessage("§a• §fO Kit §a§n" + kit.getName() + "§r §ffoi §adesabilitado§f.");
+			return true;
+		}
+
+		sender.sendMessage("§c• §fO Argumento §c§n" + insert + "§r §fnão foi encontrado.");
 		return true;
 	}
 }

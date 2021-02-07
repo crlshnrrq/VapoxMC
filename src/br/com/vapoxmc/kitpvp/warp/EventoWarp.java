@@ -1,5 +1,6 @@
 package br.com.vapoxmc.kitpvp.warp;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.bukkit.Bukkit;
@@ -24,7 +25,7 @@ public final class EventoWarp extends Warp implements Listener {
 
 	public EventoWarp() {
 		super("Evento", "vapoxpvp.warp.evento.description", new Stack(Material.CAKE),
-				new Location(Bukkit.getWorlds().get(0), 4000, 102, 4000));
+				new Location(Bukkit.getWorlds().get(0), 4000, 102, 4000), new ArrayList<>(), true);
 	}
 
 	@Override

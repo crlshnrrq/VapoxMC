@@ -64,8 +64,8 @@ public class Kit {
 	}
 
 	public Stack getConstructedIcon() {
-		Stack icon = this.icon.clone().hideAttributes().display("§fKit " + this.getName())
-				.lore("§7" + this.getDescription(), 5, 30);
+		Stack icon = this.icon.clone().hideAttributes().hideEnchants().hidePotionEffects()
+				.display("§fKit " + this.getName()).lore("§7" + this.getDescription(), 5, 30);
 		if (!this.isEnable())
 			icon.addLore(" ", "§cEste Kit está desativado.");
 		return icon;
